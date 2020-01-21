@@ -1,4 +1,4 @@
-﻿namespace Guild.Domain
+﻿namespace GuildComm.Domain
 {
     using System.Collections.Generic;
 

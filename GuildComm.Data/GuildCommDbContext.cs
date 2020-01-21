@@ -1,6 +1,6 @@
 ﻿namespace GuildComm.Data
 {
-    using Guild.Domain;
+    using GuildComm.Domain;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

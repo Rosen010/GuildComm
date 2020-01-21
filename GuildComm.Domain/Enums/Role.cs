@@ -1,4 +1,4 @@
-﻿namespace Guild.Domain.Enums
+﻿namespace GuildComm.Domain.Enums
 {
     public enum Role
     {
