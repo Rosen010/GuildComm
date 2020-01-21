@@ -1,7 +1,6 @@
-﻿using Guild.Domain.Enums;
-
-namespace Guild.Domain
+﻿namespace Guild.Domain
 {
+    using Enums;
     using System;
 
     public class Event

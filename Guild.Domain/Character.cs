@@ -1,6 +1,6 @@
 ﻿namespace Guild.Domain
 {
-    using Guild.Domain.Enums;
+    using Enums;
 
     public class Character
     {

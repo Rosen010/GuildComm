@@ -1,8 +1,16 @@
 ﻿namespace Guild.Domain
 {
     using System.Collections.Generic;
+
     public class Guild
     {
+        public Guild()
+        {
+            this.Members = new HashSet<Member>();
+            this.Events = new HashSet<Event>();
+            this.Characters = new HashSet<Character>();
+        }
+
         public string Name { get; set; }
 
         public ICollection<Member> Members { get; set; }
