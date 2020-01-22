@@ -1,4 +1,4 @@
-﻿namespace GuildComm.Domain.Enums
+﻿namespace GuildComm.Data.Models.Enums
 {
     public enum Rank
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using GuildComm.Domain;
+using GuildComm.Data.Models;
 using GuildComm.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

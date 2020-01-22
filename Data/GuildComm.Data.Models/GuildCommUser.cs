@@ -1,4 +1,4 @@
-﻿namespace GuildComm.Domain
+﻿namespace GuildComm.Data.Models
 {
     using Microsoft.AspNetCore.Identity;
     using System.Collections.Generic;
