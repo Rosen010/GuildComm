@@ -30,7 +30,8 @@ namespace GuildComm.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GuildCommDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), 
+                m => m.MigrationsAssembly("GuildComm.Data")));
 
             services.AddScoped<GuildCommUserRoleSeeder>();
 

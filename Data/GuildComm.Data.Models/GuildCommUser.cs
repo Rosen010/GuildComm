@@ -12,6 +12,8 @@
 
         public ICollection<Character> Characters { get; set; }
 
+        public ICollection<Application> Applications { get; set; }
+
         public bool IsInGuild { get; set; }
 
         public string Description { get; set; }

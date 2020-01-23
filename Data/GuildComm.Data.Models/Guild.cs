@@ -20,5 +20,7 @@
         public ICollection<Event> Events { get; set; }
 
         public ICollection<Character> Characters { get; set; }
+
+        public ICollection<Application> Applications { get; set; }
     }
 }
