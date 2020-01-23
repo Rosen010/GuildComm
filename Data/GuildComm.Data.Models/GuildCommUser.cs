@@ -10,7 +10,7 @@
             this.Characters = new HashSet<Character>();
         }
 
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         public ICollection<Character> Characters { get; set; }
 
