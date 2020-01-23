@@ -10,8 +10,6 @@
             this.Characters = new HashSet<Character>();
         }
 
-        public string Email { get; set; }
-
         public ICollection<Character> Characters { get; set; }
 
         public bool IsInGuild { get; set; }
