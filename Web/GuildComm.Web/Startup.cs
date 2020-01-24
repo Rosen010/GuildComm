@@ -34,10 +34,6 @@ namespace GuildComm.Web
                 m => m.MigrationsAssembly("GuildComm.Data")));
 
             services.AddScoped<GuildCommUserRoleSeeder>();
-
-            //services.AddDefaultIdentity<GuildCommUser>(options =>
-            //    options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<GuildCommDbContext>();
         
             services.AddIdentity<GuildCommUser, IdentityRole>()
                 .AddEntityFrameworkStores<GuildCommDbContext>()
@@ -86,6 +82,7 @@ namespace GuildComm.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

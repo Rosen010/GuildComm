@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using GuildComm.Data.Models;
+
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authorization;
-using GuildComm.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -23,22 +22,12 @@ namespace GuildComm.Web.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
-        }
-
-        public async Task<IActionResult> OnPost(string returnUrl = null)
-        {
-            await _signInManager.SignOutAsync();
+             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToPage();
-            }
+            
+            return LocalRedirect("/Home/Index");           
         }
     }
 }
