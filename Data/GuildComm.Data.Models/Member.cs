@@ -9,6 +9,7 @@
         public Member()
         {
             this.Characters = new List<Character>();
+            this.Events = new HashSet<GuildEvent>();
         }
 
         public string Id { get; set; }

@@ -5,6 +5,12 @@
 
     public class Realm
     {
+        public Realm()
+        {
+            this.Guilds = new HashSet<Guild>();
+            this.Users = new HashSet<GuildCommUser>();
+        }
+
         public string Id { get; set; }
 
         public string Name { get; set; }

@@ -8,6 +8,7 @@
         public GuildCommUser()
         {
             this.Characters = new HashSet<Character>();
+            this.Applications = new HashSet<Application>();
         }
 
         public ICollection<Character> Characters { get; set; }
