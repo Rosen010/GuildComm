@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
 
 namespace GuildComm.Web.Areas.Identity.Pages.Account
 {
@@ -41,6 +42,7 @@ namespace GuildComm.Web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Display(Name = "Password")]
+            [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
@@ -64,6 +66,14 @@ namespace GuildComm.Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    if (_userManager.Users.Count() == 1)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
