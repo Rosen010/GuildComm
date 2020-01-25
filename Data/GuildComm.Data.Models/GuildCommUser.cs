@@ -18,6 +18,10 @@
 
         public string Description { get; set; }
 
+        public string RealmId { get; set; }
+
+        public Realm Realm { get; set; }
+
         public string MemberId { get; set; }
 
         public Member Member { get; set; }

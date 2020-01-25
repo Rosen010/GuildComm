@@ -24,6 +24,8 @@
 
         public DbSet<GuildEvent> GuildEvents { get; set; }
 
+        public DbSet<Realm> Realms { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

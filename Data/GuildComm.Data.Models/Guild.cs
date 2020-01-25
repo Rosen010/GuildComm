@@ -15,6 +15,10 @@
 
         public string Name { get; set; }
 
+        public string RealmId { get; set; }
+
+        public Realm Realm { get; set; }
+
         public ICollection<Member> Members { get; set; }
 
         public ICollection<Event> Events { get; set; }
