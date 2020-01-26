@@ -2,8 +2,15 @@
 {
     using Enums;
 
+    using System;
+
     public class Character
     {
+        public Character()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
 
         public string Name { get; set; }

@@ -1,11 +1,14 @@
 ﻿namespace GuildComm.Data.Models
 {
+    using System;
     using System.Collections.Generic;
 
     public class Guild
     {
         public Guild()
         {
+            this.Id = Guid.NewGuid().ToString();
+
             this.Members = new HashSet<Member>();
             this.Events = new HashSet<Event>();
             this.Characters = new HashSet<Character>();

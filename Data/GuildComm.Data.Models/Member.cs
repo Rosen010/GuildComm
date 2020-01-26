@@ -1,6 +1,7 @@
 ﻿namespace GuildComm.Data.Models
 {
     using Enums;
+
     using System;
     using System.Collections.Generic;
 

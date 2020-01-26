@@ -1,9 +1,16 @@
-﻿using GuildComm.Data.Models.Enums;
-
-namespace GuildComm.Data.Models
+﻿namespace GuildComm.Data.Models
 {
+    using GuildComm.Data.Models.Enums;
+
+    using System;
+
     public class Application
     {
+        public Application()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
 
         public string MainCharacterName { get; set; }

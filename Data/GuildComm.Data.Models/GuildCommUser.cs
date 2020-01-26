@@ -1,6 +1,7 @@
 ﻿namespace GuildComm.Data.Models
 {
     using Microsoft.AspNetCore.Identity;
+
     using System.Collections.Generic;
 
     public class GuildCommUser : IdentityUser

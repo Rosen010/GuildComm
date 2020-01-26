@@ -1,6 +1,7 @@
 ﻿namespace GuildComm.Data.Models
 {
     using Enums;
+
     using System;
     using System.Collections.Generic;
 
@@ -8,6 +9,7 @@
     {
         public Event()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Participants = new HashSet<EventParticipant>();
         }
 
