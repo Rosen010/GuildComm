@@ -34,6 +34,7 @@ namespace GuildComm.Web
                 m => m.MigrationsAssembly("GuildComm.Data")));
 
             services.AddScoped<GuildCommUserRoleSeeder>();
+            services.AddScoped<GuildCommRealmSeeder>();
         
             services.AddIdentity<GuildCommUser, IdentityRole>()
                 .AddEntityFrameworkStores<GuildCommDbContext>()

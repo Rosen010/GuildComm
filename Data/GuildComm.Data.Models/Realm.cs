@@ -1,6 +1,7 @@
 ﻿namespace GuildComm.Data.Models
 {
     using Enums;
+    using System;
     using System.Collections.Generic;
 
     public class Realm
@@ -9,6 +10,8 @@
         {
             this.Guilds = new HashSet<Guild>();
             this.Users = new HashSet<GuildCommUser>();
+
+            this.Id = Guid.NewGuid().ToString();
         }
 
         public string Id { get; set; }
