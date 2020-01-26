@@ -1,19 +1,18 @@
 ﻿namespace GuildComm.Data.Seeding
 {
+    using GuildComm.Common;
     using GuildComm.Data.Models;
 
     using Newtonsoft.Json;
 
     using System.IO;
-    using System.Reflection;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class GuildCommRealmSeeder : ISeeder
     {
-        private static string currentDirectory = Assembly.GetExecutingAssembly().Location;
-
         private readonly GuildCommDbContext context;
-        private string jsonData = File.ReadAllText(currentDirectory + @"../../../../../../../Data/GuildComm.Data/Seeding/Datasets/Realms.Json");
+        private string jsonData = File.ReadAllText(GlobalConstants.realmJsonLocation);
 
         public GuildCommRealmSeeder(GuildCommDbContext context)
         {
@@ -22,9 +21,12 @@
 
         public async Task Seed()
         {
-            var realms = JsonConvert.DeserializeObject<Realm[]>(jsonData);
+            if (!context.Realms.Any())
+            {
+                var realms = JsonConvert.DeserializeObject<Realm[]>(jsonData);
 
-            await context.Realms.AddRangeAsync(realms);
+                await context.Realms.AddRangeAsync(realms);
+            }            
         }
     }
 }
