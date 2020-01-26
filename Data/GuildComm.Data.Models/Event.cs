@@ -8,7 +8,7 @@
     {
         public Event()
         {
-            this.Participants = new HashSet<GuildEvent>();
+            this.Participants = new HashSet<EventParticipant>();
         }
 
         public string Id { get; set; }
@@ -21,7 +21,7 @@
 
         public string Description { get; set; }
 
-        public ICollection<GuildEvent> Participants { get; set; }
+        public ICollection<EventParticipant> Participants { get; set; }
 
         public string GuildId { get; set; }
 

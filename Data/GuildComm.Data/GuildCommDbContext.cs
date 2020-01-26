@@ -22,7 +22,7 @@
 
         public DbSet<Member> Members { get; set; }
 
-        public DbSet<GuildEvent> GuildEvents { get; set; }
+        public DbSet<EventParticipant> EventParticipants { get; set; }
 
         public DbSet<Realm> Realms { get; set; }
 

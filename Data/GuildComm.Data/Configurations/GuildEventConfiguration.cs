@@ -4,9 +4,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class GuildEventConfiguration : IEntityTypeConfiguration<GuildEvent>
+    public class GuildEventConfiguration : IEntityTypeConfiguration<EventParticipant>
     {
-        public void Configure(EntityTypeBuilder<GuildEvent> builder)
+        public void Configure(EntityTypeBuilder<EventParticipant> builder)
         {
             builder
                 .HasKey(ge => new { ge.ParticipantId, ge.EventId });

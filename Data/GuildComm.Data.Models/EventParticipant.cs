@@ -1,6 +1,6 @@
 ﻿namespace GuildComm.Data.Models
 {
-    public class GuildEvent
+    public class EventParticipant
     {
         public string ParticipantId { get; set; }
 

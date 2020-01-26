@@ -4,14 +4,16 @@ using GuildComm.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuildComm.Data.Migrations
 {
     [DbContext(typeof(GuildCommDbContext))]
-    partial class GuildCommDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200126110937_ChangeTableName")]
+    partial class ChangeTableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,7 +123,7 @@ namespace GuildComm.Data.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("GuildComm.Data.Models.EventParticipant", b =>
+            modelBuilder.Entity("GuildComm.Data.Models.EventParticipants", b =>
                 {
                     b.Property<string>("ParticipantId")
                         .HasColumnType("nvarchar(450)");
@@ -133,7 +135,7 @@ namespace GuildComm.Data.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventParticipants");
+                    b.ToTable("GuildEvents");
                 });
 
             modelBuilder.Entity("GuildComm.Data.Models.Guild", b =>
@@ -456,7 +458,7 @@ namespace GuildComm.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("GuildComm.Data.Models.EventParticipant", b =>
+            modelBuilder.Entity("GuildComm.Data.Models.EventParticipants", b =>
                 {
                     b.HasOne("GuildComm.Data.Models.Event", "Event")
                         .WithMany("Participants")

@@ -9,7 +9,7 @@
         public Member()
         {
             this.Characters = new List<Character>();
-            this.Events = new HashSet<GuildEvent>();
+            this.Events = new HashSet<EventParticipant>();
         }
 
         public string Id { get; set; }
@@ -18,7 +18,7 @@
 
         public ICollection<Character> Characters { get; set; }
 
-        public ICollection<GuildEvent> Events { get; set; }
+        public ICollection<EventParticipant> Events { get; set; }
 
         public Rank Rank { get; set; }
 
