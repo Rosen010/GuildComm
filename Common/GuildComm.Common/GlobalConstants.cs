@@ -1,6 +1,5 @@
 ﻿namespace GuildComm.Common
 {
-    using System;
     using System.Reflection;
 
     public static class GlobalConstants

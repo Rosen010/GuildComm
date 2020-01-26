@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace GuildComm.Web.Models.Guild
+﻿namespace GuildComm.Web.Models.Guild
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateGuildBindingModel
     {
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Realm { get; set; }
     }
 }

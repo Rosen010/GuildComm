@@ -1,0 +1,29 @@
+﻿@using GuildComm.Web.Models.Guild
+@model CreateGuildBindingModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+        <form method="post">
+            <h2>Register a new Guild</h2>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Name"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Realm"></label>
+                <input asp-for="@Model.Realm" class="form-control" />
+                <span asp-validation-for="@Model.Realm" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Register Guild</button>
+        </form>
+    </div>
+</div>
+
