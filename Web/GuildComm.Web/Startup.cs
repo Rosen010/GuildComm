@@ -34,6 +34,7 @@ namespace GuildComm.Web
             services.AddScoped<GuildCommRealmSeeder>();
 
             services.AddTransient<IRealmsService, RealmsService>();
+            services.AddTransient<IGuildsService, GuildsService>();
         
             services.AddIdentity<GuildCommUser, IdentityRole>()
                 .AddEntityFrameworkStores<GuildCommDbContext>()
@@ -54,6 +55,7 @@ namespace GuildComm.Web
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

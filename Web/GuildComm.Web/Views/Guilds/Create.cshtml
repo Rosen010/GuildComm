@@ -24,7 +24,7 @@
 
                     @foreach (var realm in (ViewData["Realms"] as List<GuildComm.Data.Models.Realm>))
                     {
-                        <option value="@realm.Name">@realm.Name</option>
+                        <option value="@realm.Name">@realm.Name - @realm.Region (@realm.RealmType)</option>
                     }
 
                 </select>
