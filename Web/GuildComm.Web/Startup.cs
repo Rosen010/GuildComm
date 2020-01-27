@@ -3,6 +3,7 @@ namespace GuildComm.Web
     using GuildComm.Data;
     using GuildComm.Data.Models;
     using GuildComm.Data.Seeding;
+    using GuildComm.Services;
     using GuildComm.Web.Extensions;
 
     using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,8 @@ namespace GuildComm.Web
 
             services.AddScoped<GuildCommUserRoleSeeder>();
             services.AddScoped<GuildCommRealmSeeder>();
+
+            services.AddTransient<IRealmsService, RealmsService>();
         
             services.AddIdentity<GuildCommUser, IdentityRole>()
                 .AddEntityFrameworkStores<GuildCommDbContext>()

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\GuildComm.Data.Models\GuildComm.Data.Models.csproj" />
+    <ProjectReference Include="..\Data\GuildComm.Data\GuildComm.Data.csproj" />
+  </ItemGroup>
+
+</Project>
