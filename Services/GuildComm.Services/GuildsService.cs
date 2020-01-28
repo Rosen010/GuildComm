@@ -4,6 +4,7 @@
     using GuildComm.Data.Models;
 
     using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class GuildsService : IGuildsService
@@ -25,6 +26,12 @@
         {
             var guild = await this.context.Guilds.SingleOrDefaultAsync(dbGuild => dbGuild.Name == name);
             return guild;
+        }
+
+        public async Task<List<Guild>> GetAllGuildsAsync()
+        {
+            var guilds = await this.context.Guilds.ToListAsync();
+            return guilds;
         }
     }
 }

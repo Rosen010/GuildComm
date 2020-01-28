@@ -28,5 +28,12 @@
 
             return realm;
         }
+
+        public async Task<Realm> GetRealmByIdAsync(string id)
+        {
+            Realm realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Id == id);
+
+            return realm;
+        }
     }
 }

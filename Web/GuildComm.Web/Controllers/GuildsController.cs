@@ -21,7 +21,7 @@
         public async Task<IActionResult> Create()
         {
             this.ViewData["Realms"] = await this.realmsService.GetAllRealmsAsync();
-
+          
             return this.View();
         }
 
@@ -39,8 +39,22 @@
                 await this.guildsService.CreateGuildAsync(guild);
             }
 
-            this.ViewData["Realms"] = await this.realmsService.GetAllRealmsAsync();
-            return this.View();
+            return this.RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var guilds = await guildsService.GetAllGuildsAsync();
+
+            var guildsViewModel = guilds.Select(g => new GuildsAllViewModel
+            {
+                Name = g.Name,
+                Realm = this.realmsService.GetRealmByIdAsync(g.RealmId).GetAwaiter().GetResult(),
+                MembersCount = g.Members.Count()
+            })
+            .ToList();
+
+            return this.View(guildsViewModel);
         }
     }
 }
