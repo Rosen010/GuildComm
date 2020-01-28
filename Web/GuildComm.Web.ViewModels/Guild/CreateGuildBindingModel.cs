@@ -1,4 +1,4 @@
-﻿namespace GuildComm.Web.Models.Guild
+﻿namespace GuildComm.Web.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 

@@ -1,6 +1,4 @@
-using System;
-
-namespace GuildComm.Web.Models
+namespace GuildComm.Web.ViewModels
 {
     public class ErrorViewModel
     {

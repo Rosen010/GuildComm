@@ -1,7 +1,7 @@
-﻿using GuildComm.Data.Models;
-
-namespace GuildComm.Web.Models.Guild
+﻿namespace GuildComm.Web.ViewModels
 {
+    using GuildComm.Data.Models;
+
     public class GuildsAllViewModel
     {
         public string Name { get; set; }
