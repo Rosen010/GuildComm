@@ -3,7 +3,7 @@
     using GuildComm.Data;
     using GuildComm.Data.Models;
 
-    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
     using System.Threading.Tasks;
 
     public class GuildsService : IGuildsService
@@ -15,15 +15,15 @@
             this.context = context;
         }
 
-        public void CreateGuild(Guild guild)
+        public async Task CreateGuildAsync(Guild guild)
         {
-            this.context.Guilds.Add(guild);
-            this.context.SaveChanges();
+            await this.context.Guilds.AddAsync(guild);
+            await this.context.SaveChangesAsync();
         }
 
-        public Guild GetGuild(string name)
+        public async Task<Guild> GetGuildAsync(string name)
         {
-            var guild = this.context.Guilds.FirstOrDefault(dbGuild => dbGuild.Name == name);
+            var guild = await this.context.Guilds.SingleOrDefaultAsync(dbGuild => dbGuild.Name == name);
             return guild;
         }
     }

@@ -4,6 +4,8 @@
     using GuildComm.Services;
     using GuildComm.Web.Models.Guild;
     using Microsoft.AspNetCore.Mvc;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class GuildsController : Controller
     {
@@ -16,28 +18,28 @@
             this.guildsService = guildsService;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            this.ViewData["Realms"] = this.realmsService.GetAllRealms();
+            this.ViewData["Realms"] = await this.realmsService.GetAllRealmsAsync();
 
             return this.View();
         }
 
         [HttpPost]
-        public IActionResult Create(CreateGuildBindingModel bindingModel)
+        public async Task<IActionResult> Create(CreateGuildBindingModel bindingModel)
         {
             if (this.ModelState.IsValid)
             {
                 Guild guild = new Guild
                 {
                     Name = bindingModel.Name,
-                    Realm = this.realmsService.GetRealm(bindingModel.Realm)
+                    Realm = await this.realmsService.GetRealmAsync(bindingModel.Realm)
                 };
 
-                this.guildsService.CreateGuild(guild);
+                await this.guildsService.CreateGuildAsync(guild);
             }
 
-            this.ViewData["Realms"] = this.realmsService.GetAllRealms();
+            this.ViewData["Realms"] = await this.realmsService.GetAllRealmsAsync();
             return this.View();
         }
     }

@@ -5,8 +5,8 @@
 
     public interface IGuildsService
     {
-        void CreateGuild(Guild guild);
+        Task CreateGuildAsync(Guild guild);
 
-        Guild GetGuild(string name);
+        Task<Guild> GetGuildAsync(string name);
     }
 }

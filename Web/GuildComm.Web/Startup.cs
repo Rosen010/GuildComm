@@ -29,12 +29,6 @@ namespace GuildComm.Web
             services.AddDbContext<GuildCommDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), 
                 m => m.MigrationsAssembly("GuildComm.Data")));
-
-            services.AddScoped<GuildCommUserRoleSeeder>();
-            services.AddScoped<GuildCommRealmSeeder>();
-
-            services.AddTransient<IRealmsService, RealmsService>();
-            services.AddTransient<IGuildsService, GuildsService>();
         
             services.AddIdentity<GuildCommUser, IdentityRole>()
                 .AddEntityFrameworkStores<GuildCommDbContext>()
@@ -52,6 +46,15 @@ namespace GuildComm.Web
 
                 options.User.RequireUniqueEmail = true;
             });
+
+            services.AddScoped<GuildCommUserRoleSeeder>();
+            services.AddScoped<GuildCommRealmSeeder>();
+
+            services.AddTransient<IRealmsService, RealmsService>();
+            services.AddTransient<IGuildsService, GuildsService>();
+
+            services.AddSingleton(this.Configuration);
+            //services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

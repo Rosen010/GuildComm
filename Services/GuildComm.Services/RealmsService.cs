@@ -3,8 +3,9 @@
     using GuildComm.Data;
     using GuildComm.Data.Models;
 
-    using System.Linq;
     using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
 
     public class RealmsService : IRealmsService
     {
@@ -15,15 +16,15 @@
             this.context = context;
         }
 
-        public IList<Realm> GetAllRealms()
+        public async Task<IList<Realm>> GetAllRealmsAsync()
         {
-            List<Realm> realms = this.context.Realms.ToList();
+            List<Realm> realms = await this.context.Realms.ToListAsync();
             return realms;
         }
 
-        public Realm GetRealm(string name)
+        public async Task<Realm> GetRealmAsync(string name)
         {
-            Realm realm = this.context.Realms.FirstOrDefault(dbRealm => dbRealm.Name == name);
+            Realm realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Name == name);
 
             return realm;
         }

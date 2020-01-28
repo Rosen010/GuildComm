@@ -1,13 +1,14 @@
 ﻿namespace GuildComm.Services
 {
     using GuildComm.Data.Models;
+
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IRealmsService
     {
-        IList<Realm> GetAllRealms();
+        Task<IList<Realm>> GetAllRealmsAsync();
 
-        Realm GetRealm(string name);
+        Task<Realm> GetRealmAsync(string name);
     }
 }
