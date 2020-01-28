@@ -1,9 +1,11 @@
 ﻿namespace GuildComm.Web.Controllers
 {
-    using GuildComm.Data.Models;
     using GuildComm.Services;
-    using GuildComm.Web.Models.Guild;
+    using GuildComm.Data.Models;
+    using GuildComm.Web.ViewModels;
+
     using Microsoft.AspNetCore.Mvc;
+
     using System.Linq;
     using System.Threading.Tasks;
 

@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\Data\GuildComm.Data.Models\GuildComm.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\GuildComm.Data\GuildComm.Data.csproj" />
     <ProjectReference Include="..\..\Services\GuildComm.Services\GuildComm.Services.csproj" />
+    <ProjectReference Include="..\GuildComm.Web.ViewModels\GuildComm.Web.ViewModels.csproj" />
   </ItemGroup>
 
 
