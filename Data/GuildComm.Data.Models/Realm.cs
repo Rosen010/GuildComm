@@ -23,8 +23,8 @@
 
         public RealmType RealmType { get; set; }
 
-        public ICollection<Guild> Guilds { get; set; }
+        public virtual ICollection<Guild> Guilds { get; set; }
 
-        public ICollection<GuildCommUser> Users { get; set; }
+        public virtual ICollection<GuildCommUser> Users { get; set; }
     }
 }

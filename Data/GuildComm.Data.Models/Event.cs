@@ -23,10 +23,10 @@
 
         public string Description { get; set; }
 
-        public ICollection<EventParticipant> Participants { get; set; }
+        public virtual ICollection<EventParticipant> Participants { get; set; }
 
         public string GuildId { get; set; }
 
-        public Guild Guild { get; set; }
+        public virtual Guild Guild { get; set; }
     }
 }

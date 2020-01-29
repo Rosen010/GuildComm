@@ -24,13 +24,17 @@
 
         public async Task<Guild> GetGuildAsync(string name)
         {
-            var guild = await this.context.Guilds.SingleOrDefaultAsync(dbGuild => dbGuild.Name == name);
+            var guild = await this.context.Guilds
+                .SingleOrDefaultAsync(dbGuild => dbGuild.Name == name);
             return guild;
         }
 
         public async Task<List<Guild>> GetAllGuildsAsync()
         {
-            var guilds = await this.context.Guilds.ToListAsync();
+            var guilds = await this.context.Guilds
+                .Include(g => g.Realm)
+                .ToListAsync();
+
             return guilds;
         }
     }

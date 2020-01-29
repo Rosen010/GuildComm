@@ -17,9 +17,9 @@
 
         public string Name { get; set; }
 
-        public ICollection<Character> Characters { get; set; }
+        public virtual ICollection<Character> Characters { get; set; }
 
-        public ICollection<EventParticipant> Events { get; set; }
+        public virtual ICollection<EventParticipant> Events { get; set; }
 
         public Rank Rank { get; set; }
 
@@ -29,10 +29,10 @@
 
         public string UserId { get; set; }
 
-        public GuildCommUser User { get; set; }
+        public virtual GuildCommUser User { get; set; }
 
         public string GuildId { get; set; }
 
-        public Guild Guild { get; set; }
+        public virtual Guild Guild { get; set; }
     }
 }

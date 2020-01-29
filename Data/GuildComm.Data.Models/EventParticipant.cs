@@ -4,10 +4,10 @@
     {
         public string ParticipantId { get; set; }
 
-        public Member Participant { get; set; }
+        public virtual Member Participant { get; set; }
 
         public string EventId { get; set; }
 
-        public Event Event { get; set; }
+        public virtual Event Event { get; set; }
     }
 }

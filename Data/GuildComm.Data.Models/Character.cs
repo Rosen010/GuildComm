@@ -25,14 +25,14 @@
 
         public string GuildId { get; set; }
 
-        public Guild Guild { get; set; }
+        public virtual Guild Guild { get; set; }
 
         public string MemberId { get; set; }
 
-        public Member Member { get; set; }
+        public virtual Member Member { get; set; }
 
         public string UserId { get; set; }
 
-        public GuildCommUser User { get; set; }
+        public virtual GuildCommUser User { get; set; }
     }
 }

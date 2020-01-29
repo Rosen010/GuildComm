@@ -43,7 +43,7 @@
                 await this.guildsService.CreateGuildAsync(guild);
             }
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("All", "Guilds");
         }
 
         public async Task<IActionResult> All()
@@ -53,7 +53,7 @@
             var guildsViewModel = guilds.Select(g => new GuildsAllViewModel
             {
                 Name = g.Name,
-                Realm = this.realmsService.GetRealmByIdAsync(g.RealmId).GetAwaiter().GetResult(),
+                Realm = g.Realm,
                 MembersCount = g.Members.Count()
             })
             .ToList();

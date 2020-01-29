@@ -12,9 +12,9 @@
             this.Applications = new HashSet<Application>();
         }
 
-        public ICollection<Character> Characters { get; set; }
+        public virtual ICollection<Character> Characters { get; set; }
 
-        public ICollection<Application> Applications { get; set; }
+        public virtual ICollection<Application> Applications { get; set; }
 
         public bool IsInGuild { get; set; }
 
@@ -22,10 +22,10 @@
 
         public string RealmId { get; set; }
 
-        public Realm Realm { get; set; }
+        public virtual Realm Realm { get; set; }
 
         public string MemberId { get; set; }
 
-        public Member Member { get; set; }
+        public virtual Member Member { get; set; }
     }
 }

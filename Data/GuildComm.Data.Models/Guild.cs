@@ -21,14 +21,14 @@
 
         public string RealmId { get; set; }
 
-        public Realm Realm { get; set; }
+        public virtual Realm Realm { get; set; }
 
-        public ICollection<Member> Members { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
 
-        public ICollection<Event> Events { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
 
-        public ICollection<Character> Characters { get; set; }
+        public virtual ICollection<Character> Characters { get; set; }
 
-        public ICollection<Application> Applications { get; set; }
+        public virtual ICollection<Application> Applications { get; set; }
     }
 }
