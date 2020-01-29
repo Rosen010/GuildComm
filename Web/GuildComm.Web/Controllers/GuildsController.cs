@@ -22,9 +22,11 @@
 
         public async Task<IActionResult> Create()
         {
-            this.ViewData["Realms"] = await this.realmsService.GetAllRealmsAsync();
+            CreateGuildBindingModel bindingModel = new CreateGuildBindingModel();
+
+            bindingModel.Realms = await this.realmsService.GetAllRealmsAsync();
           
-            return this.View();
+            return this.View(bindingModel);
         }
 
         [HttpPost]

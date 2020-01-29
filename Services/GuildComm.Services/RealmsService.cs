@@ -16,7 +16,7 @@
             this.context = context;
         }
 
-        public async Task<IList<Realm>> GetAllRealmsAsync()
+        public async Task<List<Realm>> GetAllRealmsAsync()
         {
             List<Realm> realms = await this.context.Realms.ToListAsync();
             return realms;

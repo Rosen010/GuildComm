@@ -22,7 +22,7 @@
                 <select class="custom-select" id="realm" name="realm">
                     <option selected disabled>-- Choose Realm --</option>
 
-                    @foreach (var realm in (ViewData["Realms"] as List<GuildComm.Data.Models.Realm>))
+                    @foreach (var realm in Model.Realms)
                     {
                         <option value="@realm.Name">@realm.Name - @realm.Region (@realm.RealmType)</option>
                     }

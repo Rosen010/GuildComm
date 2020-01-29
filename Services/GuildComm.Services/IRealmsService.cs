@@ -7,7 +7,7 @@
 
     public interface IRealmsService
     {
-        Task<IList<Realm>> GetAllRealmsAsync();
+        Task<List<Realm>> GetAllRealmsAsync();
 
         Task<Realm> GetRealmAsync(string name);
 
