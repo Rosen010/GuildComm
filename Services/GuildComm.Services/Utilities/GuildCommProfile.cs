@@ -9,7 +9,7 @@ namespace GuildComm.Services.Data.Utilities
         public GuildCommProfile()
         {
             this.CreateMap<GuildCreateInputModel, Guild>()
-                .ForMember(x => x.Realm, y => y.MapFrom(s => s.RealmName));
+                .ForMember(x => x.Realm, y => y.MapFrom(s => s.Realm));
         }
     }
 
