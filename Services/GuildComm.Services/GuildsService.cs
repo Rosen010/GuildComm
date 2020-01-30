@@ -40,11 +40,19 @@
             return guild;
         }
 
-        public async Task<List<Guild>> GetAllGuildsAsync()
+        public async Task<List<GuildsAllViewModel>> GetAllGuildsAsync()
         {
-            var guilds = await this.context.Guilds
+            List<GuildsAllViewModel> guilds = new List<GuildsAllViewModel>();
+
+            var guildsFromDb = await this.context.Guilds
                 .Include(g => g.Realm)
                 .ToListAsync();
+
+            foreach (var guild in guildsFromDb)
+            {
+                var guildToAdd = this.mapper.Map<GuildsAllViewModel>(guild);
+                guilds.Add(guildToAdd);
+            }
 
             return guilds;
         }
