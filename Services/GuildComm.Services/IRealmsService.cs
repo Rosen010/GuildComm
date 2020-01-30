@@ -9,7 +9,7 @@
     {
         Task<List<Realm>> GetAllRealmsAsync();
 
-        Task<Realm> GetRealmAsync(string name);
+        Task<Realm> GetRealmByNameAsync(string name);
 
         Task<Realm> GetRealmByIdAsync(string id);
     }

@@ -1,12 +1,14 @@
 ﻿namespace GuildComm.Services
 {
     using GuildComm.Data.Models;
-    using System.Collections.Generic;
+    using GuildComm.Web.ViewModels;
+
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     public interface IGuildsService
     {
-        Task CreateGuildAsync(Guild guild);
+        Task CreateGuildAsync(GuildCreateInputModel guild);
 
         Task<Guild> GetGuildAsync(string name);
 

@@ -1,18 +1,21 @@
 namespace GuildComm.Web
 {
     using GuildComm.Data;
+    using GuildComm.Services;
     using GuildComm.Data.Models;
     using GuildComm.Data.Seeding;
-    using GuildComm.Services;
     using GuildComm.Web.Extensions;
+    using GuildComm.Services.Data.Utilities;
 
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
+
+    using AutoMapper;
 
     public class Startup
     {
@@ -46,6 +49,8 @@ namespace GuildComm.Web
 
                 options.User.RequireUniqueEmail = true;
             });
+
+            services.AddAutoMapper(typeof(GuildCommProfile));
 
             services.AddScoped<GuildCommUserRoleSeeder>();
             services.AddScoped<GuildCommRealmSeeder>();

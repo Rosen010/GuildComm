@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateGuildBindingModel
+    public class GuildCreateInputModel
     {
-        public CreateGuildBindingModel()
+        public GuildCreateInputModel()
         {
             Realms = new List<Realm>();
         }
@@ -16,8 +16,10 @@
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Realm")]
-        public string Realm { get; set; }
+        [Display(Name = "RealmName")]
+        public string RealmName { get; set; }
+
+        public Realm Realm { get; set; }
 
         public List<Realm> Realms { get; set; }
     }

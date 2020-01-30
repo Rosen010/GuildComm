@@ -22,7 +22,7 @@
             return realms;
         }
 
-        public async Task<Realm> GetRealmAsync(string name)
+        public async Task<Realm> GetRealmByNameAsync(string name)
         {
             Realm realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Name == name);
 

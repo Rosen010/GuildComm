@@ -1,7 +1,9 @@
 ﻿namespace GuildComm.Services
 {
+    using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Web.ViewModels;
 
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -10,14 +12,23 @@
     public class GuildsService : IGuildsService
     {
         private readonly GuildCommDbContext context;
+        private readonly IRealmsService realmsService;
 
-        public GuildsService(GuildCommDbContext context)
+        private readonly IMapper mapper;
+
+        public GuildsService(GuildCommDbContext context, IRealmsService realmsService, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
+
+            this.realmsService = realmsService;
         }
 
-        public async Task CreateGuildAsync(Guild guild)
+        public async Task CreateGuildAsync(GuildCreateInputModel inputModel)
         {
+            inputModel.Realm = await realmsService.GetRealmByNameAsync(inputModel.RealmName);
+            Guild guild = this.mapper.Map<Guild>(inputModel);
+
             await this.context.Guilds.AddAsync(guild);
             await this.context.SaveChangesAsync();
         }

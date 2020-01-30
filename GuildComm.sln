@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Services", "Services\GuildComm.Services\GuildComm.Services.csproj", "{1D5F6F79-12B3-44E1-A39D-38F6D690CD7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildComm.Services.Mapping", "Services\GuildComm.Services.Mapping\GuildComm.Services.Mapping.csproj", "{F4FBBAAA-32BC-4C3F-99BA-4CDCBE07A6D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Services.Mapping", "Services\GuildComm.Services.Mapping\GuildComm.Services.Mapping.csproj", "{F4FBBAAA-32BC-4C3F-99BA-4CDCBE07A6D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildComm.Web.ViewModels", "Web\GuildComm.Web.ViewModels\GuildComm.Web.ViewModels.csproj", "{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Web.ViewModels", "Web\GuildComm.Web.ViewModels\GuildComm.Web.ViewModels.csproj", "{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
