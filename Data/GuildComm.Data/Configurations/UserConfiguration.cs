@@ -8,11 +8,7 @@
     {
         public void Configure(EntityTypeBuilder<GuildCommUser> builder)
         {
-            builder
-                .HasOne(u => u.Realm)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RealmId)
-                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

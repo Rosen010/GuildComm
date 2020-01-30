@@ -20,10 +20,6 @@
 
         public string Description { get; set; }
 
-        public string RealmId { get; set; }
-
-        public virtual Realm Realm { get; set; }
-
         public string MemberId { get; set; }
 
         public virtual Member Member { get; set; }

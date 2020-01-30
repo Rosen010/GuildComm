@@ -12,7 +12,6 @@
             this.Id = Guid.NewGuid().ToString();
 
             this.Guilds = new HashSet<Guild>();
-            this.Users = new HashSet<GuildCommUser>();
         }
 
         public string Id { get; set; }
@@ -24,7 +23,5 @@
         public RealmType RealmType { get; set; }
 
         public virtual ICollection<Guild> Guilds { get; set; }
-
-        public virtual ICollection<GuildCommUser> Users { get; set; }
     }
 }

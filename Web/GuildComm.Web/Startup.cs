@@ -16,6 +16,7 @@ namespace GuildComm.Web
     using Microsoft.Extensions.DependencyInjection;
 
     using AutoMapper;
+    using Microsoft.AspNetCore.Http;
 
     public class Startup
     {
@@ -57,9 +58,10 @@ namespace GuildComm.Web
 
             services.AddTransient<IRealmsService, RealmsService>();
             services.AddTransient<IGuildsService, GuildsService>();
+            services.AddTransient<IUsersService, UsersService>();
 
             services.AddSingleton(this.Configuration);
-            //services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
