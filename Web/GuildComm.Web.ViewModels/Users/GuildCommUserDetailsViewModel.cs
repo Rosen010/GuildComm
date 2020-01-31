@@ -9,7 +9,5 @@
         public bool IsInGuild { get; set; }
 
         public string Description { get; set; }
-
-        public Realm Realm { get; set; }
     }
 }

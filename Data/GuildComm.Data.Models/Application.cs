@@ -6,12 +6,7 @@
 
     public class Application
     {
-        public Application()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
-
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string MainCharacterName { get; set; }
 

@@ -11,6 +11,6 @@
 
         Task<Realm> GetRealmByNameAsync(string name);
 
-        Task<Realm> GetRealmByIdAsync(string id);
+        Task<Realm> GetRealmByIdAsync(int id);
     }
 }

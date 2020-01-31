@@ -19,7 +19,7 @@
 
         public string Name { get; set; }
 
-        public string RealmId { get; set; }
+        public int RealmId { get; set; }
 
         public virtual Realm Realm { get; set; }
 

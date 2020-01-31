@@ -9,11 +9,10 @@
     {
         public Event()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.Participants = new HashSet<EventParticipant>();
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

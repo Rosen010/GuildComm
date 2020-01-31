@@ -21,7 +21,7 @@
         public string Description { get; set; }
 
         public string MemberId { get; set; }
-
+        
         public virtual Member Member { get; set; }
     }
 }

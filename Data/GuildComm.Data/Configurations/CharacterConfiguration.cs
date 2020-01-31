@@ -25,6 +25,12 @@
                 .WithMany(g => g.Characters)
                 .HasForeignKey(c => c.GuildId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasOne(c => c.Realm)
+                .WithMany(r => r.Characters)
+                .HasForeignKey(c => c.RealmId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -6,12 +6,7 @@
 
     public class Character
     {
-        public Character()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
-
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -22,6 +17,10 @@
         public int Level { get; set; }
 
         public int ItemLevel { get; set; }
+
+        public int RealmId { get; set; }
+
+        public virtual Realm Realm { get; set; }
 
         public string GuildId { get; set; }
 
