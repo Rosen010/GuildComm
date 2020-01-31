@@ -16,7 +16,7 @@
 
         public async Task<IActionResult> Details()
         {
-            GuildCommUserDetailsViewModel userViewModel = await usersService.GetUserAsync();
+            GuildCommUserDetailsViewModel userViewModel = await usersService.GetUserViewModelAsync();
 
             return this.View(userViewModel);
         }

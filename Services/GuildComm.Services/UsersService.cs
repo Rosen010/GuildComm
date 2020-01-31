@@ -7,6 +7,7 @@
 
     using GuildComm.Data;
     using GuildComm.Web.ViewModels.Users;
+    using GuildComm.Data.Models;
 
     public class UsersService : IUsersService
     {
@@ -18,8 +19,17 @@
             this.context = context;
             this.httpContextAccessor = httpContextAccessor;
         }
+        public async Task<GuildCommUser> GetUserAsync()
+        {
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-        public async Task<GuildCommUserDetailsViewModel> GetUserAsync()
+            var user = await context.Users
+                .SingleOrDefaultAsync(u => u.Id == userId);
+
+            return user;
+        }
+
+        public async Task<GuildCommUserDetailsViewModel> GetUserViewModelAsync()
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
