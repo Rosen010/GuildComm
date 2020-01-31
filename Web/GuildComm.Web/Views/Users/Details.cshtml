@@ -6,8 +6,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-<h1>@Model.Username</h1>
-<h1>@Model.Description</h1>
-<h1>@Model.IsInGuild</h1>
-
+<h1 class="text-center">Profile Details</h1>
+<hr class="hr-2">
+<div class="mx-auto">
+    <div class="d-flex">
+        <h3>Usermame: @Model.Username</h3>
+    </div>
+    <hr class="hr-2">
+    <div class="d-flex">
+        <h4>Is in guild: @Model.IsInGuild</h4>
+    </div>
+    <div class="d-flex">
+        <h4>Description @Model.Description</h4>
+    </div>
+</div>
