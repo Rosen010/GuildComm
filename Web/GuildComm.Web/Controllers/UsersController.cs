@@ -8,15 +8,19 @@
     public class UsersController : Controller
     {
         private readonly IUsersService usersService;
+        private readonly ICharactersService charactersService;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService, ICharactersService charactersService)
         {
             this.usersService = usersService;
+            this.charactersService = charactersService;
         }
 
         public async Task<IActionResult> Details()
         {
-            GuildCommUserDetailsViewModel userViewModel = await usersService.GetUserViewModelAsync();
+            GuildCommUserDetailsViewModel userViewModel = await this.usersService.GetUserViewModelAsync();
+
+            userViewModel.Characters = await this.charactersService.GetUserCharactersAsync();
 
             return this.View(userViewModel);
         }

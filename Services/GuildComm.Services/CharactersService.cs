@@ -1,10 +1,13 @@
 ﻿namespace GuildComm.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels.Characters;
+    using Microsoft.EntityFrameworkCore;
 
     public class CharactersService : ICharactersService
     {
@@ -32,6 +35,24 @@
 
             await this.context.Characters.AddAsync(character);
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<List<CharacterViewModel>> GetUserCharactersAsync()
+        {
+            var user = await usersService.GetUserAsync();
+
+            var characters = await context.Characters
+                .Where(c => c.UserId == user.Id)
+                .Select(c => new CharacterViewModel
+            {
+                Name = c.Name,
+                Level = c.Level,
+                ItemLevel = c.ItemLevel,
+                GuildName = c.Guild != null ? c.Guild.Name : "N/A",
+                Realm = c.Realm
+            }).ToListAsync();
+
+            return characters;
         }
     }
 }
