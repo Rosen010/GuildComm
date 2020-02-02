@@ -30,7 +30,7 @@
         {
             await this.charactersService.CreateCharacterAsync(inputModel);
 
-            return this.RedirectToAction("All", "Guilds");
+            return this.RedirectToAction("Details", "Users");
         }
     }
 }

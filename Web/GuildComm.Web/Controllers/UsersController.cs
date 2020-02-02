@@ -24,5 +24,18 @@
 
             return this.View(userViewModel);
         }
+
+        public IActionResult UpdateDescription()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateDescription(GuildCommUserDescriptionUpdateInputModel inputModel)
+        {
+            await this.usersService.UpdateUserDescriptionAsync(inputModel);
+
+            return RedirectToAction("Details", "Users");
+        }
     }
 }

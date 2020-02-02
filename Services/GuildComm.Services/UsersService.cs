@@ -45,5 +45,14 @@
 
             return user;
         }
+
+        public async Task UpdateUserDescriptionAsync(GuildCommUserDescriptionUpdateInputModel inputModel)
+        {
+            var user = await this.GetUserAsync();
+            user.Description = inputModel.Description;
+
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+        }
     }
 }

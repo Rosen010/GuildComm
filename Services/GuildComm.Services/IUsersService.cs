@@ -8,6 +8,8 @@
     {
         Task<GuildCommUser> GetUserAsync();
 
-        Task<GuildCommUserDetailsViewModel> GetUserViewModelAsync();       
+        Task<GuildCommUserDetailsViewModel> GetUserViewModelAsync();
+
+        Task UpdateUserDescriptionAsync(GuildCommUserDescriptionUpdateInputModel inputModel);
     }
 }
