@@ -37,7 +37,7 @@
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<List<CharacterViewModel>> GetUserCharactersAsync()
+        public async Task<List<CharacterViewModel>> GetUserCharactersViewModelAsync()
         {
             var user = await usersService.GetUserAsync();
 
@@ -51,6 +51,17 @@
                 GuildName = c.Guild != null ? c.Guild.Name : "N/A",
                 Realm = c.Realm
             }).ToListAsync();
+
+            return characters;
+        }
+
+        public async Task<List<Character>> GetUserCharactersAsync(GuildCommUser user)
+        {
+            var currentUser = await usersService.GetUserAsync();
+
+            var characters = await context.Characters
+                .Where(c => c.UserId == user.Id)
+                .ToListAsync();
 
             return characters;
         }

@@ -1,7 +1,9 @@
 ﻿namespace GuildComm.Data.Models
 {
+    using GuildComm.Data.Models.Enums;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Guild
     {
@@ -13,6 +15,8 @@
             this.Events = new HashSet<Event>();
             this.Characters = new HashSet<Character>();
             this.Applications = new HashSet<Application>();
+
+            this.Ranks = new HashSet<Rank> { Rank.Trial, Rank.Raider, Rank.Officer, Rank.Member, Rank.GuildeMaster };
         }
 
         public string Id { get; set; }
@@ -22,6 +26,9 @@
         public int RealmId { get; set; }
 
         public virtual Realm Realm { get; set; }
+
+        [NotMapped]
+        public virtual ICollection<Rank> Ranks { get; set; }
 
         public virtual ICollection<Member> Members { get; set; }
 

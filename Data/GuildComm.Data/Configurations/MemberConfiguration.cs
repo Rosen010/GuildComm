@@ -13,11 +13,6 @@
                 .WithMany(g => g.Members)
                 .HasForeignKey(m => m.GuildId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .HasOne(m => m.User)
-                .WithOne(u => u.Member)
-                .HasForeignKey<GuildCommUser>(u => u.MemberId);
         }
     }
 }

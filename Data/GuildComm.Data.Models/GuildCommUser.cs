@@ -21,9 +21,5 @@
         public string GuildId { get; set; }
 
         public Guild Guild { get; set; }
-        
-        public string MemberId { get; set; }
-        
-        public virtual Member Member { get; set; }
     }
 }

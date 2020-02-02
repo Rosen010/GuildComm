@@ -9,15 +9,15 @@
     {
         public Member()
         {
-            this.Characters = new List<Character>();
+            this.Id = Guid.NewGuid().ToString();
             this.Events = new HashSet<EventParticipant>();
         }
 
         public string Id { get; set; }
 
-        public string Name { get; set; }
+        public int CharacterId { get; set; }
 
-        public virtual ICollection<Character> Characters { get; set; }
+        public virtual Character Character { get; set; }
 
         public virtual ICollection<EventParticipant> Events { get; set; }
 
@@ -26,10 +26,6 @@
         public DateTime MemberSince { get; set; }
 
         public string Info { get; set; }
-
-        public string UserId { get; set; }
-
-        public virtual GuildCommUser User { get; set; }
 
         public string GuildId { get; set; }
 

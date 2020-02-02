@@ -10,18 +10,27 @@
     {
         private readonly IRealmsService realmsService;
         private readonly IGuildsService guildsService;
+        private readonly ICharactersService charactersService;
+        private readonly IUsersService usersService;
 
-        public GuildsController(IRealmsService realmsService, IGuildsService guildsService)
+        public GuildsController(IRealmsService realmsService, 
+            IGuildsService guildsService, 
+            ICharactersService charactersService,
+            IUsersService usersService)
         {
             this.realmsService = realmsService;
             this.guildsService = guildsService;
+            this.charactersService = charactersService;
+            this.usersService = usersService;
         }
 
         public async Task<IActionResult> Create()
         {
+            var user = await this.usersService.GetUserAsync();
             GuildCreateInputModel bindingModel = new GuildCreateInputModel();
 
             bindingModel.Realms = await this.realmsService.GetAllRealmsAsync();
+            bindingModel.Characters = await this.charactersService.GetUserCharactersAsync(user);
           
             return this.View(bindingModel);
         }

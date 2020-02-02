@@ -9,6 +9,8 @@
     {
         Task CreateCharacterAsync(CharacterRegisterInputModel inputModel);
 
-        Task<List<CharacterViewModel>> GetUserCharactersAsync();
+        Task<List<CharacterViewModel>> GetUserCharactersViewModelAsync();
+
+        Task<List<Character>> GetUserCharactersAsync(GuildCommUser user);
     }
 }

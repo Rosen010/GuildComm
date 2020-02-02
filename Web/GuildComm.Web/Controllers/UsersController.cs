@@ -20,7 +20,7 @@
         {
             GuildCommUserDetailsViewModel userViewModel = await this.usersService.GetUserViewModelAsync();
 
-            userViewModel.Characters = await this.charactersService.GetUserCharactersAsync();
+            userViewModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync();
 
             return this.View(userViewModel);
         }
