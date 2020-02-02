@@ -39,7 +39,7 @@
             var user = new GuildCommUserDetailsViewModel
             {
                 Username = userFromDb.UserName,
-                IsInGuild = userFromDb.IsInGuild,
+                GuildName = userFromDb.Guild != null ? userFromDb.Guild.Name : "N/A",
                 Description = userFromDb.Description
             };
 

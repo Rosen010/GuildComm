@@ -4,14 +4,16 @@ using GuildComm.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuildComm.Data.Migrations
 {
     [DbContext(typeof(GuildCommDbContext))]
-    partial class GuildCommDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200202115434_AddGuildPropToUser")]
+    partial class AddGuildPropToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

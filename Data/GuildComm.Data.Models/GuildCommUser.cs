@@ -15,11 +15,13 @@
         public virtual ICollection<Character> Characters { get; set; }
 
         public virtual ICollection<Application> Applications { get; set; }
-
-        public bool IsInGuild { get; set; }
-
+      
         public string Description { get; set; }
 
+        public string GuildId { get; set; }
+
+        public Guild Guild { get; set; }
+        
         public string MemberId { get; set; }
         
         public virtual Member Member { get; set; }
