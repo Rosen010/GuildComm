@@ -1,0 +1,22 @@
+﻿@using GuildComm.Web.ViewModels.Characters
+@model CharacterDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Character Details</h1>
+<hr class="hr-2">
+<div class="mx-auto">
+    <div class="d-flex">
+        <h3>Name: @Model.Name</h3>
+    </div>
+    <hr class="hr-2">
+    <div class="d-flex">
+        <h4>Class: @Model.Class</h4>
+    </div>
+    <div class="mt-4">
+        <h4>Level: @Model.Level</h4>
+    </div>
+</div>

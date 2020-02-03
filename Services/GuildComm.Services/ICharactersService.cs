@@ -12,5 +12,9 @@
         Task<List<CharacterViewModel>> GetUserCharactersViewModelAsync();
 
         Task<List<Character>> GetUserCharactersAsync(GuildCommUser user);
+
+        Task RemoveCharacterAsync(int id);
+
+        Task<CharacterDetailsViewModel> GetCharacterAsync(int id);
     }
 }

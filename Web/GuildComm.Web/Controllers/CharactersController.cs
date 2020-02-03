@@ -32,5 +32,19 @@
 
             return this.RedirectToAction("Details", "Users");
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var character = await this.charactersService.GetCharacterAsync(id);
+
+            return this.View(character);
+        }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            await this.charactersService.RemoveCharacterAsync(id);
+
+            return this.RedirectToAction("Details", "Users");
+        }
     }
 }

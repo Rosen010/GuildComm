@@ -21,8 +21,6 @@
         <div>
             <p>@Model.Description</p>
         </div>
-
-
     </div>
     <a class="btn btn-primary" href="/Users/UpdateDescription" role="button">Update Description</a>
 
@@ -44,14 +42,16 @@
         <tbody>
             @for (int i = 0; i < Model.Characters.Count; i++)
             {
-                <tr>
-                    <th scope="row">@i</th>
-                    <td>@Model.Characters[i].Name</td>
-                    <td>@Model.Characters[i].GuildName</td>
-                    <td>@Model.Characters[i].Level</td>
-                    <td>@Model.Characters[i].ItemLevel</td>
-                    <td>@Model.Characters[i].Realm.Name (@Model.Characters[i].Realm.Region)</td>
-                </tr>
+            <tr>
+                <th scope="row">@i</th>
+                <td>@Model.Characters[i].Name</td>
+                <td>@Model.Characters[i].GuildName</td>
+                <td>@Model.Characters[i].Level</td>
+                <td>@Model.Characters[i].ItemLevel</td>
+                <td>@Model.Characters[i].Realm.Name (@Model.Characters[i].Realm.Region)</td>
+                <td><a class="btn btn-outline-danger btn-sm text-danger" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Characters[i].Id">Remove</a></td>
+                <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Characters[i].Id">Details</a></td>
+            </tr>
             }
         </tbody>
     </table>

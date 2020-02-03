@@ -45,6 +45,7 @@
                 .Where(c => c.UserId == user.Id)
                 .Select(c => new CharacterViewModel
             {
+                Id = c.Id,
                 Name = c.Name,
                 Level = c.Level,
                 ItemLevel = c.ItemLevel,
@@ -67,11 +68,30 @@
             return characters;
         }
 
-        public async Task RemoveCharacter(int id)
+        public async Task<CharacterDetailsViewModel> GetCharacterAsync(int id)
+        {
+            var character = await context.Characters
+                .Include(c => c.Guild)
+                .SingleOrDefaultAsync(c => c.Id == id);
+
+            var charModel = new CharacterDetailsViewModel
+            {
+                Name = character.Name,
+                Level = character.Level,
+                ItemLevel = character.ItemLevel,
+                Class = character.Class.ToString(),
+                Role = character.Role.ToString(),
+                GuildName = character.Guild != null ? character.Guild.Name : "N/A"
+            };
+
+            return charModel;
+        }
+
+        public async Task RemoveCharacterAsync(int id)
         {
             var character = await context.Characters.SingleOrDefaultAsync(c => c.Id == id);
 
-            this.context.Remove(character);
+            this.context.Characters.Remove(character);
             await this.context.SaveChangesAsync();
         }
     }
