@@ -86,9 +86,38 @@
                 MemberSince = DateTime.UtcNow
             };
 
+            character.Guild = guild;
             guild.Members.Add(member);
+
+            this.context.Members.Add(member);
             this.context.Guilds.Update(guild);
+            this.context.Characters.Update(character);
+
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<List<GuildsAllViewModel>> GetUserGuildsAsync()
+        {
+            var user = await this.usersService.GetUserAsync();
+            var characters = await this.charactersService.GetUserCharactersAsync(user);
+
+            var guilds = new List<GuildsAllViewModel>();
+
+            foreach (var character in characters)
+            {
+                if (character.Guild != null) 
+                {
+                    var guildFromDb = await this.context.Guilds
+                        .Include(g => g.Members)
+                        .SingleOrDefaultAsync(g => g.Id == character.Guild.Id);
+
+                    var guildToAdd = this.mapper.Map<GuildsAllViewModel>(guildFromDb);
+
+                    guilds.Add(guildToAdd);
+                }      
+            }
+
+            return guilds;
         }
     }
 }

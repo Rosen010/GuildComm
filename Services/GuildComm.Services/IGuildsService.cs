@@ -13,5 +13,7 @@
         Task<Guild> GetGuildAsync(string name);
 
         Task<List<GuildsAllViewModel>> GetAllGuildsAsync();
+
+        Task<List<GuildsAllViewModel>> GetUserGuildsAsync();
     }
 }

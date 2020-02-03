@@ -60,10 +60,19 @@
             var currentUser = await usersService.GetUserAsync();
 
             var characters = await context.Characters
+                .Include(c => c.Guild)
                 .Where(c => c.UserId == user.Id)
                 .ToListAsync();
 
             return characters;
+        }
+
+        public async Task RemoveCharacter(int id)
+        {
+            var character = await context.Characters.SingleOrDefaultAsync(c => c.Id == id);
+
+            this.context.Remove(character);
+            await this.context.SaveChangesAsync();
         }
     }
 }
