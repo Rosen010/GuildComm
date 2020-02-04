@@ -1,13 +1,14 @@
 ﻿namespace GuildComm.Services
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
+
     using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels.Characters;
-    using Microsoft.EntityFrameworkCore;
 
     public class CharactersService : ICharactersService
     {
@@ -42,16 +43,10 @@
             var user = await usersService.GetUserAsync();
 
             var characters = await context.Characters
+                .Include(c => c.Realm)
                 .Where(c => c.UserId == user.Id)
-                .Select(c => new CharacterViewModel
-            {
-                Id = c.Id,
-                Name = c.Name,
-                Level = c.Level,
-                ItemLevel = c.ItemLevel,
-                GuildName = c.Guild != null ? c.Guild.Name : "N/A",
-                Realm = c.Realm
-            }).ToListAsync();
+                .Select(c => this.mapper.Map<CharacterViewModel>(c))
+                .ToListAsync();
 
             return characters;
         }
@@ -74,15 +69,7 @@
                 .Include(c => c.Guild)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
-            var charModel = new CharacterDetailsViewModel
-            {
-                Name = character.Name,
-                Level = character.Level,
-                ItemLevel = character.ItemLevel,
-                Class = character.Class.ToString(),
-                Role = character.Role.ToString(),
-                GuildName = character.Guild != null ? character.Guild.Name : "N/A"
-            };
+            var charModel = this.mapper.Map<CharacterDetailsViewModel>(character);
 
             return charModel;
         }

@@ -6,6 +6,7 @@
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels;
     using GuildComm.Web.ViewModels.Characters;
+    using GuildComm.Web.ViewModels.Users;
 
     public class GuildCommProfile : Profile
     {
@@ -20,6 +21,18 @@
 
             //Character
             this.CreateMap<CharacterRegisterInputModel, Character>();
+
+            this.CreateMap<Character, CharacterViewModel>()
+                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"));
+
+            this.CreateMap<Character, CharacterDetailsViewModel>()
+                .ForMember(x => x.Class, y => y.MapFrom(s => s.Class.ToString()))
+                .ForMember(x => x.Role, y => y.MapFrom(s => s.Role.ToString()))
+                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"));
+
+            //User
+            this.CreateMap<GuildCommUser, GuildCommUserDetailsViewModel>()
+                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"));
         }
     }
 

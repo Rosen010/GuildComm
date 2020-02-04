@@ -3,9 +3,9 @@
     using GuildComm.Data;
     using GuildComm.Data.Models;
 
+    using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using System.Threading.Tasks;
 
     public class RealmsService : IRealmsService
     {

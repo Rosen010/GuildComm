@@ -2,8 +2,9 @@
 {
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels.Characters;
-    using System.Collections.Generic;
+
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     public interface ICharactersService
     {

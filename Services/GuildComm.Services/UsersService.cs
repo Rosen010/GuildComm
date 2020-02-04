@@ -5,19 +5,24 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
+    using AutoMapper;
     using GuildComm.Data;
-    using GuildComm.Web.ViewModels.Users;
     using GuildComm.Data.Models;
+    using GuildComm.Web.ViewModels.Users;
 
     public class UsersService : IUsersService
     {
         private readonly GuildCommDbContext context;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public UsersService(GuildCommDbContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IMapper mapper;
+
+        public UsersService(GuildCommDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             this.context = context;
             this.httpContextAccessor = httpContextAccessor;
+
+            this.mapper = mapper;
         }
         public async Task<GuildCommUser> GetUserAsync()
         {
@@ -36,12 +41,7 @@
             var userFromDb = await context.Users
                 .SingleOrDefaultAsync(u => u.Id == userId);
 
-            var user = new GuildCommUserDetailsViewModel
-            {
-                Username = userFromDb.UserName,
-                GuildName = userFromDb.Guild != null ? userFromDb.Guild.Name : "N/A",
-                Description = userFromDb.Description
-            };
+            var user = this.mapper.Map<GuildCommUserDetailsViewModel>(userFromDb);
 
             return user;
         }

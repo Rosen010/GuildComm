@@ -1,6 +1,7 @@
 ﻿namespace GuildComm.Web.ViewModels
 {
     using GuildComm.Data.Models;
+
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 

@@ -3,8 +3,8 @@
     using GuildComm.Services;
     using GuildComm.Web.ViewModels;
 
-    using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
 
     public class GuildsController : Controller
     {

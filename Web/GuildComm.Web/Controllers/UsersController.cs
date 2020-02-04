@@ -2,8 +2,9 @@
 {
     using GuildComm.Services;
     using GuildComm.Web.ViewModels.Users;
-    using Microsoft.AspNetCore.Mvc;
+
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
 
     public class UsersController : Controller
     {

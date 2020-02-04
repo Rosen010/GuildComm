@@ -1,8 +1,7 @@
 ﻿namespace GuildComm.Web.ViewModels.Users
 {
-    using GuildComm.Data.Models;
-    using GuildComm.Web.ViewModels.Characters;
     using System.Collections.Generic;
+    using GuildComm.Web.ViewModels.Characters;
 
     public class GuildCommUserDetailsViewModel
     {
