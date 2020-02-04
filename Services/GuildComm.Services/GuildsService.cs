@@ -45,16 +45,19 @@
 
             Guild guild = this.mapper.Map<Guild>(inputModel);
 
-            await this.context.Guilds.AddAsync(guild);
-            await this.context.SaveChangesAsync();
-
-            if (!await this.AddMemberAsync(inputModel.Character, Rank.GuildeMaster, guild))
+            if (inputModel.Realm.Guilds.Any(g => g.Name == guild.Name))
             {
-                this.context.Guilds.Remove(guild);
+                throw new InvalidOperationException();
+            }
+            else
+            {
+                await this.context.Guilds.AddAsync(guild);
                 await this.context.SaveChangesAsync();
-            }         
-        }
 
+                await this.AddMemberAsync(inputModel.Character, Rank.GuildeMaster, guild);
+            }
+        }
+           
         public async Task<Guild> GetGuildAsync(string name)
         {
             var guild = await this.context.Guilds
@@ -80,7 +83,7 @@
             return guilds;
         }
 
-        public async Task<bool> AddMemberAsync(Character character, Rank rank, Guild guild)
+        public async Task AddMemberAsync(Character character, Rank rank, Guild guild)
         {
             if (character.Realm == guild.Realm && character.Guild == null)
             {
@@ -99,12 +102,13 @@
                 this.context.Guilds.Update(guild);
                 this.context.Characters.Update(character);
                 await this.context.SaveChangesAsync();
-
-                return true;
             }
             else
             {
-                return false;
+                this.context.Guilds.Remove(guild);
+                await this.context.SaveChangesAsync();
+
+                throw new InvalidOperationException();
             }      
         }
 
@@ -126,7 +130,7 @@
                     var guildToAdd = this.mapper.Map<GuildsAllViewModel>(guildFromDb);
 
                     guilds.Add(guildToAdd);
-                }      
+                }
             }
 
             return guilds;
