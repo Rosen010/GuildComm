@@ -44,6 +44,7 @@
 
             var characters = await context.Characters
                 .Include(c => c.Realm)
+                .Include(c => c.Guild)
                 .Where(c => c.UserId == user.Id)
                 .Select(c => this.mapper.Map<CharacterViewModel>(c))
                 .ToListAsync();

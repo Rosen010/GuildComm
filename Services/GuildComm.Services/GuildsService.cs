@@ -48,7 +48,11 @@
             await this.context.Guilds.AddAsync(guild);
             await this.context.SaveChangesAsync();
 
-            await this.AddMemberAsync(inputModel.Character, Rank.GuildeMaster, guild);    
+            if (!await this.AddMemberAsync(inputModel.Character, Rank.GuildeMaster, guild))
+            {
+                this.context.Guilds.Remove(guild);
+                await this.context.SaveChangesAsync();
+            }         
         }
 
         public async Task<Guild> GetGuildAsync(string name)
@@ -76,24 +80,32 @@
             return guilds;
         }
 
-        public async Task AddMemberAsync(Character character, Rank rank, Guild guild)
+        public async Task<bool> AddMemberAsync(Character character, Rank rank, Guild guild)
         {
-            var member = new Member
+            if (character.Realm == guild.Realm && character.Guild == null)
             {
-                Character = character,
-                Guild = guild,
-                Rank = rank,
-                MemberSince = DateTime.UtcNow
-            };
+                var member = new Member
+                {
+                    Character = character,
+                    Guild = guild,
+                    Rank = rank,
+                    MemberSince = DateTime.UtcNow
+                };
 
-            character.Guild = guild;
-            guild.Members.Add(member);
+                character.Guild = guild;
+                guild.Members.Add(member);
 
-            this.context.Members.Add(member);
-            this.context.Guilds.Update(guild);
-            this.context.Characters.Update(character);
+                this.context.Members.Add(member);
+                this.context.Guilds.Update(guild);
+                this.context.Characters.Update(character);
+                await this.context.SaveChangesAsync();
 
-            await this.context.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }      
         }
 
         public async Task<List<GuildsAllViewModel>> GetUserGuildsAsync()
