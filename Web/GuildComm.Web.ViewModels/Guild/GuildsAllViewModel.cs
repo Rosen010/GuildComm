@@ -4,6 +4,8 @@
 
     public class GuildsAllViewModel
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public Realm Realm { get; set; }

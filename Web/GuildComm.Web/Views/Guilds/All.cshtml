@@ -20,12 +20,13 @@
     <tbody>
             @for (int i = 0; i < Model.Count; i++)
             {
-                <tr>
-                <th scope="row">@i</th>
-                <td>@Model[i].Name</td>
-                <td>@Model[i].Realm.Name (@Model[i].Realm.Region)</td>
-                <td>@Model[i].MembersCount</td>
-                 </tr>
+        <tr>
+            <th scope="row">@i</th>
+            <td>@Model[i].Name</td>
+            <td>@Model[i].Realm.Name (@Model[i].Realm.Region)</td>
+            <td>@Model[i].MembersCount</td>
+            <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model[i].Id">Details</a></td>
+        </tr>
             }
     </tbody>
 </table>

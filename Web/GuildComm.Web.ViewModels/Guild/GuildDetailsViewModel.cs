@@ -10,12 +10,13 @@ namespace GuildComm.Web.ViewModels.Guild
         {
             this.Characters = new List<CharacterViewModel>();
         }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 
         public string RealmName { get; set; }
 
-        public ICollection<CharacterViewModel> Characters { get; set; }
+        public IList<CharacterViewModel> Characters { get; set; }
 
         public Realm Realm { get; set; }
     }

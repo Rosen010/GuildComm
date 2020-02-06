@@ -46,6 +46,13 @@
             return this.RedirectToAction("All", "Guilds");
         }
 
+        public async Task<IActionResult> Details(string id)
+        {
+            var guild = await this.guildsService.GetGuildByIdAsync(id);
+
+            return this.View(guild);
+        }
+
         public async Task<IActionResult> All()
         {
             var guilds = await guildsService.GetAllGuildsAsync();

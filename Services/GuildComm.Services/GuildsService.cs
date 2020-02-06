@@ -12,6 +12,7 @@
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
     using GuildComm.Web.ViewModels.Guild;
+    using GuildComm.Web.ViewModels.Characters;
 
     public class GuildsService : IGuildsService
     {
@@ -66,19 +67,28 @@
             return guild;
         }
 
-        //public async Task<GuildDetailsViewModel> GetGuildByIdAsync(string id)
-        //{
-        //    var guildFromDb = await this.context.Guilds
-        //        .SingleOrDefaultAsync(g => g.Id == id);
+        public async Task<GuildDetailsViewModel> GetGuildByIdAsync(string id)
+        {
+            var guildFromDb = await this.context.Guilds
+                .Include(c => c.Realm)
+                .SingleOrDefaultAsync(g => g.Id == id);
 
-        //    var characters = this.charactersService.
-            
-        //    var guildModel = new GuildDetailsViewModel
-        //    {
-        //        Name = guildFromDb.Name,
-        //        RealmName = guildFromDb.Realm.Name
-        //    }
-        //}
+            var characters = await this.context.Characters
+                .Include(c => c.Guild)
+                .Where(c => c.GuildId == id)
+                .Select(c => this.mapper.Map<CharacterViewModel>(c))
+                .ToListAsync();
+
+            var guildModel = new GuildDetailsViewModel
+            {
+                Name = guildFromDb.Name,
+                RealmName = guildFromDb.Realm.Name,
+                Characters = characters,
+                Realm = guildFromDb.Realm
+            };
+
+            return guildModel;
+        }
 
         public async Task<List<GuildsAllViewModel>> GetAllGuildsAsync()
         {
