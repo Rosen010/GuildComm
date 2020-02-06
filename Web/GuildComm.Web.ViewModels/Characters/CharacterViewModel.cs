@@ -1,7 +1,5 @@
 ﻿namespace GuildComm.Web.ViewModels.Characters
 {
-    using GuildComm.Data.Models;
-
     public class CharacterViewModel
     {
         public int Id { get; set; }
@@ -14,6 +12,8 @@
 
         public string GuildName { get; set; }
 
-        public Realm Realm { get; set; }
+        public string RealmName { get; set; }
+
+        public string RealmRegion { get; set; }
     }
 }

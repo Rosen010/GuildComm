@@ -1,9 +1,8 @@
-﻿using GuildComm.Data.Models;
-using GuildComm.Web.ViewModels.Characters;
-using System.Collections.Generic;
-
-namespace GuildComm.Web.ViewModels.Guild
+﻿namespace GuildComm.Web.ViewModels.Guild
 {
+    using System.Collections.Generic;
+    using GuildComm.Web.ViewModels.Characters;
+
     public class GuildDetailsViewModel
     {
         public GuildDetailsViewModel()
@@ -16,8 +15,8 @@ namespace GuildComm.Web.ViewModels.Guild
 
         public string RealmName { get; set; }
 
-        public IList<CharacterViewModel> Characters { get; set; }
+        public string RealmRegion { get; set; }
 
-        public Realm Realm { get; set; }
+        public IList<CharacterViewModel> Characters { get; set; }
     }
 }

@@ -18,6 +18,6 @@
 
         public string GuildName { get; set; }
 
-        public Guild Guild { get; set; }
+        public string GuildRegion { get; set; }
     }
 }

@@ -3,16 +3,16 @@
     using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
-    using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels;
+    using GuildComm.Data.Models.Enums;
+    using GuildComm.Web.ViewModels.Guild;
+    using GuildComm.Web.ViewModels.Characters;
 
     using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using GuildComm.Web.ViewModels.Guild;
-    using GuildComm.Web.ViewModels.Characters;
 
     public class GuildsService : IGuildsService
     {
@@ -79,13 +79,7 @@
                 .Select(c => this.mapper.Map<CharacterViewModel>(c))
                 .ToListAsync();
 
-            var guildModel = new GuildDetailsViewModel
-            {
-                Name = guildFromDb.Name,
-                RealmName = guildFromDb.Realm.Name,
-                Characters = characters,
-                Realm = guildFromDb.Realm
-            };
+            var guildModel = this.mapper.Map<GuildDetailsViewModel>(guildFromDb);
 
             return guildModel;
         }
