@@ -40,14 +40,18 @@
         public async Task CreateGuildAsync(GuildCreateInputModel inputModel)
         {
             var user = await this.usersService.GetUserAsync();
-            var character = await this.charactersService.GetUserCharactersAsync(user);
+            var characters = await this.charactersService.GetUserCharactersAsync(user);
+            var realm = await realmsService.GetRealmByNameAsync(inputModel.RealmName);
 
-            inputModel.Realm = await realmsService.GetRealmByNameAsync(inputModel.RealmName);
-            inputModel.Character = character.SingleOrDefault(c => c.Name == inputModel.MasterCharacter);
+            var character = characters.SingleOrDefault(c => c.Name == inputModel.MasterCharacter);
 
-            Guild guild = this.mapper.Map<Guild>(inputModel);
+            var guild = new Guild
+            {
+                Name = inputModel.Name,
+                Realm = realm
+            };
 
-            if (inputModel.Realm.Guilds.Any(g => g.Name == guild.Name))
+            if (realm.Guilds.Any(g => g.Name == guild.Name))
             {
                 throw new InvalidOperationException();
             }
@@ -56,7 +60,7 @@
                 await this.context.Guilds.AddAsync(guild);
                 await this.context.SaveChangesAsync();
 
-                await this.AddMemberAsync(inputModel.Character, Rank.GuildeMaster, guild);
+                await this.AddMemberAsync(character, Rank.GuildeMaster, guild);
             }
         }
            

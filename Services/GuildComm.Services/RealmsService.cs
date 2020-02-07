@@ -6,19 +6,35 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
+    using GuildComm.Web.ViewModels.Realms;
+    using System.Linq;
+    using AutoMapper;
 
     public class RealmsService : IRealmsService
     {
         private readonly GuildCommDbContext context;
 
-        public RealmsService(GuildCommDbContext context)
+        private readonly IMapper mapper;
+
+        public RealmsService(GuildCommDbContext context, IMapper mapper)
         {
             this.context = context;
+
+            this.mapper = mapper;
         }
 
         public async Task<List<Realm>> GetAllRealmsAsync()
         {
             List<Realm> realms = await this.context.Realms.ToListAsync();
+            return realms;
+        }
+
+        public async Task<List<RealmViewModel>> GetAllRealmViewModelsAsync()
+        {
+            List<RealmViewModel> realms = await this.context.Realms
+                .Select(r => this.mapper.Map<RealmViewModel>(r))
+                .ToListAsync();
+
             return realms;
         }
 

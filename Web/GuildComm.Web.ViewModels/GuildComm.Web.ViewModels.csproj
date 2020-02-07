@@ -12,8 +12,4 @@
     <ProjectReference Include="..\..\Data\GuildComm.Data.Models\GuildComm.Data.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Realms\" />
-  </ItemGroup>
-
 </Project>

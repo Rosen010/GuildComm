@@ -29,7 +29,7 @@
             var user = await this.usersService.GetUserAsync();
             GuildCreateInputModel bindingModel = new GuildCreateInputModel();
 
-            bindingModel.Realms = await this.realmsService.GetAllRealmsAsync();
+            bindingModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
             bindingModel.Characters = await this.charactersService.GetUserCharactersAsync(user);
           
             return this.View(bindingModel);

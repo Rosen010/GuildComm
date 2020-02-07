@@ -8,14 +8,15 @@
     using GuildComm.Web.ViewModels.Characters;
     using GuildComm.Web.ViewModels.Users;
     using GuildComm.Web.ViewModels.Guild;
+    using GuildComm.Web.ViewModels.Realms;
 
     public class GuildCommProfile : Profile
     {
         public GuildCommProfile()
         {
             // Guild
-            this.CreateMap<GuildCreateInputModel, Guild>()
-                .ForMember(x => x.Realm, y => y.MapFrom(s => s.Realm));
+            //this.CreateMap<GuildCreateInputModel, Guild>()
+            //    .ForMember(x => x.Realm, y => y.MapFrom(s => this.user));
 
             this.CreateMap<Guild, GuildsAllViewModel>()
                 .ForMember(x => x.MembersCount, y => y.MapFrom(s => s.Members.Count()));
@@ -42,6 +43,9 @@
             //User
             this.CreateMap<GuildCommUser, GuildCommUserDetailsViewModel>()
                 .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"));
+
+            //Realm
+            this.CreateMap<Realm, RealmViewModel>();
         }
     }
 
