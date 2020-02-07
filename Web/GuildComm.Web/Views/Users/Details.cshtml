@@ -75,7 +75,7 @@
             <tr>
                 <th scope="row">@i</th>
                 <td>@Model.Guilds[i].Name</td>
-                <td>@Model.Guilds[i].Realm.Name (@Model.Guilds[i].Realm.Region)</td>
+                <td>@Model.Guilds[i].RealmName (@Model.Guilds[i].RealmRegion)</td>
                 <td>@Model.Guilds[i].MembersCount</td>
                 <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model.Guilds[i].Id">Details</a></td>
             </tr>
