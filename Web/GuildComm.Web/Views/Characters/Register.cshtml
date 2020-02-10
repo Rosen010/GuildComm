@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label asp-for="@Model.Role"></label>
                 <select class="custom-select" id="role" name="role">
-                    <option selected disabled>-- Select Role --</option>
+                    <option selected disabled value="">-- Select Role --</option>
                     <option value="DPS">DPS</option>
                     <option value="Healer">Healer</option>
                     <option value="Tank">Tank</option>
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label asp-for="@Model.Class"></label>
                 <select class="custom-select" id="class" name="class">
-                    <option selected disabled>-- Select Class --</option>
+                    <option selected disabled value="">-- Select Class --</option>
                     <option value="Warrior">Warrior</option>
                     <option value="Paladin">Paladin</option>
                     <option value="Hunter">Hunter</option>

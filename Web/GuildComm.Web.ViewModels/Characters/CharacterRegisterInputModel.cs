@@ -18,10 +18,12 @@
         public string Name { get; set; }
 
         [Required]
+        [Range(3, 10)]
         [Display(Name = "Role")]
         public Role Role { get; set; }
 
         [Required]
+        [Range(3, 20)]
         [Display(Name = "Class")]
         public Class Class { get; set; }
 

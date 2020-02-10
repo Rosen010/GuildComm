@@ -28,9 +28,13 @@
         [HttpPost]
         public async Task<IActionResult> Register(CharacterRegisterInputModel inputModel)
         {
-            await this.charactersService.CreateCharacterAsync(inputModel);
+            if (ModelState.IsValid)
+            {
+                await this.charactersService.CreateCharacterAsync(inputModel);
+                return this.RedirectToAction("Details", "Users");
+            }
 
-            return this.RedirectToAction("Details", "Users");
+            return this.View(inputModel);
         }
 
         public async Task<IActionResult> Details(int id)

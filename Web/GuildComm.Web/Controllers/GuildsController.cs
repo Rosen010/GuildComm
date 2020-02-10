@@ -27,12 +27,12 @@
         public async Task<IActionResult> Create()
         {
             var user = await this.usersService.GetUserAsync();
-            GuildCreateInputModel bindingModel = new GuildCreateInputModel();
+            GuildCreateInputModel inputModel = new GuildCreateInputModel();
 
-            bindingModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
-            bindingModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync();
+            inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
+            inputModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync();
           
-            return this.View(bindingModel);
+            return this.View(inputModel);
         }
 
         [HttpPost]
@@ -41,9 +41,10 @@
             if (this.ModelState.IsValid)
             {     
                 await this.guildsService.CreateGuildAsync(inputModel);
+                return this.RedirectToAction("All", "Guilds");
             }
 
-            return this.RedirectToAction("All", "Guilds");
+            return this.View(inputModel);
         }
 
         public async Task<IActionResult> Details(string id)
