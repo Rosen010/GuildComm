@@ -1,7 +1,8 @@
 ﻿namespace GuildComm.Web.ViewModels
 {
-    using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels.Realms;
+    using GuildComm.Web.ViewModels.Characters;
+
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -10,7 +11,7 @@
         public GuildCreateInputModel()
         {
             this.Realms = new List<RealmViewModel>();
-            this.Characters = new List<Character>();
+            this.Characters = new List<CharacterViewModel>();
         }
 
         [Required]
@@ -27,9 +28,7 @@
         public int RealmId { get; set; }
 
         public List<RealmViewModel> Realms { get; set; }
-
-        public Character Character { get; set; }
-
-        public List<Character> Characters { get; set; }
+        
+        public List<CharacterViewModel> Characters { get; set; }
     }
 }

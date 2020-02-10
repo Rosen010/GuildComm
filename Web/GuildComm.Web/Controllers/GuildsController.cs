@@ -30,7 +30,7 @@
             GuildCreateInputModel bindingModel = new GuildCreateInputModel();
 
             bindingModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
-            bindingModel.Characters = await this.charactersService.GetUserCharactersAsync(user);
+            bindingModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync();
           
             return this.View(bindingModel);
         }

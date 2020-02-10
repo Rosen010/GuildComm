@@ -20,7 +20,7 @@
         public async Task<IActionResult> Register()
         {
             CharacterRegisterInputModel inputModel = new CharacterRegisterInputModel();
-            inputModel.Realms = await this.realmsService.GetAllRealmsAsync();
+            inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
 
             return this.View(inputModel);
         }

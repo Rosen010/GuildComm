@@ -45,7 +45,8 @@
                 .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"));
 
             //Realm
-            this.CreateMap<Realm, RealmViewModel>();
+            this.CreateMap<Realm, RealmViewModel>()
+                .ForMember(x => x.Type, y => y.MapFrom(s => s.RealmType.ToString()));
         }
     }
 

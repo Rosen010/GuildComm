@@ -1,7 +1,7 @@
 ﻿namespace GuildComm.Web.ViewModels.Characters
 {
-    using GuildComm.Data.Models;
     using GuildComm.Data.Models.Enums;
+    using GuildComm.Web.ViewModels.Realms;
 
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@
     {
         public CharacterRegisterInputModel()
         {
-            this.Realms = new List<Realm>();
+            this.Realms = new List<RealmViewModel>();
         }
 
         [Required]
@@ -40,10 +40,6 @@
         [Display(Name = "RealmName")]
         public string RealmName { get; set; }
 
-        public Realm Realm { get; set; }
-
-        public List<Realm> Realms { get; set; }
-
-        public GuildCommUser User { get; set; }
+        public List<RealmViewModel> Realms { get; set; }
     }
 }

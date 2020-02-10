@@ -29,10 +29,9 @@
 
         public async Task CreateCharacterAsync(CharacterRegisterInputModel inputModel)
         {
-            inputModel.Realm = await realmsService.GetRealmByNameAsync(inputModel.RealmName);
-            inputModel.User = await usersService.GetUserAsync();
-
             var character = this.mapper.Map<Character>(inputModel);
+            character.Realm = await this.realmsService.GetRealmByNameAsync(inputModel.RealmName);
+            character.User = await usersService.GetUserAsync();
 
             await this.context.Characters.AddAsync(character);
             await this.context.SaveChangesAsync();
