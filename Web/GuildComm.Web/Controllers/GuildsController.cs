@@ -49,7 +49,7 @@
 
         public async Task<IActionResult> Details(string id)
         {
-            var guild = await this.guildsService.GetGuildByIdAsync(id);
+            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
 
             return this.View(guild);
         }

@@ -11,9 +11,9 @@
     {
         Task CreateGuildAsync(GuildCreateInputModel guild);
 
-        Task<Guild> GetGuildAsync(string name);
+        Task<Guild> GetGuildByIdAsync(string name);
 
-        Task<GuildDetailsViewModel> GetGuildByIdAsync(string id);
+        Task<GuildDetailsViewModel> GetGuildViewModelByIdAsync(string id);
 
         Task<List<GuildsAllViewModel>> GetAllGuildsAsync();
 

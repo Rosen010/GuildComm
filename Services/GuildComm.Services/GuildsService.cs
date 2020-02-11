@@ -65,14 +65,14 @@
             }
         }
            
-        public async Task<Guild> GetGuildAsync(string name)
+        public async Task<Guild> GetGuildByIdAsync(string id)
         {
             var guild = await this.context.Guilds
-                .SingleOrDefaultAsync(dbGuild => dbGuild.Name == name);
+                .SingleOrDefaultAsync(dbGuild => dbGuild.Id == id);
             return guild;
         }
 
-        public async Task<GuildDetailsViewModel> GetGuildByIdAsync(string id)
+        public async Task<GuildDetailsViewModel> GetGuildViewModelByIdAsync(string id)
         {
             var guildFromDb = await this.context.Guilds
                 .Include(c => c.Realm)
