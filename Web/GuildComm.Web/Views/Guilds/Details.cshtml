@@ -17,29 +17,31 @@
         <h4>Realm: @Model.RealmName @Model.RealmRegion</h4>
     </div>
 </div>
+<h1 class="text-center">Members</h1>
+<hr class="hr-2">
 <table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Guild</th>
+            <th scope="col">Class</th>
             <th scope="col">Level</th>
-            <th scope="col">ItemLevel</th>
-            <th scope="col">Realm</th>
+            <th scope="col">Rank</th>
+            <th scope="col">Member Since</th>
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.Characters.Count; i++)
+        @for (int i = 0; i < Model.Members.Count; i++)
         {
             <tr>
                 <th scope="row">@i</th>
-                <td>@Model.Characters[i].Name</td>
-                <td>@Model.Characters[i].GuildName</td>
-                <td>@Model.Characters[i].Level</td>
-                <td>@Model.Characters[i].ItemLevel</td>
-                <td>@Model.Characters[i].RealmName (@Model.Characters[i].RealmRegion)</td>
-                <td><a class="btn btn-outline-danger btn-sm text-danger" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Characters[i].Id">Remove</a></td>
-                <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Characters[i].Id">Details</a></td>
+                <td>@Model.Members[i].Character.Name</td>
+                <td>@Model.Members[i].Character.Class</td>
+                <td>@Model.Members[i].Character.Level</td>
+                <td>@Model.Members[i].Rank</td>
+                <td>@Model.Members[i].MemberSince</td>
+                @*<td><a class="btn btn-outline-danger btn-sm text-danger" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Members[i].Id">Remove</a></td>
+                <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Members[i].Id">Details</a></td>*@
             </tr>
         }
     </tbody>

@@ -18,12 +18,10 @@
         public string Name { get; set; }
 
         [Required]
-        [Range(3, 10)]
         [Display(Name = "Role")]
         public Role Role { get; set; }
 
         [Required]
-        [Range(3, 20)]
         [Display(Name = "Class")]
         public Class Class { get; set; }
 
@@ -38,7 +36,6 @@
         public int ItemLevel { get; set; }
 
         [Required]
-        [Range(0, 500)]
         [Display(Name = "RealmName")]
         public string RealmName { get; set; }
 

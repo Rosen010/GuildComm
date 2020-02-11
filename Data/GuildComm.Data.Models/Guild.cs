@@ -27,6 +27,8 @@
 
         public virtual Realm Realm { get; set; }
 
+        public string GuildMaster { get; set; }
+
         [NotMapped]
         public virtual ICollection<Rank> Ranks { get; set; }
 

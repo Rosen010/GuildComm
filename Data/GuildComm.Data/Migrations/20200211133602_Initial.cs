@@ -22,15 +22,18 @@ namespace GuildComm.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Guilds",
+                name: "Realms",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Region = table.Column<int>(nullable: false),
+                    RealmType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Guilds", x => x.Id);
+                    table.PrimaryKey("PK_Realms", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,46 +58,21 @@ namespace GuildComm.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "Guilds",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false),
-                    EventType = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    GuildId = table.Column<string>(nullable: true)
+                    RealmId = table.Column<int>(nullable: false),
+                    GuildMaster = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_Guilds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_Guilds_GuildId",
-                        column: x => x.GuildId,
-                        principalTable: "Guilds",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Members",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Rank = table.Column<int>(nullable: false),
-                    MemberSince = table.Column<DateTime>(nullable: false),
-                    Info = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    GuildId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Members", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Members_Guilds_GuildId",
-                        column: x => x.GuildId,
-                        principalTable: "Guilds",
+                        name: "FK_Guilds_Realms_RealmId",
+                        column: x => x.RealmId,
+                        principalTable: "Realms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -118,41 +96,39 @@ namespace GuildComm.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    IsInGuild = table.Column<bool>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    MemberId = table.Column<string>(nullable: true)
+                    GuildId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Members_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "Members",
+                        name: "FK_AspNetUsers_Guilds_GuildId",
+                        column: x => x.GuildId,
+                        principalTable: "Guilds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GuildEvents",
+                name: "Events",
                 columns: table => new
                 {
-                    ParticipantId = table.Column<string>(nullable: false),
-                    EventId = table.Column<string>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    EventType = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    GuildId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GuildEvents", x => new { x.ParticipantId, x.EventId });
+                    table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GuildEvents_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_GuildEvents_Members_ParticipantId",
-                        column: x => x.ParticipantId,
-                        principalTable: "Members",
+                        name: "FK_Events_Guilds_GuildId",
+                        column: x => x.GuildId,
+                        principalTable: "Guilds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -161,7 +137,8 @@ namespace GuildComm.Data.Migrations
                 name: "Application",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     MainCharacterName = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: true),
                     Country = table.Column<string>(nullable: true),
@@ -276,12 +253,14 @@ namespace GuildComm.Data.Migrations
                 name: "Characters",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     Role = table.Column<int>(nullable: false),
                     Class = table.Column<int>(nullable: false),
                     Level = table.Column<int>(nullable: false),
                     ItemLevel = table.Column<int>(nullable: false),
+                    RealmId = table.Column<int>(nullable: false),
                     GuildId = table.Column<string>(nullable: true),
                     MemberId = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
@@ -296,15 +275,67 @@ namespace GuildComm.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Characters_Members_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "Members",
+                        name: "FK_Characters_Realms_RealmId",
+                        column: x => x.RealmId,
+                        principalTable: "Realms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Characters_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Members",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CharacterId = table.Column<int>(nullable: false),
+                    Rank = table.Column<int>(nullable: false),
+                    MemberSince = table.Column<DateTime>(nullable: false),
+                    Info = table.Column<string>(nullable: true),
+                    GuildId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Members", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Members_Characters_CharacterId",
+                        column: x => x.CharacterId,
+                        principalTable: "Characters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Members_Guilds_GuildId",
+                        column: x => x.GuildId,
+                        principalTable: "Guilds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventParticipants",
+                columns: table => new
+                {
+                    ParticipantId = table.Column<string>(nullable: false),
+                    EventId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventParticipants", x => new { x.ParticipantId, x.EventId });
+                    table.ForeignKey(
+                        name: "FK_EventParticipants_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EventParticipants_Members_ParticipantId",
+                        column: x => x.ParticipantId,
+                        principalTable: "Members",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -347,11 +378,9 @@ namespace GuildComm.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_MemberId",
+                name: "IX_AspNetUsers_GuildId",
                 table: "AspNetUsers",
-                column: "MemberId",
-                unique: true,
-                filter: "[MemberId] IS NOT NULL");
+                column: "GuildId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -371,9 +400,9 @@ namespace GuildComm.Data.Migrations
                 column: "GuildId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Characters_MemberId",
+                name: "IX_Characters_RealmId",
                 table: "Characters",
-                column: "MemberId");
+                column: "RealmId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Characters_UserId",
@@ -381,14 +410,25 @@ namespace GuildComm.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EventParticipants_EventId",
+                table: "EventParticipants",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Events_GuildId",
                 table: "Events",
                 column: "GuildId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GuildEvents_EventId",
-                table: "GuildEvents",
-                column: "EventId");
+                name: "IX_Guilds_RealmId",
+                table: "Guilds",
+                column: "RealmId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Members_CharacterId",
+                table: "Members",
+                column: "CharacterId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Members_GuildId",
@@ -417,16 +457,10 @@ namespace GuildComm.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Characters");
-
-            migrationBuilder.DropTable(
-                name: "GuildEvents");
+                name: "EventParticipants");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Events");
@@ -435,7 +469,16 @@ namespace GuildComm.Data.Migrations
                 name: "Members");
 
             migrationBuilder.DropTable(
+                name: "Characters");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Guilds");
+
+            migrationBuilder.DropTable(
+                name: "Realms");
         }
     }
 }

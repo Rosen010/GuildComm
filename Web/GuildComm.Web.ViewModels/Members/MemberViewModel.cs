@@ -9,6 +9,6 @@
 
         public string Rank { get; set; }
 
-        public DateTime MemberSince { get; set; }
+        public string MemberSince { get; set; }
     }
 }

@@ -1,13 +1,13 @@
 ﻿namespace GuildComm.Web.ViewModels.Guild
 {
     using System.Collections.Generic;
-    using GuildComm.Web.ViewModels.Characters;
+    using GuildComm.Web.ViewModels.Members;
 
     public class GuildDetailsViewModel
     {
         public GuildDetailsViewModel()
         {
-            this.Characters = new List<CharacterViewModel>();
+            this.Members = new List<MemberViewModel>();
         }
         public string Id { get; set; }
 
@@ -17,6 +17,6 @@
 
         public string RealmRegion { get; set; }
 
-        public IList<CharacterViewModel> Characters { get; set; }
+        public IList<MemberViewModel> Members { get; set; }
     }
 }

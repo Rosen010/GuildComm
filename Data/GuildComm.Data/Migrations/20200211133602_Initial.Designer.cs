@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuildComm.Data.Migrations
 {
     [DbContext(typeof(GuildCommDbContext))]
-    [Migration("20200202115434_AddGuildPropToUser")]
-    partial class AddGuildPropToUser
+    [Migration("20200211133602_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,7 +78,7 @@ namespace GuildComm.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MemberId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -95,8 +95,6 @@ namespace GuildComm.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GuildId");
-
-                    b.HasIndex("MemberId");
 
                     b.HasIndex("RealmId");
 
@@ -154,6 +152,9 @@ namespace GuildComm.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("GuildMaster")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -198,9 +199,6 @@ namespace GuildComm.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("MemberId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -232,10 +230,6 @@ namespace GuildComm.Data.Migrations
 
                     b.HasIndex("GuildId");
 
-                    b.HasIndex("MemberId")
-                        .IsUnique()
-                        .HasFilter("[MemberId] IS NOT NULL");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -252,6 +246,9 @@ namespace GuildComm.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("int");
+
                     b.Property<string>("GuildId")
                         .HasColumnType("nvarchar(450)");
 
@@ -261,16 +258,13 @@ namespace GuildComm.Data.Migrations
                     b.Property<DateTime>("MemberSince")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Rank")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CharacterId")
+                        .IsUnique();
 
                     b.HasIndex("GuildId");
 
@@ -449,11 +443,6 @@ namespace GuildComm.Data.Migrations
                         .HasForeignKey("GuildId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("GuildComm.Data.Models.Member", "Member")
-                        .WithMany("Characters")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("GuildComm.Data.Models.Realm", "Realm")
                         .WithMany("Characters")
                         .HasForeignKey("RealmId")
@@ -503,14 +492,16 @@ namespace GuildComm.Data.Migrations
                     b.HasOne("GuildComm.Data.Models.Guild", "Guild")
                         .WithMany()
                         .HasForeignKey("GuildId");
-
-                    b.HasOne("GuildComm.Data.Models.Member", "Member")
-                        .WithOne("User")
-                        .HasForeignKey("GuildComm.Data.Models.GuildCommUser", "MemberId");
                 });
 
             modelBuilder.Entity("GuildComm.Data.Models.Member", b =>
                 {
+                    b.HasOne("GuildComm.Data.Models.Character", "Character")
+                        .WithOne("Member")
+                        .HasForeignKey("GuildComm.Data.Models.Member", "CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GuildComm.Data.Models.Guild", "Guild")
                         .WithMany("Members")
                         .HasForeignKey("GuildId")

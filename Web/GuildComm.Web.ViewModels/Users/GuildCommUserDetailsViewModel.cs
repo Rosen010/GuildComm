@@ -13,10 +13,6 @@
 
         public string Username { get; set; }
 
-        public bool IsInGuild { get; set; }
-
-        public string GuildName { get; set; }
-
         public string Description { get; set; }
 
         public List<CharacterViewModel> Characters { get; set; }

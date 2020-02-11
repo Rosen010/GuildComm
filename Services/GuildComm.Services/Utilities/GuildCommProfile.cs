@@ -9,6 +9,7 @@
     using GuildComm.Web.ViewModels.Users;
     using GuildComm.Web.ViewModels.Guild;
     using GuildComm.Web.ViewModels.Realms;
+    using GuildComm.Web.ViewModels.Members;
 
     public class GuildCommProfile : Profile
     {
@@ -41,12 +42,15 @@
                 .ForMember(x => x.GuildRegion, y => y.MapFrom(s => s.Guild != null ? s.Guild.Realm.Region.ToString() : "N/A"));
 
             //User
-            this.CreateMap<GuildCommUser, GuildCommUserDetailsViewModel>()
-                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"));
+            this.CreateMap<GuildCommUser, GuildCommUserDetailsViewModel>();
 
             //Realm
             this.CreateMap<Realm, RealmViewModel>()
                 .ForMember(x => x.Type, y => y.MapFrom(s => s.RealmType.ToString()));
+
+            //Member
+            this.CreateMap<Member, MemberViewModel>()
+                .ForMember(x => x.MemberSince, y => y.MapFrom(s => s.MemberSince.Date.ToString("dd/MM/yyyy")));
         }
     }
 

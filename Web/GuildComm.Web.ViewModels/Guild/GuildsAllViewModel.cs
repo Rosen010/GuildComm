@@ -6,6 +6,8 @@
 
         public string Name { get; set; }
 
+        public string GuildMaster { get; set; }
+
         public string RealmName { get; set; }
 
         public string RealmRegion { get; set; }
