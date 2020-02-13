@@ -19,6 +19,11 @@
 
         public async Task<IActionResult> Register()
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             CharacterRegisterInputModel inputModel = new CharacterRegisterInputModel();
             inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
 
@@ -28,6 +33,11 @@
         [HttpPost]
         public async Task<IActionResult> Register(CharacterRegisterInputModel inputModel)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             if (ModelState.IsValid)
             {
                 await this.charactersService.CreateCharacterAsync(inputModel);
@@ -39,6 +49,11 @@
 
         public async Task<IActionResult> Details(int id)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             var character = await this.charactersService.GetCharacterAsync(id);
 
             return this.View(character);
@@ -46,6 +61,11 @@
 
         public async Task<IActionResult> Remove(int id)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             await this.charactersService.RemoveCharacterAsync(id);
 
             return this.RedirectToAction("Details", "Users");

@@ -28,6 +28,7 @@
             IRealmsService realmsService, 
             ICharactersService charactersService, 
             IUsersService usersService,
+            IMembersService membersService,
             IMapper mapper)
         {
             this.context = context;
@@ -36,6 +37,7 @@
             this.realmsService = realmsService;
             this.charactersService = charactersService;
             this.usersService = usersService;
+            this.membersService = membersService;
         }
 
         public async Task CreateGuildAsync(GuildCreateInputModel inputModel)

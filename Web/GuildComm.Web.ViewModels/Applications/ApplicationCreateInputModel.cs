@@ -2,7 +2,7 @@
 
 namespace GuildComm.Web.ViewModels.Applications
 {
-    class ApplicationCreateInputModel
+    public class ApplicationCreateInputModel
     {
         [Required]
         [MaxLength(20)]

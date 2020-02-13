@@ -26,6 +26,11 @@
 
         public async Task<IActionResult> Create()
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             var user = await this.usersService.GetUserAsync();
             GuildCreateInputModel inputModel = new GuildCreateInputModel();
 
@@ -38,6 +43,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(GuildCreateInputModel inputModel)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             if (this.ModelState.IsValid)
             {     
                 await this.guildsService.CreateGuildAsync(inputModel);
@@ -49,6 +59,11 @@
 
         public async Task<IActionResult> Details(string id)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
 
             return this.View(guild);
