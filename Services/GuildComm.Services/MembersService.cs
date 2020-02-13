@@ -5,21 +5,35 @@
     using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Members;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class MemberService : IMemberService
+    public class MembersService : IMembersService
     {
         private readonly GuildCommDbContext context;
         private readonly IGuildsService guildsService;
 
-        public MemberService(GuildCommDbContext context, IGuildsService guildsService)
+        public MembersService(GuildCommDbContext context, IGuildsService guildsService)
         {
             this.context = context;
             this.guildsService = guildsService;
         }
 
-        public List<MemberViewModel> GetAllMembersViewModel(string guildId)
+        public Member CreateMember(Character character, Guild guild, Rank rank)
+        {
+            var member = new Member
+            {
+                Character = character,
+                Guild = guild,
+                Rank = rank,
+                MemberSince = DateTime.UtcNow
+            };
+
+            return member;
+        }
+
+        public async Task<List<MemberViewModel>> GetAllMembersViewModelAsync(string guildId)
         {
             throw new System.NotImplementedException();
         }

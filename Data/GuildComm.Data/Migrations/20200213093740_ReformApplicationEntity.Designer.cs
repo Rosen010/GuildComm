@@ -4,14 +4,16 @@ using GuildComm.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GuildComm.Data.Migrations
 {
     [DbContext(typeof(GuildCommDbContext))]
-    partial class GuildCommDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200213093740_ReformApplicationEntity")]
+    partial class ReformApplicationEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +58,7 @@ namespace GuildComm.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Application");
                 });
 
             modelBuilder.Entity("GuildComm.Data.Models.Character", b =>

@@ -26,6 +26,8 @@
 
         public DbSet<Realm> Realms { get; set; }
 
+        public DbSet<Application> Applications { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

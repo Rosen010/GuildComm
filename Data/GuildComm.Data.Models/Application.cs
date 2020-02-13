@@ -8,7 +8,7 @@
     {
         public int Id { get; set; }
 
-        public string MainCharacterName { get; set; }
+        public string CharacterName { get; set; }
 
         public int? Age { get; set; }
 
@@ -17,6 +17,8 @@
         public Role Role { get; set; }
 
         public string Experience { get; set; }
+
+        public string ArmoryLink { get; set; }
 
         public string UserId { get; set; }
 

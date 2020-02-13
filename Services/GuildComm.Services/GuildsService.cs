@@ -6,13 +6,13 @@
     using GuildComm.Web.ViewModels;
     using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Guild;
+    using GuildComm.Web.ViewModels.Members;
 
     using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using GuildComm.Web.ViewModels.Members;
 
     public class GuildsService : IGuildsService
     {
@@ -20,6 +20,7 @@
         private readonly IRealmsService realmsService;
         private readonly ICharactersService charactersService;
         private readonly IUsersService usersService;
+        private readonly IMembersService membersService;
 
         private readonly IMapper mapper;
 
@@ -112,13 +113,7 @@
         {
             if (character.Realm == guild.Realm && character.Guild == null)
             {
-                var member = new Member
-                {
-                    Character = character,
-                    Guild = guild,
-                    Rank = rank,
-                    MemberSince = DateTime.UtcNow
-                };
+                var member = this.membersService.CreateMember(character, guild, rank);
 
                 character.Guild = guild;
                 guild.Members.Add(member);
