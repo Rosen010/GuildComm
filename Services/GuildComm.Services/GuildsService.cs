@@ -20,7 +20,7 @@
         private readonly IRealmsService realmsService;
         private readonly ICharactersService charactersService;
         private readonly IUsersService usersService;
-        private readonly IMembersService membersService;
+        //private readonly IMembersService membersService;
 
         private readonly IMapper mapper;
 
@@ -28,7 +28,7 @@
             IRealmsService realmsService, 
             ICharactersService charactersService, 
             IUsersService usersService,
-            IMembersService membersService,
+            //IMembersService membersService,
             IMapper mapper)
         {
             this.context = context;
@@ -37,7 +37,7 @@
             this.realmsService = realmsService;
             this.charactersService = charactersService;
             this.usersService = usersService;
-            this.membersService = membersService;
+            //this.membersService = membersService;
         }
 
         public async Task CreateGuildAsync(GuildCreateInputModel inputModel)
@@ -115,7 +115,13 @@
         {
             if (character.Realm == guild.Realm && character.Guild == null)
             {
-                var member = this.membersService.CreateMember(character, guild, rank);
+                var member = new Member
+                {
+                    Character = character,
+                    Guild = guild,
+                    Rank = rank,
+                    MemberSince = DateTime.UtcNow
+                };
 
                 character.Guild = guild;
                 guild.Members.Add(member);
@@ -156,6 +162,14 @@
             }
 
             return guilds;
+        }
+
+        public async Task RemoveGuildAsync(string id)
+        {
+            var guild = await GetGuildByIdAsync(id);
+
+            context.Guilds.Remove(guild);
+            context.SaveChanges();
         }
     }
 }

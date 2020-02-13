@@ -75,5 +75,11 @@
 
             return this.View(guilds);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Disband(string id)
+        //{
+
+        //}
     }
 }
