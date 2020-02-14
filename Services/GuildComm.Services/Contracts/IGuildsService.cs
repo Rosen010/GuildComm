@@ -19,6 +19,8 @@
 
         Task<List<GuildsAllViewModel>> GetUserGuildsAsync();
 
+        Task<bool> IsUserInTargetGuild(string guildId);
+
         Task RemoveGuildAsync(string id);
     }
 }

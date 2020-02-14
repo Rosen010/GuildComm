@@ -6,6 +6,7 @@ namespace GuildComm.Web.ViewModels.Applications
     {
         [Required]
         [MaxLength(20)]
+        [Display(Name = "Character Name")]
         public string CharacterName { get; set; }
 
         public int? Age { get; set; }
@@ -22,6 +23,7 @@ namespace GuildComm.Web.ViewModels.Applications
         public string Experience { get; set; }
 
         [Required]
+        [Display(Name = "Armory Link")]
         public string ArmoryLink { get; set; }
 
         public string UserId { get; set; }

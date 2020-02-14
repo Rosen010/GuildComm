@@ -5,5 +5,55 @@
     ViewData["Title"] = "Apply";
 }
 
-<h1>Apply</h1>
+
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+            <form method="post">
+                <h2>Please fill out your application</h2>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.CharacterName"></label>
+                    <input asp-for="@Model.CharacterName" class="form-control" />
+                    <span asp-validation-for="@Model.CharacterName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Age"></label>
+                    <input asp-for="@Model.Age" class="form-control" />
+                    <span asp-validation-for="@Model.Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Country"></label>
+                    <input asp-for="@Model.Country" class="form-control" />
+                    <span asp-validation-for="@Model.Country" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Role"></label>
+                    <select class="custom-select" id="role" name="role">
+                        <option selected disabled value="">-- Select Role --</option>
+                        <option value="DPS">DPS</option>
+                        <option value="Healer">Healer</option>
+                        <option value="Tank">Tank</option>
+                    </select>
+                    <span asp-validation-for="@Model.Role" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Experience"></label>
+                    <textarea asp-for="@Model.Experience" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="@Model.Experience" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.ArmoryLink"></label>
+                    <input asp-for="@Model.ArmoryLink" class="form-control" />
+                    <span asp-validation-for="@Model.ArmoryLink" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Country"></label>
+                    <input asp-for="@Model.Country" class="form-control" />
+                    <span asp-validation-for="@Model.Country" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+        </div>
+    </div>
 

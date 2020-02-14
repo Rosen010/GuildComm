@@ -164,6 +164,17 @@
             return guilds;
         }
 
+        public async Task<bool> IsUserInTargetGuild(string guildId)
+        {
+            var user = await this.usersService.GetUserAsync();
+
+            return this.context.Characters
+                .Include(c => c.Guild)
+                .Include(c => c.User)
+                .Where(c => c.User.UserName == user.UserName)
+                .Any(c => c.GuildId == guildId);
+        }
+
         public async Task RemoveGuildAsync(string id)
         {
             var guild = await GetGuildByIdAsync(id);
