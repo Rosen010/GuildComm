@@ -76,10 +76,16 @@
             return this.View(guilds);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Disband(string id)
-        //{
+        public async Task<IActionResult> Disband(string id)
+        {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
 
-        //}
+            await this.guildsService.RemoveGuildAsync(id);
+
+            return this.RedirectToAction("All", "Guilds");
+        }
     }
 }

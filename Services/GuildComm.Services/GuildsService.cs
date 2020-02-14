@@ -168,8 +168,29 @@
         {
             var guild = await GetGuildByIdAsync(id);
 
+            var characters = this.context.Characters
+                .Include(c => c.Guild)
+                .Where(c => c.GuildId == id)
+                .ToList();
+
+            var members = this.context.Members
+                .Include(m => m.Guild)
+                .Where(m => m.GuildId == id)
+                .ToList();
+
+            foreach (var character in characters)
+            {
+                character.Guild = null;
+                this.context.Characters.Update(character);
+            }
+
+            foreach (var member in members)
+            {
+                this.context.Remove(member);
+            }
+
             context.Guilds.Remove(guild);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

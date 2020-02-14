@@ -18,5 +18,7 @@
         Task<List<GuildsAllViewModel>> GetAllGuildsAsync();
 
         Task<List<GuildsAllViewModel>> GetUserGuildsAsync();
+
+        Task RemoveGuildAsync(string id);
     }
 }
