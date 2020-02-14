@@ -24,6 +24,7 @@
 
             this.mapper = mapper;
         }
+
         public async Task<GuildCommUser> GetUserAsync()
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;

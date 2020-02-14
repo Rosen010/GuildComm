@@ -2,13 +2,13 @@
 {
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Web.ViewModels.Realms;
 
+    using AutoMapper;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using GuildComm.Web.ViewModels.Realms;
-    using System.Linq;
-    using AutoMapper;
 
     public class RealmsService : IRealmsService
     {

@@ -4,20 +4,19 @@
     using GuildComm.Data.Models;
     using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Members;
-    using Microsoft.EntityFrameworkCore;
+
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
 
     public class MembersService : IMembersService
     {
         private readonly GuildCommDbContext context;
-        private readonly IGuildsService guildsService;
 
-        public MembersService(GuildCommDbContext context, IGuildsService guildsService)
+        public MembersService(GuildCommDbContext context)
         {
             this.context = context;
-            this.guildsService = guildsService;
         }
 
         public Member CreateMember(Character character, Guild guild, Rank rank)
@@ -47,7 +46,8 @@
         public async Task<bool> IsMemberAuthorizedAsync(string memberId, string guildId)
         {
             var member = await this.GetMemberByIdAsync(memberId);
-            var guild = await this.guildsService.GetGuildByIdAsync(guildId);
+            var guild = await this.context.Guilds
+                .SingleOrDefaultAsync(dbGuild => dbGuild.Id == guildId);
 
             return member.Guild == guild && (member.Rank == Rank.GuildeMaster || member.Rank == Rank.Officer);
         }

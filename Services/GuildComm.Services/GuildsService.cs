@@ -17,34 +17,31 @@
     public class GuildsService : IGuildsService
     {
         private readonly GuildCommDbContext context;
-        private readonly IRealmsService realmsService;
-        private readonly ICharactersService charactersService;
         private readonly IUsersService usersService;
-        //private readonly IMembersService membersService;
 
         private readonly IMapper mapper;
 
-        public GuildsService(GuildCommDbContext context, 
-            IRealmsService realmsService, 
-            ICharactersService charactersService, 
+        public GuildsService(GuildCommDbContext context,
             IUsersService usersService,
-            //IMembersService membersService,
             IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
 
-            this.realmsService = realmsService;
-            this.charactersService = charactersService;
             this.usersService = usersService;
-            //this.membersService = membersService;
         }
 
         public async Task CreateGuildAsync(GuildCreateInputModel inputModel)
         {
             var user = await this.usersService.GetUserAsync();
-            var characters = await this.charactersService.GetUserCharactersAsync(user);
-            var realm = await realmsService.GetRealmByNameAsync(inputModel.RealmName);
+
+            var characters = await context.Characters
+                .Include(c => c.Guild)
+                .Where(c => c.UserId == user.Id)
+                .ToListAsync();
+
+            var realm = await this.context.Realms
+                .SingleOrDefaultAsync(dbRealm => dbRealm.Name == inputModel.RealmName);
 
             var character = characters.SingleOrDefault(c => c.Name == inputModel.MasterCharacter);
 
@@ -143,7 +140,10 @@
         public async Task<List<GuildsAllViewModel>> GetUserGuildsAsync()
         {
             var user = await this.usersService.GetUserAsync();
-            var characters = await this.charactersService.GetUserCharactersAsync(user);
+            var characters = await context.Characters
+                .Include(c => c.Guild)
+                .Where(c => c.UserId == user.Id)
+                .ToListAsync();
 
             var guilds = new List<GuildsAllViewModel>();
 

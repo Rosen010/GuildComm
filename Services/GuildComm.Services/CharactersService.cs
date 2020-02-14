@@ -14,23 +14,20 @@
     {
         private readonly GuildCommDbContext context;
         private readonly IUsersService usersService;
-        private readonly IRealmsService realmsService;
 
         private readonly IMapper mapper;
 
-        public CharactersService(GuildCommDbContext context, IUsersService usersService, IRealmsService realmsService, 
-            IMapper mapper)
+        public CharactersService(GuildCommDbContext context, IUsersService usersService, IMapper mapper)
         {
             this.context = context;
             this.usersService = usersService;
-            this.realmsService = realmsService;
             this.mapper = mapper;
         }
 
         public async Task CreateCharacterAsync(CharacterRegisterInputModel inputModel)
         {
             var character = this.mapper.Map<Character>(inputModel);
-            character.Realm = await this.realmsService.GetRealmByNameAsync(inputModel.RealmName);
+            character.Realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Name == inputModel.RealmName);
             character.User = await usersService.GetUserAsync();
 
             await this.context.Characters.AddAsync(character);

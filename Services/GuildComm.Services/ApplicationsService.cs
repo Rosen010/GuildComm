@@ -4,6 +4,7 @@
     using GuildComm.Data.Models;
     using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Applications;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Threading.Tasks;
 
@@ -11,17 +12,21 @@
     {
         private readonly GuildCommDbContext context;
         private readonly IUsersService usersService;
-        private readonly IGuildsService guildsService;
 
-        public ApplicationsService(GuildCommDbContext context, IUsersService usersService, IGuildsService guildsService)
+        public ApplicationsService(GuildCommDbContext context,
+            IUsersService usersService)
         {
             this.context = context;
             this.usersService = usersService;
-            this.guildsService = guildsService;
         }
 
         public async Task CreateApplicationAsync(ApplicationCreateInputModel inputModel)
         {
+            var user = await this.usersService.GetUserAsync();
+
+            var guild = await this.context.Guilds
+                .SingleOrDefaultAsync(dbGuild => dbGuild.Id == inputModel.GuildId);
+
             var application = new Application
             {
                 CharacterName = inputModel.CharacterName,
@@ -30,8 +35,8 @@
                 Role = (Role)(Enum.Parse(typeof(Role), inputModel.Role)),
                 Experience = inputModel.Experience,
                 ArmoryLink = inputModel.ArmoryLink,
-                User = await this.usersService.GetUserAsync(),
-                Guild = await this.guildsService.GetGuildByIdAsync(inputModel.GuildId)
+                User = user,
+                Guild = guild
             };
 
             await this.context.Applications.AddAsync(application);
