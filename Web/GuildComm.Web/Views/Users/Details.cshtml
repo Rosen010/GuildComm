@@ -78,7 +78,7 @@
 
                 @if (Model.Characters.Any(c => c.Name == Model.Guilds[i].GuildMaster))
                 {
-                    <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model.Guilds[i].Id">Manage</a></td>
+                    <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Guilds" asp-action="Manage" asp-route-id="@Model.Guilds[i].Id">Manage</a></td>
                 }
 
             </tr>

@@ -13,13 +13,15 @@
 
         Task<Guild> GetGuildByIdAsync(string name);
 
-        Task<GuildDetailsViewModel> GetGuildViewModelByIdAsync(string id);
+        Task<T> GetGuildViewModelByIdAsync<T>(string id);
 
         Task<List<GuildsAllViewModel>> GetAllGuildsAsync();
 
         Task<List<GuildsAllViewModel>> GetUserGuildsAsync();
 
         Task<bool> IsUserInTargetGuild(string guildId);
+
+        Task<bool> IsUserAuthorized(string guildId);
 
         Task RemoveGuildAsync(string id);
     }

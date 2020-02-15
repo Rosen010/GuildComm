@@ -27,6 +27,11 @@
                 .ForMember(x => x.RealmName, y => y.MapFrom(s => s.Realm.Name))
                 .ForMember(x => x.RealmRegion, y => y.MapFrom(s => s.Realm.Region.ToString()));
 
+            this.CreateMap<Guild, GuildManageViewModel>()
+                .ForMember(x => x.Name, y => y.MapFrom(s => s.Name))
+                .ForMember(x => x.RealmName, y => y.MapFrom(s => s.Realm.Name))
+                .ForMember(x => x.RealmRegion, y => y.MapFrom(s => s.Realm.Region.ToString()));
+
             //Character
             this.CreateMap<CharacterRegisterInputModel, Character>();
 

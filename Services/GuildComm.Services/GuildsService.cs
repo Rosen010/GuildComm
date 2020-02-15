@@ -72,7 +72,7 @@
             return guild;
         }
 
-        public async Task<GuildDetailsViewModel> GetGuildViewModelByIdAsync(string id)
+        public async Task<T> GetGuildViewModelByIdAsync<T>(string id)
         {
             var guildFromDb = await this.context.Guilds
                 .Include(c => c.Realm)
@@ -85,7 +85,7 @@
                 .Select(c => this.mapper.Map<MemberViewModel>(c))
                 .ToListAsync();
 
-            var guildModel = this.mapper.Map<GuildDetailsViewModel>(guildFromDb);
+            var guildModel = this.mapper.Map<T>(guildFromDb);
 
             return guildModel;
         }
@@ -202,6 +202,16 @@
 
             context.Guilds.Remove(guild);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsUserAuthorized(string guildId)
+        {
+            var user = await this.usersService.GetUserAsync();
+            var guild = await this.context.Guilds
+                .Where(g => g.Id == guildId)
+                .SingleOrDefaultAsync();
+
+            return user.Characters.Any(c => c.Name == guild.GuildMaster);            
         }
     }
 }

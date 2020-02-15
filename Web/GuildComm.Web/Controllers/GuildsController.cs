@@ -2,6 +2,7 @@
 {
     using GuildComm.Services;
     using GuildComm.Web.ViewModels;
+    using GuildComm.Web.ViewModels.Guild;
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
@@ -64,7 +65,7 @@
                 return this.Redirect("/Identity/Account/Login");
             }
 
-            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
+            var guild = await this.guildsService.GetGuildViewModelByIdAsync<GuildDetailsViewModel>(id);
 
             return this.View(guild);
         }
@@ -86,6 +87,18 @@
             await this.guildsService.RemoveGuildAsync(id);
 
             return this.RedirectToAction("All", "Guilds");
+        }
+
+        public async Task<IActionResult> Manage(string id)
+        {
+            if (!await this.guildsService.IsUserAuthorized(id))
+            {
+                return this.Redirect("/Guilds/All");
+            }
+
+            var guildModel = await this.guildsService.GetGuildViewModelByIdAsync<GuildManageViewModel>(id);
+
+            return this.View(guildModel);
         }
     }
 }
