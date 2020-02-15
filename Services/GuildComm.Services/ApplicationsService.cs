@@ -6,6 +6,8 @@
     using GuildComm.Web.ViewModels.Applications;
     using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class ApplicationsService : IApplicationsService
@@ -41,6 +43,27 @@
 
             await this.context.Applications.AddAsync(application);
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<List<ApplicationViewModel>> GetAllGuildApplications(string guildId)
+        {
+            var applications = await this.context.Applications
+                .Include(a => a.Guild)
+                .Where(a => a.GuildId == guildId)
+                .Select(a => new ApplicationViewModel
+                {
+                    Id = a.Id,
+                    CharacterName = a.CharacterName,
+                    Country = a.Country,
+                    Age = a.Age,
+                    Experience = a.Experience,
+                    ArmoryLink = a.ArmoryLink,
+                    Role = a.Role.ToString(),
+                    GuildId = guildId
+                })
+                .ToListAsync();
+
+            return applications;
         }
     }
 }

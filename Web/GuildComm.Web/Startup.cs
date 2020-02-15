@@ -61,6 +61,7 @@ namespace GuildComm.Web
             services.AddTransient<IGuildsService, GuildsService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICharactersService, CharactersService>();
+            services.AddTransient<IApplicationsService, ApplicationsService>();
             
             services.AddSingleton(this.Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
