@@ -28,15 +28,32 @@
                 return this.Redirect("/Identity/Account/Login");
             }
 
-            return this.View();
+            var inputModel = new ApplicationCreateInputModel
+            {
+                GuildId = id
+            };
+
+            return this.View(inputModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Apply(ApplicationCreateInputModel inputModel)
         {
-            await this.applicationsService.CreateApplicationAsync(inputModel);
+            if (this.ModelState.IsValid)
+            {
+                await this.applicationsService.CreateApplicationAsync(inputModel);
 
-            return this.Redirect("/Guilds/All");
+                return this.Redirect("/Guilds/All");
+            }
+
+            return this.View();
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var application = await this.applicationsService.GetApplicationByIdAsync(id);
+
+            return this.View(application);
         }
 
         public async Task<IActionResult> All(string guildId)
@@ -44,6 +61,13 @@
             var applicationModels = await this.applicationsService.GetAllGuildApplications(guildId);
 
             return this.View(applicationModels);
+        }
+
+        public async Task<IActionResult> Dismiss(int id)
+        {
+            await this.applicationsService.Dismiss(id);
+
+            return this.Redirect("/Applications/All");
         }
     }
 }

@@ -5,7 +5,6 @@
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels;
     using GuildComm.Data.Models.Enums;
-    using GuildComm.Web.ViewModels.Guild;
     using GuildComm.Web.ViewModels.Members;
 
     using System;
@@ -61,7 +60,7 @@
                 await this.context.Guilds.AddAsync(guild);
                 await this.context.SaveChangesAsync();
 
-                await this.AddMemberAsync(character, Rank.GuildeMaster, guild);
+                await this.AddMemberAsync(character, "GuildeMaster", guild);
             }
         }
            
@@ -108,7 +107,7 @@
             return guilds;
         }
 
-        public async Task AddMemberAsync(Character character, Rank rank, Guild guild)
+        public async Task AddMemberAsync(Character character, string rank, Guild guild)
         {
             if (character.Realm == guild.Realm && character.Guild == null)
             {
@@ -116,7 +115,7 @@
                 {
                     Character = character,
                     Guild = guild,
-                    Rank = rank,
+                    Rank = (Rank)(Enum.Parse(typeof(Rank), rank)),
                     MemberSince = DateTime.UtcNow
                 };
 

@@ -12,8 +12,6 @@
 
         Task<Member> GetMemberByIdAsync(string id);
 
-        Task<List<MemberViewModel>> GetAllMembersViewModelAsync(string guildId);
-
         Task<bool> IsMemberAuthorizedAsync(string memberId, string guildId);
     }
 }

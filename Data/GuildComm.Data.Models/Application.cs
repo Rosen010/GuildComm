@@ -20,12 +20,12 @@
 
         public string ArmoryLink { get; set; }
 
-        public string UserId { get; set; }
-
-        public virtual GuildCommUser User { get; set; }
-
         public string GuildId { get; set; }
 
         public virtual Guild Guild { get; set; }
+
+        public int CharacterId { get; set; }
+
+        public virtual Character Character { get; set; }
     }
 }

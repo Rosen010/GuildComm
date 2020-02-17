@@ -6,6 +6,7 @@
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using GuildComm.Web.ViewModels.Applications;
 
     public class GuildsController : Controller
     {
@@ -13,6 +14,7 @@
         private readonly IGuildsService guildsService;
         private readonly ICharactersService charactersService;
         private readonly IUsersService usersService;
+        private readonly IApplicationsService applicationsService;
 
         public GuildsController(IRealmsService realmsService, 
             IGuildsService guildsService, 
@@ -100,5 +102,12 @@
 
             return this.View(guildModel);
         }
+
+        //public async Task<IActionResult> AddMember(int id)
+        //{
+        //    var application = await this.applicationsService.GetApplicationByIdAsync(id);
+
+
+        //}
     }
 }

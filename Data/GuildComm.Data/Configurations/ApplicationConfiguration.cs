@@ -15,9 +15,9 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(a => a.User)
+                .HasOne(a => a.Character)
                 .WithMany(u => u.Applications)
-                .HasForeignKey(a => a.UserId)
+                .HasForeignKey(a => a.CharacterId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -3,9 +3,15 @@
     using Enums;
 
     using System;
+    using System.Collections.Generic;
 
     public class Character
     {
+        public Character()
+        {
+            this.Applications = new HashSet<Application>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -33,5 +39,7 @@
         public string UserId { get; set; }
 
         public virtual GuildCommUser User { get; set; }
+
+        public ICollection<Application> Applications { get; set; }
     }
 }

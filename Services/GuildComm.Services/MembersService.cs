@@ -32,11 +32,6 @@
             return member;
         }
 
-        public async Task<List<MemberViewModel>> GetAllMembersViewModelAsync(string guildId)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<Member> GetMemberByIdAsync(string id)
         {
             var member = await this.context.Members.SingleOrDefaultAsync(m => m.Id == id);

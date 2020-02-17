@@ -26,9 +26,8 @@ namespace GuildComm.Web.ViewModels.Applications
         [Display(Name = "Armory Link")]
         public string ArmoryLink { get; set; }
 
-        public string UserId { get; set; }
-
         public string GuildId { get; set; }
 
+        public int CharacterId { get; set; }
     }
 }
