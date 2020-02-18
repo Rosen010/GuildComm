@@ -9,6 +9,8 @@
 
     public interface IGuildsService
     {
+        Task AddMemberAsync(int characterId, string rank, string guildId);
+
         Task CreateGuildAsync(GuildCreateInputModel guild);
 
         Task<Guild> GetGuildByIdAsync(string name);

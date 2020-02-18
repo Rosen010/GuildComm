@@ -9,12 +9,9 @@
         public GuildCommUser()
         {
             this.Characters = new HashSet<Character>();
-            this.Applications = new HashSet<Application>();
         }
 
         public virtual ICollection<Character> Characters { get; set; }
-
-        public virtual ICollection<Application> Applications { get; set; }
       
         public string Description { get; set; }
 

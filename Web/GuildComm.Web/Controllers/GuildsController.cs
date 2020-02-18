@@ -19,12 +19,14 @@
         public GuildsController(IRealmsService realmsService, 
             IGuildsService guildsService, 
             ICharactersService charactersService,
-            IUsersService usersService)
+            IUsersService usersService,
+            IApplicationsService applicationsService)
         {
             this.realmsService = realmsService;
             this.guildsService = guildsService;
             this.charactersService = charactersService;
             this.usersService = usersService;
+            this.applicationsService = applicationsService;
         }
 
         public async Task<IActionResult> Create()
@@ -103,11 +105,14 @@
             return this.View(guildModel);
         }
 
-        //public async Task<IActionResult> AddMember(int id)
-        //{
-        //    var application = await this.applicationsService.GetApplicationByIdAsync(id);
+        public async Task<IActionResult> AddMember(int id)
+        {
+            var application = await this.applicationsService.GetApplicationByIdAsync(id);
 
+            await this.guildsService.AddMemberAsync(application.CharacterId, "Trial", application.GuildId);
+            await this.applicationsService.Dismiss(id);
 
-        //}
+            return this.Redirect("/Guilds/All");
+        }
     }
 }

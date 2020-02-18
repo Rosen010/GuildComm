@@ -62,9 +62,10 @@
                     Role = a.Role.ToString(),
                     Experience = a.Experience,
                     ArmoryLink = a.ArmoryLink,
-                    GuildId = a.GuildId
+                    GuildId = a.GuildId,
+                    CharacterId = a.CharacterId
                 })
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync();    
 
             return application;
         }

@@ -60,7 +60,7 @@
                 await this.context.Guilds.AddAsync(guild);
                 await this.context.SaveChangesAsync();
 
-                await this.AddMemberAsync(character, "GuildeMaster", guild);
+                await this.AddMemberAsync(character.Id, "GuildeMaster", guild.Id);
             }
         }
            
@@ -107,8 +107,14 @@
             return guilds;
         }
 
-        public async Task AddMemberAsync(Character character, string rank, Guild guild)
+        public async Task AddMemberAsync(int characterId, string rank, string guildId)
         {
+            var character = await this.context.Characters
+                .Include(c => c.Realm)
+                .SingleOrDefaultAsync(c => c.Id == characterId);
+
+            var guild = await this.context.Guilds.SingleOrDefaultAsync(g => g.Id == guildId);
+
             if (character.Realm == guild.Realm && character.Guild == null)
             {
                 var member = new Member
