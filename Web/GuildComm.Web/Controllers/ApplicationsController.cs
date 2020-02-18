@@ -56,9 +56,9 @@
             return this.View(application);
         }
 
-        public async Task<IActionResult> All(string guildId)
+        public async Task<IActionResult> All(string id)
         {
-            var applicationModels = await this.applicationsService.GetAllGuildApplications(guildId);
+            var applicationModels = await this.applicationsService.GetAllGuildApplications(id);
 
             return this.View(applicationModels);
         }

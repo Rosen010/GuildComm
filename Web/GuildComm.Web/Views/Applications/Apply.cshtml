@@ -47,11 +47,12 @@
                     <input asp-for="@Model.ArmoryLink" class="form-control" />
                     <span asp-validation-for="@Model.ArmoryLink" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="@Model.Country"></label>
-                    <input asp-for="@Model.Country" class="form-control" />
-                    <span asp-validation-for="@Model.Country" class="text-danger"></span>
+                <div class="form-group" style="display: none">
+                    <label asp-for="@Model.GuildId"></label>
+                    <input asp-for="@Model.GuildId" value="@Model.GuildId" class="form-control" />
+                    <span asp-validation-for="@Model.GuildId" class="text-danger"></span>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Apply</button>
             </form>
         </div>
