@@ -6,7 +6,6 @@
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using GuildComm.Web.ViewModels.Applications;
 
     public class GuildsController : Controller
     {
@@ -88,6 +87,11 @@
                 return this.Redirect("/Identity/Account/Login");
             }
 
+            if (!await this.guildsService.IsUserAuthorized(id))
+            {
+                return this.Redirect("/Guilds/All");
+            }
+
             await this.guildsService.RemoveGuildAsync(id);
 
             return this.RedirectToAction("All", "Guilds");
@@ -108,6 +112,11 @@
         public async Task<IActionResult> AddMember(int id)
         {
             var application = await this.applicationsService.GetApplicationByIdAsync(id);
+
+            if (!await this.guildsService.IsUserAuthorized(application.GuildId))
+            {
+                return this.Redirect("/Guilds/All");
+            }
 
             await this.guildsService.AddMemberAsync(application.CharacterId, "Trial", application.GuildId);
             await this.applicationsService.Dismiss(id);

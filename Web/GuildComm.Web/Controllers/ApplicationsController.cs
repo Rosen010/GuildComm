@@ -39,6 +39,11 @@
         [HttpPost]
         public async Task<IActionResult> Apply(ApplicationCreateInputModel inputModel)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             if (this.ModelState.IsValid)
             {
                 await this.applicationsService.CreateApplicationAsync(inputModel);
@@ -51,13 +56,33 @@
 
         public async Task<IActionResult> Details(int id)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             var application = await this.applicationsService.GetApplicationByIdAsync(id);
+
+            if (!await this.guildsService.IsUserAuthorized(application.GuildId))
+            {
+                return this.Redirect("/Guilds/All");
+            }
 
             return this.View(application);
         }
 
         public async Task<IActionResult> All(string id)
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
+            if (!await this.guildsService.IsUserAuthorized(id))
+            {
+                return this.Redirect("/Guilds/All");
+            }
+
             var applicationModels = await this.applicationsService.GetAllGuildApplications(id);
 
             return this.View(applicationModels);
