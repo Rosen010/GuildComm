@@ -16,7 +16,9 @@ namespace GuildComm.Web
     using Microsoft.Extensions.DependencyInjection;
 
     using AutoMapper;
+    using System.Web.Mvc;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
 
     public class Startup
     {
@@ -69,6 +71,7 @@ namespace GuildComm.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,6 +6,7 @@
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using X.PagedList;
 
     public class GuildsController : Controller
     {
@@ -73,11 +74,14 @@
             return this.View(guild);
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int? page)
         {
             var guilds = await guildsService.GetAllGuildsAsync();
 
-            return this.View(guilds);
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return this.View(guilds.ToPagedList(pageNumber, pageSize));
         }
 
         public async Task<IActionResult> Disband(string id)
