@@ -23,12 +23,6 @@
             this.mapper = mapper;
         }
 
-        public async Task<List<Realm>> GetAllRealmsAsync()
-        {
-            List<Realm> realms = await this.context.Realms.ToListAsync();
-            return realms;
-        }
-
         public async Task<List<RealmViewModel>> GetAllRealmViewModelsAsync()
         {
             List<RealmViewModel> realms = await this.context.Realms

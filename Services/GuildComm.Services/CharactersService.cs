@@ -34,7 +34,7 @@
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<List<CharacterViewModel>> GetUserCharactersViewModelAsync()
+        public async Task<List<T>> GetUserCharactersViewModelAsync<T>()
         {
             var user = await usersService.GetUserAsync();
 
@@ -42,31 +42,19 @@
                 .Include(c => c.Realm)
                 .Include(c => c.Guild)
                 .Where(c => c.UserId == user.Id)
-                .Select(c => this.mapper.Map<CharacterViewModel>(c))
+                .Select(c => this.mapper.Map<T>(c))
                 .ToListAsync();
 
             return characters;
         }
 
-        public async Task<List<Character>> GetUserCharactersAsync(GuildCommUser user)
-        {
-            var currentUser = await usersService.GetUserAsync();
-
-            var characters = await context.Characters
-                .Include(c => c.Guild)
-                .Where(c => c.UserId == user.Id)
-                .ToListAsync();
-
-            return characters;
-        }
-
-        public async Task<CharacterDetailsViewModel> GetCharacterAsync(int id)
+        public async Task<T> GetCharacterAsync<T>(int id)
         {
             var character = await context.Characters
                 .Include(c => c.Guild)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
-            var charModel = this.mapper.Map<CharacterDetailsViewModel>(character);
+            var charModel = this.mapper.Map<T>(character);
 
             return charModel;
         }

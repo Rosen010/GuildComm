@@ -6,7 +6,7 @@
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using X.PagedList;
+    using GuildComm.Web.ViewModels.Characters;
 
     public class GuildsController : Controller
     {
@@ -40,7 +40,7 @@
             GuildCreateInputModel inputModel = new GuildCreateInputModel();
 
             inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
-            inputModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync();
+            inputModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync<CharacterViewModel>();
           
             return this.View(inputModel);
         }
@@ -74,14 +74,11 @@
             return this.View(guild);
         }
 
-        public async Task<IActionResult> All(int? page)
+        public async Task<IActionResult> All()
         {
             var guilds = await guildsService.GetAllGuildsAsync();
 
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-
-            return this.View(guilds.ToPagedList(pageNumber, pageSize));
+            return this.View(guilds);
         }
 
         public async Task<IActionResult> Disband(string id)

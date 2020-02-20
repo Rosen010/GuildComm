@@ -54,7 +54,7 @@
                 return this.Redirect("/Identity/Account/Login");
             }
 
-            var character = await this.charactersService.GetCharacterAsync(id);
+            var character = await this.charactersService.GetCharacterAsync<CharacterDetailsViewModel>(id);
 
             return this.View(character);
         }

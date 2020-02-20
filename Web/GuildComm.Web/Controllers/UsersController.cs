@@ -5,6 +5,7 @@
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using GuildComm.Web.ViewModels.Characters;
 
     public class UsersController : Controller
     {
@@ -28,7 +29,7 @@
 
             GuildCommUserDetailsViewModel userViewModel = await this.usersService.GetUserViewModelAsync();
 
-            userViewModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync();
+            userViewModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync<CharacterViewModel>();
             userViewModel.Guilds = await this.guildsService.GetUserGuildsAsync();
 
             return this.View(userViewModel);

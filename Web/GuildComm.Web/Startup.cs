@@ -16,7 +16,6 @@ namespace GuildComm.Web
     using Microsoft.Extensions.DependencyInjection;
 
     using AutoMapper;
-    using System.Web.Mvc;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
 

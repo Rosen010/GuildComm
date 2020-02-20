@@ -1,6 +1,6 @@
 ﻿namespace GuildComm.Web.ViewModels.Applications
 {
-    public class ApplicationViewModel
+    public class ApplicationsAllViewModel
     {
         public int Id { get; set; }
 

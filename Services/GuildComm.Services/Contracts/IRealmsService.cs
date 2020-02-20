@@ -8,8 +8,6 @@
 
     public interface IRealmsService
     {
-        Task<List<Realm>> GetAllRealmsAsync();
-
         Task<List<RealmViewModel>> GetAllRealmViewModelsAsync();
 
         Task<Realm> GetRealmByNameAsync(string name);

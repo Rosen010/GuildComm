@@ -12,6 +12,6 @@ namespace GuildComm.Services
 
         Task<ApplicationDetailsViewModel> GetApplicationByIdAsync(int applicationId);
 
-        Task<List<ApplicationViewModel>> GetAllGuildApplications(string guildId);
+        Task<List<ApplicationsAllViewModel>> GetAllGuildApplications(string guildId);
     }
 }

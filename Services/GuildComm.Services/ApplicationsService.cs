@@ -1,11 +1,10 @@
 ﻿namespace GuildComm.Services
 {
+    using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
-    using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Applications;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -15,11 +14,15 @@
         private readonly GuildCommDbContext context;
         private readonly IUsersService usersService;
 
+        private readonly IMapper mapper;
+
         public ApplicationsService(GuildCommDbContext context,
-            IUsersService usersService)
+            IUsersService usersService,
+            IMapper mapper)
         {
             this.context = context;
             this.usersService = usersService;
+            this.mapper = mapper;
         }
 
         public async Task CreateApplicationAsync(ApplicationCreateInputModel inputModel)
@@ -32,17 +35,9 @@
             var character = await this.context.Characters
                 .SingleOrDefaultAsync(dbChar => dbChar.Name == inputModel.CharacterName);
 
-            var application = new Application
-            {
-                CharacterName = inputModel.CharacterName,
-                Age = inputModel.Age,
-                Country = inputModel.Country,
-                Role = (Role)(Enum.Parse(typeof(Role), inputModel.Role)),
-                Experience = inputModel.Experience,
-                ArmoryLink = inputModel.ArmoryLink,
-                Character = character,
-                Guild = guild
-            };
+            var application = this.mapper.Map<Application>(inputModel);
+            application.Guild = guild;
+            application.Character = character;
 
             await this.context.Applications.AddAsync(application);
             await this.context.SaveChangesAsync();
@@ -53,36 +48,18 @@
             var application = await this.context.Applications
                 .Include(a => a.Guild)
                 .Where(a => a.Id == applicationId)
-                .Select(a => new ApplicationDetailsViewModel
-                {
-                    Id = a.Id,
-                    CharacterName = a.CharacterName,
-                    Age = a.Age,
-                    Country = a.Country,
-                    Role = a.Role.ToString(),
-                    Experience = a.Experience,
-                    ArmoryLink = a.ArmoryLink,
-                    GuildId = a.GuildId,
-                    CharacterId = a.CharacterId
-                })
+                .Select(a => mapper.Map<ApplicationDetailsViewModel>(a))
                 .SingleOrDefaultAsync();    
 
             return application;
         }
 
-        public async Task<List<ApplicationViewModel>> GetAllGuildApplications(string guildId)
+        public async Task<List<ApplicationsAllViewModel>> GetAllGuildApplications(string guildId)
         {
             var applications = await this.context.Applications
                 .Include(a => a.Guild)
                 .Where(a => a.GuildId == guildId)
-                .Select(a => new ApplicationViewModel
-                {
-                    Id = a.Id,
-                    CharacterName = a.CharacterName,
-                    Country = a.Country,
-                    Role = a.Role.ToString(),
-                    GuildId = guildId
-                })
+                .Select(a => mapper.Map<ApplicationsAllViewModel>(a))
                 .ToListAsync();
 
             return applications;

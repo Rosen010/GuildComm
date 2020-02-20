@@ -10,6 +10,9 @@
     using GuildComm.Web.ViewModels.Guild;
     using GuildComm.Web.ViewModels.Realms;
     using GuildComm.Web.ViewModels.Members;
+    using GuildComm.Web.ViewModels.Applications;
+    using GuildComm.Data.Models.Enums;
+    using System;
 
     public class GuildCommProfile : Profile
     {
@@ -56,6 +59,16 @@
             //Member
             this.CreateMap<Member, MemberViewModel>()
                 .ForMember(x => x.MemberSince, y => y.MapFrom(s => s.MemberSince.Date.ToString("dd/MM/yyyy")));
+
+            //Applications
+            this.CreateMap<ApplicationCreateInputModel, Application>()
+                .ForMember(x => x.Role, y => y.MapFrom(s => (Role)(Enum.Parse(typeof(Role), s.Role))));
+
+            this.CreateMap<Application, ApplicationDetailsViewModel>()
+                .ForMember(x => x.Role, y => y.MapFrom(s => s.Role.ToString()));
+
+            this.CreateMap<Application, ApplicationsAllViewModel>()
+                .ForMember(x => x.Role, y => y.MapFrom(s => s.Role.ToString()));
         }
     }
 

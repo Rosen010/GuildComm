@@ -10,12 +10,10 @@
     {
         Task CreateCharacterAsync(CharacterRegisterInputModel inputModel);
 
-        Task<List<CharacterViewModel>> GetUserCharactersViewModelAsync();
-
-        Task<List<Character>> GetUserCharactersAsync(GuildCommUser user);
+        Task<List<T>> GetUserCharactersViewModelAsync<T>();
 
         Task RemoveCharacterAsync(int id);
 
-        Task<CharacterDetailsViewModel> GetCharacterAsync(int id);
+        Task<T> GetCharacterAsync<T>(int id);
     }
 }
