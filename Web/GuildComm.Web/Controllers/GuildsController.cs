@@ -124,5 +124,12 @@
 
             return this.Redirect("/Guilds/All");
         }
+
+        public async Task<IActionResult> RemoveMember(string id)
+        {
+            await this.guildsService.RemoveMemberAsync(id);
+
+            return this.Redirect("/Guilds/All");
+        }
     }
 }

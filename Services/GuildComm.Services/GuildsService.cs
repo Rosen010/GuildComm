@@ -126,6 +126,7 @@
                 };
 
                 character.Guild = guild;
+                character.MemberId = member.Id;
                 guild.Members.Add(member);
 
                 this.context.Members.Add(member);
@@ -180,6 +181,15 @@
                 .Any(c => c.GuildId == guildId);
         }
 
+        public async Task RemoveMemberAsync(string id)
+        {
+            var member = await this.context.Members
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            this.context.Members.Remove(member);
+            await this.context.SaveChangesAsync();
+        }
+
         public async Task RemoveGuildAsync(string id)
         {
             var guild = await GetGuildByIdAsync(id);
@@ -202,7 +212,7 @@
 
             foreach (var member in members)
             {
-                this.context.Remove(member);
+                this.context.Members.Remove(member);
             }
 
             context.Guilds.Remove(guild);

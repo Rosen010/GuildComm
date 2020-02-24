@@ -5,6 +5,8 @@
 
     public class MemberViewModel
     {
+        public string Id { get; set; }
+
         public CharacterViewModel Character { get; set; }
 
         public string Rank { get; set; }

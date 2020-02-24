@@ -26,5 +26,7 @@
         Task<bool> IsUserAuthorized(string guildId);
 
         Task RemoveGuildAsync(string id);
+
+        Task RemoveMemberAsync(string id);
     }
 }
