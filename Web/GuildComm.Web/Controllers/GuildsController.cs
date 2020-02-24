@@ -88,7 +88,7 @@
                 return this.Redirect("/Identity/Account/Login");
             }
 
-            if (!await this.guildsService.IsUserAuthorized(id))
+            if (!this.User.IsInRole("Admin"))
             {
                 return this.Redirect("/Guilds/All");
             }

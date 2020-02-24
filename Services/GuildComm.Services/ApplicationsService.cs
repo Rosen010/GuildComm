@@ -4,10 +4,11 @@
     using GuildComm.Data;
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels.Applications;
-    using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
+
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
 
     public class ApplicationsService : IApplicationsService
     {

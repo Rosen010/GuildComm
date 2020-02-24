@@ -5,7 +5,6 @@ namespace GuildComm.Web
     using GuildComm.Data.Models;
     using GuildComm.Data.Seeding;
     using GuildComm.Web.Extensions;
-    using GuildComm.Services.Data.Utilities;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Hosting;
@@ -18,6 +17,8 @@ namespace GuildComm.Web
     using AutoMapper;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using GuildComm.Services.Utilities;
+    using System.Linq;
 
     public class Startup
     {
@@ -52,7 +53,14 @@ namespace GuildComm.Web
                 options.User.RequireUniqueEmail = true;
             });
 
-            services.AddAutoMapper(typeof(GuildCommProfile));
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Login";
+            });
+
+            services.AddAutoMapper(AutoMapperConfig.GetAutoMapperProfilesFromAllAssemblies()
+            .ToArray());
 
             services.AddScoped<GuildCommUserRoleSeeder>();
             services.AddScoped<GuildCommRealmSeeder>();
