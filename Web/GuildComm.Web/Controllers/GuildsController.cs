@@ -69,7 +69,7 @@
                 return this.Redirect("/Identity/Account/Login");
             }
 
-            var guild = await this.guildsService.GetGuildViewModelByIdAsync<GuildDetailsViewModel>(id);
+            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
 
             return this.View(guild);
         }
@@ -105,7 +105,7 @@
                 return this.Redirect("/Guilds/All");
             }
 
-            var guildModel = await this.guildsService.GetGuildViewModelByIdAsync<GuildManageViewModel>(id);
+            var guildModel = await this.guildsService.GetGuildManageViewModelByIdAsync(id);
 
             return this.View(guildModel);
         }

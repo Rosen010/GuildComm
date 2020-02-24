@@ -12,6 +12,7 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
+    using GuildComm.Web.ViewModels.Guild;
 
     public class GuildsService : IGuildsService
     {
@@ -71,7 +72,43 @@
             return guild;
         }
 
-        public async Task<T> GetGuildViewModelByIdAsync<T>(string id)
+        public async Task<GuildDetailsViewModel> GetGuildViewModelByIdAsync(string id)
+        {
+            var user = await this.usersService.GetUserAsync();
+            var userId = user.Id;
+
+            var guildFromDb = await this.context.Guilds
+                .Include(c => c.Realm)
+                .SingleOrDefaultAsync(g => g.Id == id);
+
+            var members = await this.context.Members
+                .Include(c => c.Guild)
+                .Include(c => c.Character)
+                .Where(c => c.GuildId == id)
+                .Select(c => this.mapper.Map<MemberViewModel>(c))
+                .ToListAsync();
+
+            var userCharacters = new List<MemberViewModel>();
+
+            foreach (var member in members)
+            {
+                if (user.Characters.Any(c => c.MemberId == member.Id))
+                {
+                    userCharacters.Add(member);
+                }
+            }
+
+            var guildModel = this.mapper.Map<GuildDetailsViewModel>(guildFromDb);
+
+            if (userCharacters.Any())
+            {
+                guildModel.UserCharacters = userCharacters;
+            }
+            
+            return guildModel;
+        }
+
+        public async Task<GuildManageViewModel> GetGuildManageViewModelByIdAsync(string id)
         {
             var guildFromDb = await this.context.Guilds
                 .Include(c => c.Realm)
@@ -84,7 +121,7 @@
                 .Select(c => this.mapper.Map<MemberViewModel>(c))
                 .ToListAsync();
 
-            var guildModel = this.mapper.Map<T>(guildFromDb);
+            var guildModel = this.mapper.Map<GuildManageViewModel>(guildFromDb);
 
             return guildModel;
         }
@@ -186,6 +223,14 @@
             var member = await this.context.Members
                 .SingleOrDefaultAsync(m => m.Id == id);
 
+            var character = await this.context.Characters
+                .Include(c => c.Guild)
+                .Include(c => c.Member)
+                .SingleOrDefaultAsync(c => c.MemberId == member.Id);
+
+            character.Guild = null;
+            character.MemberId = null;
+            this.context.Characters.Update(character);
             this.context.Members.Remove(member);
             await this.context.SaveChangesAsync();
         }
@@ -196,6 +241,7 @@
 
             var characters = this.context.Characters
                 .Include(c => c.Guild)
+                .Include(c => c.Member)
                 .Where(c => c.GuildId == id)
                 .ToList();
 
@@ -207,6 +253,7 @@
             foreach (var character in characters)
             {
                 character.Guild = null;
+                character.MemberId = null;
                 this.context.Characters.Update(character);
             }
 

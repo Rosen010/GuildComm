@@ -15,7 +15,9 @@
 
         Task<Guild> GetGuildByIdAsync(string name);
 
-        Task<T> GetGuildViewModelByIdAsync<T>(string id);
+        Task<GuildDetailsViewModel> GetGuildViewModelByIdAsync(string id);
+
+        Task<GuildManageViewModel> GetGuildManageViewModelByIdAsync(string id);
 
         Task<List<GuildsAllViewModel>> GetAllGuildsAsync();
 
