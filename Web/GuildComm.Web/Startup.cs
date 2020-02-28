@@ -19,6 +19,7 @@ namespace GuildComm.Web
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using GuildComm.Services.Utilities;
     using System.Linq;
+    using GuildComm.Services.Contracts;
 
     public class Startup
     {
@@ -71,6 +72,7 @@ namespace GuildComm.Web
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICharactersService, CharactersService>();
             services.AddTransient<IApplicationsService, ApplicationsService>();
+            services.AddTransient<IEventsService, EventsService>();
             
             services.AddSingleton(this.Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
