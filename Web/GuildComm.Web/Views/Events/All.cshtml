@@ -1,0 +1,34 @@
+﻿@using GuildComm.Web.ViewModels.Events
+@model List<EventsAllViewModel>
+
+@{
+    ViewData["Title"] = "All";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Event Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(i + 1)</th>
+                <td>@Model[i].Name</td>
+                <td>@Model[i].Date</td>
+                <td>@Model[i].EvenType</td>
+
+                @*<td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model[i].Id">Details</a></td>
+                <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Applications" asp-action="Apply" asp-route-id="@Model[i].Id">Apply</a></td>*@
+            </tr>
+        }
+    </tbody>
+</table>

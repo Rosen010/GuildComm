@@ -17,7 +17,8 @@
         <h4>Realm: @Model.RealmName @Model.RealmRegion</h4>
     </div>
     <a class="btn btn-outline-primary btn-lg text-primary" asp-controller="Applications" asp-action="All" asp-route-id="@Model.Id">View Applications</a>
-    <a class="btn btn-outline-success btn-lg text-success" asp-controller="Events" asp-action="Create">Create Event</a>
+    <a class="btn btn-outline-success btn-lg text-success" asp-controller="Events" asp-action="Create" asp-route-id="@Model.Id">Create Event</a>
+    <a class="btn btn-outline-success btn-lg text-success" asp-controller="Events" asp-action="All" asp-route-id="@Model.Id">All Events</a>
 </div>
 <h1 class="text-center">Members</h1>
 <hr class="hr-2">
