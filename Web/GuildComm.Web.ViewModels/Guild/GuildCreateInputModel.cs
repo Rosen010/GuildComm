@@ -19,10 +19,15 @@
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "RealmName")]
+        [Display(Name = "Realm Name")]
         public string RealmName { get; set; }
 
         [Required]
+        [Display(Name = "Information")]
+        public string Information { get; set; }
+
+        [Required]
+        [Display(Name = "Guild Master Character")]
         public string MasterCharacter { get; set; }
 
         public int RealmId { get; set; }

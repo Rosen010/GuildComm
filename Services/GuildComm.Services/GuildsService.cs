@@ -49,7 +49,8 @@
             {
                 Name = inputModel.Name,
                 Realm = realm,
-                GuildMaster = inputModel.MasterCharacter
+                GuildMaster = inputModel.MasterCharacter,
+                Information = inputModel.Information
             };
 
             if (realm.Guilds.Any(g => g.Name == guild.Name))

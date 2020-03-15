@@ -63,10 +63,11 @@ namespace GuildComm.Web
             services.AddAutoMapper(AutoMapperConfig.GetAutoMapperProfilesFromAllAssemblies()
             .ToArray());
 
+            services.AddScoped<GuildCommUserCharacterSeeder>();
             services.AddScoped<GuildCommUserSeeder>();
             services.AddScoped<GuildCommUserRoleSeeder>();
             services.AddScoped<GuildCommRealmSeeder>();
-            services.AddScoped<GuildCommUserCharacterSeeder>();
+            
             
             services.AddTransient<IMembersService, MembersService>();
             services.AddTransient<IRealmsService, RealmsService>();
@@ -89,6 +90,7 @@ namespace GuildComm.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDatabaseSeeding();
+            app.UseCharacterSeeding();
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var context = scope.ServiceProvider.GetService<GuildCommDbContext>())

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuildComm.Data.Seeding
 {
-    public class GuildCommUserCharacterSeeder : ISeeder
+    public class GuildCommUserCharacterSeeder
     {
         private readonly GuildCommDbContext context;
 
@@ -19,7 +19,7 @@ namespace GuildComm.Data.Seeding
         {
             if (!this.context.Characters.Any())
             {
-                var firstUser = await this.context.Users.SingleOrDefaultAsync(u => u.UserName == "Pesho");
+                var firstUser = this.context.Users.SingleOrDefault(u => u.UserName == "Pesho");
 
                 var firstUserCharacter = new Character
                 {
@@ -60,7 +60,8 @@ namespace GuildComm.Data.Seeding
 
                 context.Characters.AddRange(new Character[] { firstUserCharacter, secondUserCharacter, thirdUserCharacter });
                 await context.SaveChangesAsync();
-            }           
+            }
+
         }
     }
 }
