@@ -81,23 +81,6 @@
             return this.View(guilds);
         }
 
-        public async Task<IActionResult> Disband(string id)
-        {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
-            if (!this.User.IsInRole("Admin"))
-            {
-                return this.Redirect("/Guilds/All");
-            }
-
-            await this.guildsService.RemoveGuildAsync(id);
-
-            return this.RedirectToAction("All", "Guilds");
-        }
-
         public async Task<IActionResult> Manage(string id)
         {
             if (!await this.guildsService.IsUserAuthorized(id))

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuildComm.Data.Migrations
 {
     [DbContext(typeof(GuildCommDbContext))]
-    [Migration("20200213093740_ReformApplicationEntity")]
-    partial class ReformApplicationEntity
+    [Migration("20200315085428_AddInfoPropToGuild")]
+    partial class AddInfoPropToGuild
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,9 @@ namespace GuildComm.Data.Migrations
                     b.Property<string>("ArmoryLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CharacterName")
                         .HasColumnType("nvarchar(max)");
 
@@ -49,16 +52,13 @@ namespace GuildComm.Data.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
 
                     b.HasIndex("GuildId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Application");
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("GuildComm.Data.Models.Character", b =>
@@ -156,6 +156,9 @@ namespace GuildComm.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("GuildMaster")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Information")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -428,14 +431,15 @@ namespace GuildComm.Data.Migrations
 
             modelBuilder.Entity("GuildComm.Data.Models.Application", b =>
                 {
+                    b.HasOne("GuildComm.Data.Models.Character", "Character")
+                        .WithMany("Applications")
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("GuildComm.Data.Models.Guild", "Guild")
                         .WithMany("Applications")
                         .HasForeignKey("GuildId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("GuildComm.Data.Models.GuildCommUser", "User")
-                        .WithMany("Applications")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

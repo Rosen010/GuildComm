@@ -63,9 +63,11 @@ namespace GuildComm.Web
             services.AddAutoMapper(AutoMapperConfig.GetAutoMapperProfilesFromAllAssemblies()
             .ToArray());
 
+            services.AddScoped<GuildCommUserSeeder>();
             services.AddScoped<GuildCommUserRoleSeeder>();
             services.AddScoped<GuildCommRealmSeeder>();
-
+            services.AddScoped<GuildCommUserCharacterSeeder>();
+            
             services.AddTransient<IMembersService, MembersService>();
             services.AddTransient<IRealmsService, RealmsService>();
             services.AddTransient<IGuildsService, GuildsService>();
