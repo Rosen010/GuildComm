@@ -1,0 +1,37 @@
+﻿@using GuildComm.Web.ViewModels
+@model List<GuildsAllViewModel>
+
+@{
+    ViewData["Title"] = "Admin dashboard";
+}
+
+<h1>All</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Realm</th>
+            <th scope="col">Members</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(i + 1)</th>
+                <td>@Model[i].Name</td>
+                <td>@Model[i].RealmName (@Model[i].RealmRegion)</td>
+                <td>@Model[i].MembersCount</td>
+                <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model[i].Id">Details</a></td>
+
+                <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Applications" asp-action="Apply" asp-route-id="@Model[i].Id">Apply</a></td>
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <td><a class="btn btn-outline-danger btn-sm text-danger" asp-controller="Guilds" asp-action="Disband" asp-route-id="@Model[i].Id">Disband</a></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
