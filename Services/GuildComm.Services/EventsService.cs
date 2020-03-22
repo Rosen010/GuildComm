@@ -20,13 +20,21 @@
             this.context = context;
         }
 
-        public async Task AddMemberToEvent(string memberId, int eventId)
+        public async Task AddMemberToEventAsync(int characterId, int eventId)
         {
-            var member = this.context.Members
-                .SingleOrDefault(m => m.Id == memberId);
+            var character = await this.context
+                .Characters
+                .Include(c => c.Member)
+                .Where(c => c.Id == characterId)
+                .FirstOrDefaultAsync();
 
-            var dbEvent = this.context.Events
-                .SingleOrDefault(e => e.Id == eventId);
+            string memberId = character.MemberId;
+
+            var member = await this.context.Members
+                .SingleOrDefaultAsync(m => m.Id == memberId);
+
+            var dbEvent = await this.context.Events
+                .SingleOrDefaultAsync(e => e.Id == eventId);
 
             if (member.GuildId != dbEvent.GuildId)
             {
@@ -35,8 +43,8 @@
 
             var eventParticipant = new EventParticipant
             {
-                Participant = member,
-                Event = dbEvent
+                ParticipantId = member.Id,
+                EventId = dbEvent.Id
             };
 
             dbEvent.Participants.Add(eventParticipant);
@@ -74,7 +82,9 @@
                     Id = e.Id,
                     Name = e.Name,
                     Date = e.Date,
-                    EvenType = e.EventType.ToString()
+                    EvenType = e.EventType.ToString(),
+                    GuildId = e.GuildId,
+                    ParticipantsCount = e.Participants.Count
                 })
                 .ToListAsync();
 

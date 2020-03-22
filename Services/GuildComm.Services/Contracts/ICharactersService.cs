@@ -10,7 +10,9 @@
     {
         Task CreateCharacterAsync(CharacterRegisterInputModel inputModel);
 
-        Task<List<T>> GetUserCharactersViewModelAsync<T>();
+        Task<List<T>> GetUserCharactersAsync<T>();
+
+        Task<List<T>> GetCharactersByNameAsync<T>(string name);
 
         Task RemoveCharacterAsync(int id);
 

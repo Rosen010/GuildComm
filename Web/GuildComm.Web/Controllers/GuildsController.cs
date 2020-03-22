@@ -40,7 +40,7 @@
             GuildCreateInputModel inputModel = new GuildCreateInputModel();
 
             inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
-            inputModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync<CharacterViewModel>();
+            inputModel.Characters = await this.charactersService.GetUserCharactersAsync<CharacterViewModel>();
           
             return this.View(inputModel);
         }

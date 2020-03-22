@@ -11,5 +11,9 @@ namespace GuildComm.Web.ViewModels.Events
         public DateTime Date { get; set; }
 
         public string EvenType { get; set; }
+
+        public string GuildId { get; set; }
+
+        public int ParticipantsCount { get; set; }
     }
 }

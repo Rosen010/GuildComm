@@ -1,0 +1,38 @@
+﻿@using GuildComm.Web.ViewModels.Events
+@model EventSignUpInputModel
+
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Sign Up</h1>
+
+<div class="form-group">
+    <form method="post">
+        <label asp-for="@Model.Character"></label>
+        <select class="custom-select" id="character" name="character">
+            <option selected disabled>-- Choose Character --</option>
+
+            @foreach (var character in Model.Characters)
+            {
+                <option value="@character.Name">@character.Name - @character.GuildName</option>
+            }
+
+        </select>
+        <span asp-validation-for="@Model.Character" class="text-danger"></span>
+
+        <div class="form-group" style="display: none">
+            <label asp-for="@Model.GuildId"></label>
+            <input asp-for="@Model.GuildId" value="@Model.GuildId" class="form-control" />
+            <span asp-validation-for="@Model.GuildId" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="display: none">
+            <label asp-for="@Model.EventId"></label>
+            <input asp-for="@Model.EventId" value="@Model.EventId" class="form-control" />
+            <span asp-validation-for="@Model.EventId" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</div>
+

@@ -68,7 +68,6 @@ namespace GuildComm.Web
             services.AddScoped<GuildCommUserRoleSeeder>();
             services.AddScoped<GuildCommRealmSeeder>();
             
-            
             services.AddTransient<IMembersService, MembersService>();
             services.AddTransient<IRealmsService, RealmsService>();
             services.AddTransient<IGuildsService, GuildsService>();

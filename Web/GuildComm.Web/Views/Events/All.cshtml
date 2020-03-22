@@ -15,6 +15,7 @@
             <th scope="col">Name</th>
             <th scope="col">Date</th>
             <th scope="col">Event Type</th>
+            <th scope="col">Participants</th>
         </tr>
     </thead>
     <tbody>
@@ -25,9 +26,9 @@
                 <td>@Model[i].Name</td>
                 <td>@Model[i].Date</td>
                 <td>@Model[i].EvenType</td>
+                <td>@Model[i].ParticipantsCount</td>
 
-                @*<td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model[i].Id">Details</a></td>
-                <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Applications" asp-action="Apply" asp-route-id="@Model[i].Id">Apply</a></td>*@
+                <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Events" asp-action="SignUp" asp-route-id="@Model[i].Id" asp-route-guildId="@Model[i].GuildId">Sign Up</a></td>
             </tr>
         }
     </tbody>

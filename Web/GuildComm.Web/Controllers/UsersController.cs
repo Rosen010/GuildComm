@@ -29,7 +29,7 @@
 
             GuildCommUserDetailsViewModel userViewModel = await this.usersService.GetUserViewModelAsync();
 
-            userViewModel.Characters = await this.charactersService.GetUserCharactersViewModelAsync<CharacterViewModel>();
+            userViewModel.Characters = await this.charactersService.GetUserCharactersAsync<CharacterViewModel>();
             userViewModel.Guilds = await this.guildsService.GetUserGuildsAsync();
 
             return this.View(userViewModel);

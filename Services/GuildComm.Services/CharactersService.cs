@@ -34,7 +34,7 @@
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<List<T>> GetUserCharactersViewModelAsync<T>()
+        public async Task<List<T>> GetUserCharactersAsync<T>()
         {
             var user = await usersService.GetUserAsync();
 
@@ -42,6 +42,18 @@
                 .Include(c => c.Realm)
                 .Include(c => c.Guild)
                 .Where(c => c.UserId == user.Id)
+                .Select(c => this.mapper.Map<T>(c))
+                .ToListAsync();
+
+            return characters;
+        }
+
+        public async Task<List<T>> GetCharactersByNameAsync<T>(string name)
+        {
+            var characters = await context.Characters
+                .Include(c => c.Guild)
+                .Include(c => c.Realm)
+                .Where(c => c.Name == name)
                 .Select(c => this.mapper.Map<T>(c))
                 .ToListAsync();
 

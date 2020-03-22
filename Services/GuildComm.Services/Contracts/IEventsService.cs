@@ -9,5 +9,8 @@
         Task CreateEvent(EventCreateInputModel inputModel);
 
         Task<List<EventsAllViewModel>> GetGuildEvents(string guildId);
+
+        Task AddMemberToEventAsync(int characterId, int eventId);
+
     }
 }
