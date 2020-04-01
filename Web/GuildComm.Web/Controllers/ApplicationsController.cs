@@ -2,6 +2,7 @@
 {
     using GuildComm.Services;
     using GuildComm.Web.ViewModels.Applications;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@
             this.applicationsService = applicationsService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Apply(string id)
         {
             if (await this.guildsService.IsUserInTargetGuild(id))
@@ -37,6 +39,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Apply(ApplicationCreateInputModel inputModel)
         {
             if (!this.User.Identity.IsAuthenticated)
@@ -54,13 +57,9 @@
             return this.View();
         }
 
+        [Authorize]
         public async Task<IActionResult> Details(int id)
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             var application = await this.applicationsService.GetApplicationByIdAsync(id);
 
             if (!await this.guildsService.IsUserAuthorized(application.GuildId))
@@ -71,13 +70,9 @@
             return this.View(application);
         }
 
+        [Authorize]
         public async Task<IActionResult> All(string id)
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             if (!await this.guildsService.IsUserAuthorized(id))
             {
                 return this.Redirect("/Guilds/All");

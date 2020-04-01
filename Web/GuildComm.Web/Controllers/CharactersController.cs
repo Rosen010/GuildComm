@@ -5,6 +5,7 @@
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     public class CharactersController : Controller
     {
@@ -17,13 +18,9 @@
             this.charactersService = charactersService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Register()
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             CharacterRegisterInputModel inputModel = new CharacterRegisterInputModel();
             inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
 
@@ -31,13 +28,9 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Register(CharacterRegisterInputModel inputModel)
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             if (ModelState.IsValid)
             {
                 await this.charactersService.CreateCharacterAsync(inputModel);
@@ -47,25 +40,17 @@
             return this.View(inputModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Details(int id)
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             var character = await this.charactersService.GetCharacterAsync<CharacterDetailsViewModel>(id);
 
             return this.View(character);
         }
 
+        [Authorize]
         public async Task<IActionResult> Remove(int id)
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             await this.charactersService.RemoveCharacterAsync(id);
 
             return this.RedirectToAction("Details", "Users");

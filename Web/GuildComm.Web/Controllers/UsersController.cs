@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using GuildComm.Web.ViewModels.Characters;
+    using Microsoft.AspNetCore.Authorization;
 
     public class UsersController : Controller
     {
@@ -20,13 +21,9 @@
             this.charactersService = charactersService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Details()
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             GuildCommUserDetailsViewModel userViewModel = await this.usersService.GetUserViewModelAsync();
 
             userViewModel.Characters = await this.charactersService.GetUserCharactersAsync<CharacterViewModel>();
@@ -35,24 +32,16 @@
             return this.View(userViewModel);
         }
 
+        [Authorize]
         public IActionResult UpdateDescription()
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateDescription(GuildCommUserDescriptionUpdateInputModel inputModel)
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
             await this.usersService.UpdateUserDescriptionAsync(inputModel);
 
             return RedirectToAction("Details", "Users");

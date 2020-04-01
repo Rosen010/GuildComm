@@ -267,6 +267,40 @@
             await context.SaveChangesAsync();
         }
 
+        public async Task PromoteMemberAsync(string id)
+        {
+            var member = await this.context
+                .Members
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (member.Rank == Rank.GuildeMaster || member.Rank == Rank.Officer)
+            {
+                throw new InvalidOperationException("Member cannot me promoted to a higher rank.");
+            }
+
+            member.Rank += 1;
+
+            context.Members.Update(member);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DemoteMemberAsync(string id)
+        {
+            var member = await this.context
+                .Members
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (member.Rank == Rank.Trial)
+            {
+                throw new InvalidOperationException("Member cannot be demoted to a lower rank.");
+            }
+
+            member.Rank -= 1;
+
+            context.Members.Update(member);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<bool> IsUserAuthorized(string guildId)
         {
             var user = await this.usersService.GetUserAsync();

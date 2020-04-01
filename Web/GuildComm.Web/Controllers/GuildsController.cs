@@ -2,11 +2,11 @@
 {
     using GuildComm.Services;
     using GuildComm.Web.ViewModels;
-    using GuildComm.Web.ViewModels.Guild;
+    using GuildComm.Web.ViewModels.Characters;
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using GuildComm.Web.ViewModels.Characters;
+    using Microsoft.AspNetCore.Authorization;
 
     public class GuildsController : Controller
     {
@@ -27,71 +27,7 @@
             this.charactersService = charactersService;
             this.usersService = usersService;
             this.applicationsService = applicationsService;
-        }
-
-        public async Task<IActionResult> Create()
-        {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
-            var user = await this.usersService.GetUserAsync();
-            GuildCreateInputModel inputModel = new GuildCreateInputModel();
-
-            inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
-            inputModel.Characters = await this.charactersService.GetUserCharactersAsync<CharacterViewModel>();
-          
-            return this.View(inputModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(GuildCreateInputModel inputModel)
-        {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
-            if (this.ModelState.IsValid)
-            {     
-                await this.guildsService.CreateGuildAsync(inputModel);
-                return this.RedirectToAction("All", "Guilds");
-            }
-
-            return this.View(inputModel);
-        }
-
-        public async Task<IActionResult> Details(string id)
-        {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.Redirect("/Identity/Account/Login");
-            }
-
-            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
-
-            return this.View(guild);
-        }
-
-        public async Task<IActionResult> All()
-        {
-            var guilds = await guildsService.GetAllGuildsAsync();
-
-            return this.View(guilds);
-        }
-
-        public async Task<IActionResult> Manage(string id)
-        {
-            if (!await this.guildsService.IsUserAuthorized(id))
-            {
-                return this.Redirect("/Guilds/All");
-            }
-
-            var guildModel = await this.guildsService.GetGuildManageViewModelByIdAsync(id);
-
-            return this.View(guildModel);
-        }
+        }     
 
         public async Task<IActionResult> AddMember(int id)
         {
@@ -108,10 +44,74 @@
             return this.Redirect("/Guilds/All");
         }
 
+        public async Task<IActionResult> All()
+        {
+            var guilds = await guildsService.GetAllGuildsAsync();
+
+            return this.View(guilds);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Create()
+        {
+            var user = await this.usersService.GetUserAsync();
+            GuildCreateInputModel inputModel = new GuildCreateInputModel();
+
+            inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
+            inputModel.Characters = await this.charactersService.GetUserCharactersAsync<CharacterViewModel>();
+
+            return this.View(inputModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create(GuildCreateInputModel inputModel)
+        {
+            if (this.ModelState.IsValid)
+            {     
+                await this.guildsService.CreateGuildAsync(inputModel);
+                return this.RedirectToAction("All", "Guilds");
+            }
+
+            return this.View(inputModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Details(string id)
+        {
+            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
+
+            return this.View(guild);
+        }
+
+        public async Task<IActionResult> Promote(string id, string guildId)
+        {
+            await this.guildsService.PromoteMemberAsync(id);
+            return this.RedirectToAction("Manage", "Guilds", new { id = guildId });
+        }
+
+        public async Task<IActionResult> Demote(string id, string guildId)
+        {
+            await this.guildsService.DemoteMemberAsync(id);
+            return this.RedirectToAction("Manage", "Guilds", new { id = guildId });
+        }
+
+        public async Task<IActionResult> Manage(string id)
+        {
+            if (!await this.guildsService.IsUserAuthorized(id))
+            {
+                return this.Redirect("/Guilds/All");
+            }
+
+            var guildModel = await this.guildsService.GetGuildManageViewModelByIdAsync(id);
+
+            return this.View(guildModel);
+        }
+
+        [Authorize]
         public async Task<IActionResult> RemoveMember(string id)
         {
             await this.guildsService.RemoveMemberAsync(id);
-
             return this.Redirect("/Guilds/All");
         }
     }
