@@ -2,22 +2,26 @@
 {
     using GuildComm.Data;
     using GuildComm.Data.Models;
-    using GuildComm.Data.Models.Enums;
     using GuildComm.Services.Contracts;
     using GuildComm.Web.ViewModels.Events;
-    using Microsoft.EntityFrameworkCore;
+
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
+
+    using AutoMapper;
 
     public class EventsService : IEventsService
     {
         private readonly GuildCommDbContext context;
+        private readonly IMapper mapper;
 
-        public EventsService(GuildCommDbContext context)
+        public EventsService(GuildCommDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task AddMemberToEventAsync(int characterId, int eventId)
@@ -64,14 +68,7 @@
 
         public async Task CreateEvent(EventCreateInputModel inputModel)
         {
-            var newEvent = new Event
-            {
-                Name = inputModel.Name,
-                Date = inputModel.Date,
-                EventType = (EventType)(Enum.Parse(typeof(EventType), inputModel.EventType)),
-                Description = inputModel.Description,
-                GuildId = inputModel.GuildId
-            };
+            var newEvent = mapper.Map<Event>(inputModel);
 
             await this.context.Events.AddAsync(newEvent);
             await this.context.SaveChangesAsync();
@@ -83,15 +80,7 @@
                 .Events
                 .Include(e => e.Guild)
                 .Where(e => e.GuildId == guildId)
-                .Select(e => new EventsAllViewModel
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    Date = e.Date,
-                    EvenType = e.EventType.ToString(),
-                    GuildId = e.GuildId,
-                    ParticipantsCount = e.Participants.Count
-                })
+                .Select(e => mapper.Map<EventsAllViewModel>(e))
                 .ToListAsync();
 
             return events;
