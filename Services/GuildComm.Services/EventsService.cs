@@ -34,7 +34,13 @@
                 .SingleOrDefaultAsync(m => m.Id == memberId);
 
             var dbEvent = await this.context.Events
+                .Include(x => x.Participants)
                 .SingleOrDefaultAsync(e => e.Id == eventId);
+
+            if (dbEvent.Participants.Any(x => x.ParticipantId == member.Id))
+            {
+                throw new InvalidOperationException("Member is already signed up for the event");
+            }
 
             if (member.GuildId != dbEvent.GuildId)
             {
