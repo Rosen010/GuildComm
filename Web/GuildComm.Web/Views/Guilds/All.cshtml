@@ -6,27 +6,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>All</h1>
+<h1 class="text-white">All Guilds</h1>
 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Realm</th>
-            <th scope="col">Members</th>
+            <th class="text-white" scope="col">#</th>
+            <th class="text-white" scope="col">Name</th>
+            <th class="text-white" scope="col">Realm</th>
+            <th class="text-white" scope="col">Members</th>
         </tr>
     </thead>
     <tbody>
         @for (int i = 0; i < Model.Count; i++)
         {
             <tr>
-                <th scope="row">@(i + 1)</th>
-                <td>@Model[i].Name</td>
-                <td>@Model[i].RealmName (@Model[i].RealmRegion)</td>
-                <td>@Model[i].MembersCount</td>
+                <th class="text-white" scope="row">@(i + 1)</th>
+                <td class="text-white">@Model[i].Name</td>
+                <td class="text-white">@Model[i].RealmName (@Model[i].RealmRegion)</td>
+                <td class="text-white">@Model[i].MembersCount</td>
 
-                <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Applications" asp-action="Apply" asp-route-id="@Model[i].Id">Apply</a></td>
+                <td><a class="btn btn-outline-light btn-sm text-light" asp-controller="Applications" asp-action="Apply" asp-route-id="@Model[i].Id">Apply</a></td>
             </tr>
         }
     </tbody>

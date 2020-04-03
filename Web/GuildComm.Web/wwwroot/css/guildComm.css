@@ -1,0 +1,19 @@
+﻿body {
+}
+
+.bgimg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("/images/background.jpg");
+    min-height: 90%;
+}
+
+a.deco-none {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.embiggen {
+    font-size: 4rem;
+}
