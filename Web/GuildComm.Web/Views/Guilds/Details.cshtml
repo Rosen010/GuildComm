@@ -6,43 +6,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center">Guild Details</h1>
+<h1 class="text-center text-white">Guild Details</h1>
 <hr class="hr-2">
 <div class="mx-auto">
     <div class="d-flex">
-        <h3>Name: @Model.Name</h3>
+        <h3 class="text-white">Name: @Model.Name</h3>
     </div>
     <hr class="hr-2">
     <div class="d-flex">
-        <h4>Realm: @Model.RealmName @Model.RealmRegion</h4>
+        <h4 class="text-white">Realm: @Model.RealmName @Model.RealmRegion</h4>
     </div>
 </div>
 
-<a class="btn btn-outline-success btn-lg text-success" asp-controller="Events" asp-action="All" asp-route-id="@Model.Id">All Events</a>
+<a class="btn btn-outline-light btn-lg" asp-controller="Events" asp-action="All" asp-route-id="@Model.Id">All Events</a>
 
-<h1 class="text-center">Members</h1>
+<h1 class="text-center text-white">Members</h1>
 <hr class="hr-2">
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Class</th>
-            <th scope="col">Level</th>
-            <th scope="col">Rank</th>
-            <th scope="col">Member Since</th>
+            <th scope="col" class="text-white">#</th>
+            <th scope="col" class="text-white">Name</th>
+            <th scope="col" class="text-white">Class</th>
+            <th scope="col" class="text-white">Level</th>
+            <th scope="col" class="text-white">Rank</th>
+            <th scope="col" class="text-white">Member Since</th>
         </tr>
     </thead>
     <tbody>
         @for (int i = 0; i < Model.Members.Count; i++)
         {
             <tr>
-                <th scope="row">@(i + 1)</th>
-                <td>@Model.Members[i].Character.Name</td>
-                <td>@Model.Members[i].Character.Class</td>
-                <td>@Model.Members[i].Character.Level</td>
-                <td>@Model.Members[i].Rank</td>
-                <td>@Model.Members[i].MemberSince</td>
+                <th scope="row" class="text-white">@(i + 1)</th>
+                <td class="text-white">@Model.Members[i].Character.Name</td>
+                <td class="text-white">@Model.Members[i].Character.Class</td>
+                <td class="text-white">@Model.Members[i].Character.Level</td>
+                <td class="text-white">@Model.Members[i].Rank</td>
+                <td class="text-white">@Model.Members[i].MemberSince</td>
                 @*<td><a class="btn btn-outline-danger btn-sm text-danger" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Members[i].Id">Remove</a></td>
                     <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Members[i].Id">Details</a></td>*@
             </tr>
@@ -52,30 +52,30 @@
 
 @if (Model.UserCharacters.Any())
 {
-    <h1 class="text-center">Your Characters</h1>
+    <h1 class="text-center text-white">Your Characters</h1>
     <hr class="hr-2">
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Class</th>
-                <th scope="col">Level</th>
-                <th scope="col">Rank</th>
-                <th scope="col">Member Since</th>
+                <th scope="col" class="text-white">#</th>
+                <th scope="col" class="text-white">Name</th>
+                <th scope="col" class="text-white">Class</th>
+                <th scope="col" class="text-white">Level</th>
+                <th scope="col" class="text-white">Rank</th>
+                <th scope="col" class="text-white">Member Since</th>
             </tr>
         </thead>
         <tbody>
             @for (int i = 0; i < Model.UserCharacters.Count; i++)
             {
                 <tr>
-                    <th scope="row">@(i + 1)</th>
-                    <td>@Model.UserCharacters[i].Character.Name</td>
-                    <td>@Model.UserCharacters[i].Character.Class</td>
-                    <td>@Model.UserCharacters[i].Character.Level</td>
-                    <td>@Model.UserCharacters[i].Rank</td>
-                    <td>@Model.UserCharacters[i].MemberSince</td>
-                    <td><a class="btn btn-outline-danger btn-sm text-danger" asp-controller="Guilds" asp-action="RemoveMember" asp-route-id="@Model.Members[i].Id">Leave</a></td>
+                    <th scope="row" class="text-white">@(i + 1)</th>
+                    <td class="text-white">@Model.UserCharacters[i].Character.Name</td>
+                    <td class="text-white">@Model.UserCharacters[i].Character.Class</td>
+                    <td class="text-white">@Model.UserCharacters[i].Character.Level</td>
+                    <td class="text-white">@Model.UserCharacters[i].Rank</td>
+                    <td class="text-white">@Model.UserCharacters[i].MemberSince</td>
+                    <td class="text-white"><a class="btn btn-outline-light btn-sm" asp-controller="Guilds" asp-action="RemoveMember" asp-route-id="@Model.Members[i].Id">Leave</a></td>
                 </tr>
             }
         </tbody>

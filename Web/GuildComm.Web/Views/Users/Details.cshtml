@@ -6,81 +6,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center">Profile Details</h1>
+<h1 class="text-center text-white">Profile Details</h1>
 <hr class="hr-2">
 <div class="mx-auto">
     <div class="d-flex">
-        <h3>Usermame: @Model.Username</h3>
+        <h3 class="text-white">Usermame: @Model.Username</h3>
     </div>
     <hr class="hr-2">
     <div class="mt-4">
-        <h4>Description:</h4>
+        <h4 class="text-white">Description:</h4>
         <div>
-            <p>@Model.Description</p>
+            <p class="text-white">@Model.Description</p>
         </div>
     </div>
     <a class="btn btn-primary" href="/Users/UpdateDescription" role="button">Update Description</a>
 
-    <hr class="hr-2">
-    <h1 class="text-center">Characters</h1>
-    <hr class="hr-2">
+    <h1 class="text-center text-white">Characters</h1>
 
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Guild</th>
-                <th scope="col">Level</th>
-                <th scope="col">ItemLevel</th>
-                <th scope="col">Realm</th>
+                <th scope="col" class="text-white">#</th>
+                <th scope="col" class="text-white">Name</th>
+                <th scope="col" class="text-white">Guild</th>
+                <th scope="col" class="text-white">Level</th>
+                <th scope="col" class="text-white">ItemLevel</th>
+                <th scope="col" class="text-white">Realm</th>
             </tr>
         </thead>
         <tbody>
             @for (int i = 0; i < Model.Characters.Count; i++)
             {
             <tr>
-                <th scope="row">@(i + 1)</th>
-                <td>@Model.Characters[i].Name</td>
-                <td>@Model.Characters[i].GuildName</td>
-                <td>@Model.Characters[i].Level</td>
-                <td>@Model.Characters[i].ItemLevel</td>
-                <td>@Model.Characters[i].RealmName (@Model.Characters[i].RealmRegion)</td>
-                <td><a class="btn btn-outline-danger btn-sm text-danger" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Characters[i].Id">Remove</a></td>
-                <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Characters[i].Id">Details</a></td>
+                <th scope="row" class="text-white">@(i + 1)</th>
+                <td class="text-white">@Model.Characters[i].Name</td>
+                <td class="text-white">@Model.Characters[i].GuildName</td>
+                <td class="text-white">@Model.Characters[i].Level</td>
+                <td class="text-white">@Model.Characters[i].ItemLevel</td>
+                <td class="text-white">@Model.Characters[i].RealmName (@Model.Characters[i].RealmRegion)</td>
+                <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Characters[i].Id">Remove</a></td>
+                <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Characters[i].Id">Details</a></td>
             </tr>
             }
         </tbody>
     </table>
 
-    <hr class="hr-2">
-    <h1 class="text-center">Guilds</h1>
+    <h1 class="text-center text-white">Guilds</h1>
     <hr class="hr-2">
 
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Realm</th>
-                <th scope="col">Members</th>
+                <th scope="col" class="text-white">#</th>
+                <th scope="col" class="text-white">Name</th>
+                <th scope="col" class="text-white">Realm</th>
+                <th scope="col" class="text-white">Members</th>
             </tr>
         </thead>
         <tbody>
             @for (int i = 0; i < Model.Guilds.Count; i++)
             {
             <tr>
-                <th scope="row">@(i + 1)</th>
-                <td>@Model.Guilds[i].Name</td>
-                <td>@Model.Guilds[i].RealmName (@Model.Guilds[i].RealmRegion)</td>
-                <td>@Model.Guilds[i].MembersCount</td>
-                <td><a class="btn btn-outline-primary btn-sm text-primary" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model.Guilds[i].Id">Details</a></td>
+                <th scope="row" class="text-white">@(i + 1)</th>
+                <td class="text-white">@Model.Guilds[i].Name</td>
+                <td class="text-white">@Model.Guilds[i].RealmName (@Model.Guilds[i].RealmRegion)</td>
+                <td class="text-white">@Model.Guilds[i].MembersCount</td>
+                <td class="text-white"><a class="btn btn-outline-light btn-sm text-white" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model.Guilds[i].Id">Details</a></td>
 
                 @if (Model.Characters.Any(c => c.Name == Model.Guilds[i].GuildMaster))
                 {
-                    <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Guilds" asp-action="Manage" asp-route-id="@Model.Guilds[i].Id">Manage</a></td>
+                    <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Guilds" asp-action="Manage" asp-route-id="@Model.Guilds[i].Id">Manage</a></td>
                 }
-
             </tr>
             }
         </tbody>
