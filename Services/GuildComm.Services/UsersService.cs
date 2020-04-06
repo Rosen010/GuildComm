@@ -17,6 +17,11 @@
 
         private readonly IMapper mapper;
 
+        public UsersService(GuildCommDbContext context)
+        {
+            this.context = context;
+        }
+
         public UsersService(GuildCommDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             this.context = context;

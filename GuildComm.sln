@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Services", "Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Web.ViewModels", "Web\GuildComm.Web.ViewModels\GuildComm.Web.ViewModels.csproj", "{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{51490CA1-D0A1-4131-9B6D-0DB1AC46CAA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildComm.Services.Tests", "Tests\GuildComm.Services.Tests\GuildComm.Services.Tests.csproj", "{DD7AD627-DD62-49DC-AA49-60D671E0B0A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,10 @@ Global
 		{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD7AD627-DD62-49DC-AA49-60D671E0B0A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD7AD627-DD62-49DC-AA49-60D671E0B0A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD7AD627-DD62-49DC-AA49-60D671E0B0A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD7AD627-DD62-49DC-AA49-60D671E0B0A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,7 @@ Global
 		{247E4369-692B-4FD0-9F62-FFCCD70B8E9C} = {863505C6-DD3B-4180-A999-D8116B50EA8E}
 		{1D5F6F79-12B3-44E1-A39D-38F6D690CD7B} = {A00B2AA2-24F3-426B-8399-2622EE7F93C2}
 		{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646} = {FA5EB082-7886-474B-B5D1-9AA8D225F21D}
+		{DD7AD627-DD62-49DC-AA49-60D671E0B0A1} = {51490CA1-D0A1-4131-9B6D-0DB1AC46CAA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4C76F89-07F4-4DDE-BBFD-06D87302B05B}

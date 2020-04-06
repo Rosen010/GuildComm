@@ -9,5 +9,7 @@
         public static string realmJsonLocation = currentDirectory + @"../../../../../../../Data/GuildComm.Data/Seeding/Datasets/Realms.Json";
 
         public static string userJsonLocation = currentDirectory + @"../../../../../../../Data/GuildComm.Data/Seeding/Datasets/Users.Json";
+
+        public static string MockDatabaseName = "MockDbContext";
     }
 }
