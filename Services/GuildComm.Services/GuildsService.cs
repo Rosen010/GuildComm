@@ -21,6 +21,11 @@
 
         private readonly IMapper mapper;
 
+        public GuildsService(GuildCommDbContext context)
+        {
+            this.context = context;
+        }
+
         public GuildsService(GuildCommDbContext context,
             IUsersService usersService,
             IMapper mapper)

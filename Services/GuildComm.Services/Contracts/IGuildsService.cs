@@ -13,7 +13,7 @@
 
         Task CreateGuildAsync(GuildCreateInputModel guild);
 
-        Task<Guild> GetGuildByIdAsync(string name);
+        Task<Guild> GetGuildByIdAsync(string id);
 
         Task<GuildDetailsViewModel> GetGuildViewModelByIdAsync(string id);
 

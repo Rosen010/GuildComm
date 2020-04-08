@@ -54,7 +54,6 @@
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            var user = await this.usersService.GetUserAsync();
             GuildCreateInputModel inputModel = new GuildCreateInputModel();
 
             inputModel.Realms = await this.realmsService.GetAllRealmViewModelsAsync();
@@ -79,7 +78,9 @@
         [Authorize]
         public async Task<IActionResult> Details(string id)
         {
-            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
+            var user = await this.usersService.GetUserAsync();
+
+            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id, user);
 
             return this.View(guild);
         }
