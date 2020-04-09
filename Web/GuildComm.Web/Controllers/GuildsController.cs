@@ -78,9 +78,7 @@
         [Authorize]
         public async Task<IActionResult> Details(string id)
         {
-            var user = await this.usersService.GetUserAsync();
-
-            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id, user);
+            var guild = await this.guildsService.GetGuildViewModelByIdAsync(id);
 
             return this.View(guild);
         }

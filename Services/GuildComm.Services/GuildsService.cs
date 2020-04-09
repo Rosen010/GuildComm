@@ -21,11 +21,6 @@
 
         private readonly IMapper mapper;
 
-        public GuildsService(GuildCommDbContext context)
-        {
-            this.context = context;
-        }
-
         public GuildsService(GuildCommDbContext context,
             IUsersService usersService,
             IMapper mapper)
@@ -40,15 +35,14 @@
         {
             var user = await this.usersService.GetUserAsync();
 
-            var characters = await context.Characters
-                .Include(c => c.Guild)
-                .Where(c => c.UserId == user.Id)
-                .ToListAsync();
-
             var realm = await this.context.Realms
+                .Include(r => r.Guilds)
                 .SingleOrDefaultAsync(dbRealm => dbRealm.Name == inputModel.RealmName);
 
-            var character = characters.SingleOrDefault(c => c.Name == inputModel.MasterCharacter);
+            var character = await context.Characters
+                .Include(c => c.Guild)
+                .Include(c => c.Realm)
+                .SingleOrDefaultAsync(c => c.Name == inputModel.MasterCharacter && c.Realm.Name == inputModel.RealmName);
 
             var guild = new Guild
             {
@@ -75,6 +69,12 @@
         {
             var guild = await this.context.Guilds
                 .SingleOrDefaultAsync(dbGuild => dbGuild.Id == id);
+
+            if (guild == null)
+            {
+                throw new InvalidOperationException("No guild with the given ID was found.");
+            }
+
             return guild;
         }
 
@@ -134,20 +134,13 @@
 
         public async Task<List<GuildsAllViewModel>> GetAllGuildsAsync()
         {
-            List<GuildsAllViewModel> guilds = new List<GuildsAllViewModel>();
-
             var guildsFromDb = await this.context.Guilds
                 .Include(g => g.Realm)
                 .Include(g => g.Members)
+                .Select(g => this.mapper.Map<GuildsAllViewModel>(g))
                 .ToListAsync();
 
-            foreach (var guild in guildsFromDb)
-            {
-                var guildToAdd = this.mapper.Map<GuildsAllViewModel>(guild);
-                guilds.Add(guildToAdd);
-            }
-
-            return guilds;
+            return guildsFromDb;
         }
 
         public async Task AddMemberAsync(int characterId, string rank, string guildId)
@@ -156,7 +149,18 @@
                 .Include(c => c.Realm)
                 .SingleOrDefaultAsync(c => c.Id == characterId);
 
-            var guild = await this.context.Guilds.SingleOrDefaultAsync(g => g.Id == guildId);
+            if (character == null)
+            {
+                throw new InvalidOperationException("No character with given ID was found");
+            }
+
+            var guild = await this.context.Guilds
+                .SingleOrDefaultAsync(g => g.Id == guildId);
+
+            if (guild == null)
+            {
+                throw new InvalidOperationException("No guild with given ID was found");
+            }
 
             if (character.Realm == guild.Realm && character.Guild == null)
             {
@@ -179,9 +183,6 @@
             }
             else
             {
-                this.context.Guilds.Remove(guild);
-                await this.context.SaveChangesAsync();
-
                 throw new InvalidOperationException();
             }      
         }

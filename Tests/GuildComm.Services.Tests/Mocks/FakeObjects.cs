@@ -1,6 +1,7 @@
 ﻿using GuildComm.Data.Models;
 using GuildComm.Data.Models.Enums;
 using GuildComm.Web.ViewModels;
+using System.Collections.Generic;
 
 namespace GuildComm.Services.Tests.Mocks
 {
@@ -48,14 +49,15 @@ namespace GuildComm.Services.Tests.Mocks
             return fakeUser;
         }
 
-        public static Realm CreateFakeRealm()
+        public static Realm CreateFakeRealm(int id)
         {
             var fakeRealm = new Realm
             {
-                Id = 1,
+                Id = id,
                 Name = "Draenor",
                 RealmType = RealmType.Normal,
-                Region = Region.EU
+                Region = Region.EU,
+                Guilds = new List<Guild>()
             };
 
             return fakeRealm;
