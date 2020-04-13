@@ -35,16 +35,22 @@
         public async Task<Member> GetMemberByIdAsync(string id)
         {
             var member = await this.context.Members.SingleOrDefaultAsync(m => m.Id == id);
+
+            if (member == null)
+            {
+                throw new InvalidOperationException("No member with given Id was found");
+            }
+
             return member;
         }
 
-        public async Task<bool> IsMemberAuthorizedAsync(string memberId, string guildId)
-        {
-            var member = await this.GetMemberByIdAsync(memberId);
-            var guild = await this.context.Guilds
-                .SingleOrDefaultAsync(dbGuild => dbGuild.Id == guildId);
+        //public async Task<bool> IsMemberAuthorizedAsync(string memberId, string guildId)
+        //{
+        //    var member = await this.GetMemberByIdAsync(memberId);
+        //    var guild = await this.context.Guilds
+        //        .SingleOrDefaultAsync(dbGuild => dbGuild.Id == guildId);
 
-            return member.Guild == guild && (member.Rank == Rank.GuildeMaster || member.Rank == Rank.Officer);
-        }
+        //    return member.Guild == guild && (member.Rank == Rank.GuildeMaster || member.Rank == Rank.Officer);
+        //}
     }
 }

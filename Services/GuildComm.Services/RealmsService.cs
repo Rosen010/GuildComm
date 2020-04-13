@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
+    using System;
 
     public class RealmsService : IRealmsService
     {
@@ -36,12 +37,22 @@
         {
             Realm realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Name == name);
 
+            if (realm == null)
+            {
+                throw new InvalidOperationException("No realm with given name was found");
+            }
+
             return realm;
         }
 
         public async Task<Realm> GetRealmByIdAsync(int id)
         {
             Realm realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Id == id);
+
+            if (realm == null)
+            {
+                throw new InvalidOperationException("No realm with given Id was found");
+            }
 
             return realm;
         }

@@ -1,66 +1,87 @@
-﻿using GuildComm.Data.Models;
-using GuildComm.Data.Models.Enums;
-using GuildComm.Web.ViewModels;
-using System.Collections.Generic;
-
-namespace GuildComm.Services.Tests.Mocks
+﻿namespace GuildComm.Services.Tests.Mocks
 {
+    using GuildComm.Data.Models;
+    using GuildComm.Data.Models.Enums;
+
+    using System;
+    using System.Collections.Generic;
+
     public static class FakeObjects
     {
-        public static Guild CreateFakeGuild()
+        public static Guild CreateFakeGuild(string id, string name, string guildMaster)
         {
             var fakeGuild = new Guild
             {
-                Id = "1",
-                Name = "Pieces",
+                Id = id,
+                Name = name,
                 RealmId = 1,
                 Information = "Random Info",
-                GuildMaster = "Nexxus"
+                GuildMaster = guildMaster
             };
 
             return fakeGuild;
         }
 
-        public static Character CreateFakeCharacter()
+        public static Character CreateFakeCharacter(int id, string name, int realmId, string guildId = null)
         {
             var fakeCharacter = new Character
             {
-                Id = 1,
-                Name = "Nexxus",
+                Id = id,
+                Name = name,
                 Role = Role.Healer,
                 Class = Class.Paladin,
                 Level = 120,
                 ItemLevel = 470,
-                RealmId = 1
+                RealmId = realmId
             };
 
             return fakeCharacter;
         }
 
-        public static GuildCommUser CreateFakeUser()
-        {
-            var fakeUser = new GuildCommUser
-            {
-                Id = "1",
-                UserName = "Gosho",
-                Email = "Gosho@asd.bg"
-            };
-
-            return fakeUser;
-        }
-
-        public static Realm CreateFakeRealm(int id)
+        public static Realm CreateFakeRealm(int id, string name)
         {
             var fakeRealm = new Realm
             {
                 Id = id,
-                Name = "Draenor",
+                Name = name,
                 RealmType = RealmType.Normal,
                 Region = Region.EU,
                 Guilds = new List<Guild>()
             };
 
             return fakeRealm;
+        }
+
+        public static Member CreateFakeMember(string id, int characterId, string guildId, Rank rank = Rank.Trial)
+        {
+            var fakeMember = new Member
+            {
+                Id = id,
+                CharacterId = characterId,
+                GuildId = guildId,
+                Info = "Random info",
+                Rank = rank,
+                MemberSince = DateTime.UtcNow,
+                Events = new List<EventParticipant>()
+            };
+
+            return fakeMember;
+        }
+
+        public static Event CreateFakeEvent(int id, string name, string guildId)
+        {
+            var fakeEvent = new Event
+            {
+                Id = id,
+                EventType = EventType.Raid,
+                Description = "Test",
+                Date = DateTime.UtcNow,
+                Name = name,
+                GuildId = guildId,
+                Participants = new List<EventParticipant>()
+            };
+
+            return fakeEvent;
         }
     }
 }

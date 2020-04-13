@@ -83,18 +83,33 @@
             return this.View(guild);
         }
 
+        [Authorize]
         public async Task<IActionResult> Promote(string id, string guildId)
         {
+
+            if (!await this.guildsService.IsUserAuthorized(id))
+            {
+                return this.Redirect("/Guilds/All");
+            }
+
             await this.guildsService.PromoteMemberAsync(id);
             return this.RedirectToAction("Manage", "Guilds", new { id = guildId });
         }
 
+        [Authorize]
         public async Task<IActionResult> Demote(string id, string guildId)
         {
+
+            if (!await this.guildsService.IsUserAuthorized(id))
+            {
+                return this.Redirect("/Guilds/All");
+            }
+
             await this.guildsService.DemoteMemberAsync(id);
             return this.RedirectToAction("Manage", "Guilds", new { id = guildId });
         }
 
+        [Authorize]
         public async Task<IActionResult> Manage(string id)
         {
             if (!await this.guildsService.IsUserAuthorized(id))
@@ -110,6 +125,12 @@
         [Authorize]
         public async Task<IActionResult> RemoveMember(string id)
         {
+
+            if (!await this.guildsService.IsUserAuthorized(id))
+            {
+                return this.Redirect("/Guilds/All");
+            }
+
             await this.guildsService.RemoveMemberAsync(id);
             return this.Redirect("/Guilds/All");
         }

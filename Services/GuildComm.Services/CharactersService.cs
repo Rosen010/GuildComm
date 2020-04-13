@@ -1,5 +1,6 @@
 ﻿namespace GuildComm.Services
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Collections.Generic;
@@ -27,7 +28,15 @@
         public async Task CreateCharacterAsync(CharacterRegisterInputModel inputModel)
         {
             var character = this.mapper.Map<Character>(inputModel);
-            character.Realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Name == inputModel.RealmName);
+
+            var realm = await this.context.Realms.SingleOrDefaultAsync(dbRealm => dbRealm.Name == inputModel.RealmName);
+
+            if (realm == null)
+            {
+                throw new InvalidOperationException("Realm doesn't exist");
+            }
+
+            character.Realm = realm;
             character.User = await usersService.GetUserAsync();
 
             await this.context.Characters.AddAsync(character);
@@ -66,6 +75,11 @@
                 .Include(c => c.Guild)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
+            if (character == null)
+            {
+                throw new InvalidOperationException("No character with given Id was found");
+            }
+
             var charModel = this.mapper.Map<T>(character);
 
             return charModel;
@@ -74,6 +88,11 @@
         public async Task RemoveCharacterAsync(int id)
         {
             var character = await context.Characters.SingleOrDefaultAsync(c => c.Id == id);
+
+            if (character == null)
+            {
+                throw new InvalidOperationException("No character with given Id was found");
+            }
 
             this.context.Characters.Remove(character);
             await this.context.SaveChangesAsync();

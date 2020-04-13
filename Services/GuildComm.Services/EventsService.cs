@@ -32,6 +32,11 @@
                 .Where(c => c.Id == characterId)
                 .FirstOrDefaultAsync();
 
+            if (character == null)
+            {
+                throw new InvalidOperationException("No character with given Id was found");
+            }
+
             string memberId = character.MemberId;
 
             var member = await this.context.Members
@@ -40,6 +45,11 @@
             var dbEvent = await this.context.Events
                 .Include(x => x.Participants)
                 .SingleOrDefaultAsync(e => e.Id == eventId);
+
+            if (dbEvent == null)
+            {
+                throw new InvalidOperationException("No event with given Id was found");
+            }
 
             if (dbEvent.Participants.Any(x => x.ParticipantId == member.Id))
             {
@@ -68,6 +78,11 @@
 
         public async Task CreateEvent(EventCreateInputModel inputModel)
         {
+            if (!this.context.Guilds.Any(g => g.Id == inputModel.GuildId))
+            {
+                throw new InvalidOperationException("No guild with given Id was found");
+            }
+
             var newEvent = mapper.Map<Event>(inputModel);
 
             await this.context.Events.AddAsync(newEvent);

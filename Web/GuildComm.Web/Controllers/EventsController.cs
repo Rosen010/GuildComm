@@ -2,11 +2,12 @@
 {
     using GuildComm.Services;
     using GuildComm.Services.Contracts;
-    using GuildComm.Web.ViewModels.Characters;
     using GuildComm.Web.ViewModels.Events;
-    using Microsoft.AspNetCore.Mvc;
+    using GuildComm.Web.ViewModels.Characters;
+
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
 
     public class EventsController : Controller
     {
@@ -36,7 +37,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(EventCreateInputModel inputModel)
         {
-            await this.eventsService.CreateEvent(inputModel);
+            if (this.ModelState.IsValid)
+            {
+                await this.eventsService.CreateEvent(inputModel);
+            }
+            
             return this.Redirect($"/Guilds/Manage/{inputModel.GuildId}");
         }
 
@@ -63,13 +68,18 @@
         [HttpPost]
         public async Task<IActionResult> SignUp(EventSignUpInputModel inputModel)
         {
-            var characters = await this.charactersService.GetCharactersByNameAsync<CharacterViewModel>(inputModel.Character);
-            var guild = await this.guildsService.GetGuildViewModelByIdAsync(inputModel.GuildId);
+            if (this.ModelState.IsValid)
+            {
+                var characters = await this.charactersService.GetCharactersByNameAsync<CharacterViewModel>(inputModel.Character);
+                var guild = await this.guildsService.GetGuildViewModelByIdAsync(inputModel.GuildId);
 
-            var character = characters.Where(c => c.RealmName == guild.RealmName).FirstOrDefault();
+                var character = characters.Where(c => c.RealmName == guild.RealmName).FirstOrDefault();
 
-            await this.eventsService.AddMemberToEventAsync(character.Id, inputModel.EventId);
-            return this.RedirectToAction("All", "Events", new { id = inputModel.GuildId });
+                await this.eventsService.AddMemberToEventAsync(character.Id, inputModel.EventId);
+                return this.RedirectToAction("All", "Events", new { id = inputModel.GuildId });
+            }
+
+            return this.View(inputModel);
         }
     }
 }

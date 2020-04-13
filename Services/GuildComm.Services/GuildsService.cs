@@ -5,6 +5,7 @@
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels;
     using GuildComm.Data.Models.Enums;
+    using GuildComm.Web.ViewModels.Guild;
     using GuildComm.Web.ViewModels.Members;
 
     using System;
@@ -12,7 +13,6 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using GuildComm.Web.ViewModels.Guild;
 
     public class GuildsService : IGuildsService
     {
@@ -54,7 +54,7 @@
 
             if (realm.Guilds.Any(g => g.Name == guild.Name))
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"A guild with the given name already exists on {realm.Name}");
             }
             else
             {
@@ -183,12 +183,12 @@
             }
             else
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Character must be in the same realm and not be in a guild");
             }      
         }
 
         public async Task<List<GuildsAllViewModel>> GetUserGuildsAsync()
-        {
+       {
             var user = await this.usersService.GetUserAsync();
             var characters = await context.Characters
                 .Include(c => c.Guild)
@@ -220,8 +220,7 @@
 
             return this.context.Characters
                 .Include(c => c.Guild)
-                .Include(c => c.User)
-                .Where(c => c.User.UserName == user.UserName)
+                .Where(c => c.UserId == user.Id)
                 .Any(c => c.GuildId == guildId);
         }
 
@@ -229,6 +228,11 @@
         {
             var member = await this.context.Members
                 .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (member == null)
+            {
+                throw new InvalidOperationException("No member with given Id was found");
+            }
 
             var character = await this.context.Characters
                 .Include(c => c.Guild)
@@ -246,16 +250,21 @@
         {
             var guild = await GetGuildByIdAsync(id);
 
-            var characters = this.context.Characters
+            if (guild == null)
+            {
+                throw new InvalidOperationException("No guild with given Id was found");
+            }
+
+            var characters = await this.context.Characters
                 .Include(c => c.Guild)
                 .Include(c => c.Member)
                 .Where(c => c.GuildId == id)
-                .ToList();
+                .ToListAsync();
 
-            var members = this.context.Members
+            var members = await this.context.Members
                 .Include(m => m.Guild)
                 .Where(m => m.GuildId == id)
-                .ToList();
+                .ToListAsync();
 
             foreach (var character in characters)
             {
@@ -314,7 +323,7 @@
                 .Where(g => g.Id == guildId)
                 .SingleOrDefaultAsync();
 
-            return user.Characters.Any(c => c.Name == guild.GuildMaster);            
+            return user.Characters.Any(c => c.Name == guild.GuildMaster);
         }
     }
 }

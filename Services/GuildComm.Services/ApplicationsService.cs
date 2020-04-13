@@ -5,6 +5,7 @@
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels.Applications;
 
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Collections.Generic;
@@ -33,8 +34,18 @@
             var guild = await this.context.Guilds
                 .SingleOrDefaultAsync(dbGuild => dbGuild.Id == inputModel.GuildId);
 
+            if (guild == null)
+            {
+                throw new InvalidOperationException("No guild with given Id was found");
+            }
+
             var character = await this.context.Characters
                 .SingleOrDefaultAsync(dbChar => dbChar.Name == inputModel.CharacterName);
+
+            if (character == null)
+            {
+                throw new InvalidOperationException("Character not found");
+            }
 
             var application = this.mapper.Map<Application>(inputModel);
             application.Guild = guild;
@@ -50,7 +61,12 @@
                 .Include(a => a.Guild)
                 .Where(a => a.Id == applicationId)
                 .Select(a => mapper.Map<ApplicationDetailsViewModel>(a))
-                .SingleOrDefaultAsync();    
+                .SingleOrDefaultAsync();
+
+            if (application == null)
+            {
+                throw new InvalidOperationException("No application with given Id was found");
+            }
 
             return application;
         }
@@ -71,6 +87,11 @@
             var application = await this.context
                 .Applications
                 .SingleOrDefaultAsync(a => a.Id == applicationId);
+
+            if (application == null)
+            {
+                throw new InvalidOperationException("No application with given Id was found");
+            }
 
             this.context.Applications.Remove(application);
             await this.context.SaveChangesAsync();
