@@ -1,19 +1,20 @@
-﻿using AutoMapper;
-using GuildComm.Data.Models;
-using GuildComm.Data.Models.Enums;
-using GuildComm.Web.ViewModels;
-using GuildComm.Web.ViewModels.Characters;
-using GuildComm.Web.ViewModels.Events;
-using GuildComm.Web.ViewModels.Guild;
-using GuildComm.Web.ViewModels.Members;
-using GuildComm.Web.ViewModels.Realms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GuildComm.Services.Utilities
+﻿namespace GuildComm.Services.Utilities
 {
+    using GuildComm.Data.Models;
+    using GuildComm.Web.ViewModels;
+    using GuildComm.Data.Models.Enums;
+    using GuildComm.Web.ViewModels.Guild;
+    using GuildComm.Web.ViewModels.Realms;
+    using GuildComm.Web.ViewModels.Events;
+    using GuildComm.Web.ViewModels.Members;
+    using GuildComm.Web.ViewModels.Characters;
+    using GuildComm.Web.ViewModels.Applications;
+
+    using AutoMapper;
+
+    using System;
+    using System.Linq;
+
     public class TestiningProfile : Profile
     {
         public TestiningProfile()
@@ -56,6 +57,15 @@ namespace GuildComm.Services.Utilities
 
             this.CreateMap<EventCreateInputModel, Event>()
                 .ForMember(x => x.EventType, y => y.MapFrom(s => (EventType)(Enum.Parse(typeof(EventType), s.EventType))));
+
+            this.CreateMap<ApplicationCreateInputModel, Application>()
+                .ForMember(x => x.Role, y => y.MapFrom(s => (Role)(Enum.Parse(typeof(Role), s.Role))));
+
+            this.CreateMap<Application, ApplicationDetailsViewModel>()
+                .ForMember(x => x.Role, y => y.MapFrom(s => s.Role.ToString()));
+
+            this.CreateMap<Application, ApplicationsAllViewModel>()
+                .ForMember(x => x.Role, y => y.MapFrom(s => s.Role.ToString()));
         }
     }
 }

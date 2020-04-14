@@ -131,7 +131,7 @@
 
             var initialCharacterCount = db.Context.Characters.Count();
 
-            await fakeService.RemoveCharacterAsync(1);
+            await fakeService.RemoveCharacterAsync(2);
             Assert.True(db.Context.Characters.Count() == initialCharacterCount - 1);
             db.Context.Dispose();
         }

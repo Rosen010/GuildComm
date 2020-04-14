@@ -64,7 +64,7 @@
                 await this.AddMemberAsync(character.Id, "GuildeMaster", guild.Id);
             }
         }
-           
+
         public async Task<Guild> GetGuildByIdAsync(string id)
         {
             var guild = await this.context.Guilds
@@ -110,7 +110,7 @@
             {
                 guildModel.UserCharacters = userCharacters;
             }
-            
+
             return guildModel;
         }
 
@@ -132,13 +132,49 @@
             return guildModel;
         }
 
-        public async Task<List<GuildsAllViewModel>> GetAllGuildsAsync()
+        public async Task<List<GuildsAllViewModel>> GetAllGuildsAsync(int? take = null, int skip = 0)
         {
-            var guildsFromDb = await this.context.Guilds
+            var guildsFromDb = new List<GuildsAllViewModel>();
+
+            if (take.HasValue)
+            {
+                guildsFromDb = await this.context.Guilds
                 .Include(g => g.Realm)
                 .Include(g => g.Members)
+                .OrderByDescending(x => x.Members.Count())
+                .Skip(skip)
+                .Take(take.Value)
                 .Select(g => this.mapper.Map<GuildsAllViewModel>(g))
                 .ToListAsync();
+            }
+            else
+            {
+                guildsFromDb = await this.context.Guilds
+                .Include(g => g.Realm)
+                .Include(g => g.Members)
+                .OrderByDescending(x => x.Members.Count())
+                .Skip(skip)
+                .Select(g => this.mapper.Map<GuildsAllViewModel>(g))
+                .ToListAsync();
+            }
+
+            return guildsFromDb;
+        }
+
+        public int GetGuildsCount()
+        {
+            return this.context.Guilds.Count();
+        }
+
+        public async Task<List<GuildsAllViewModel>> GetPopularGuildsAsync()
+        {
+            var guildsFromDb = await this.context.Guilds
+               .Include(g => g.Realm)
+               .Include(g => g.Members)
+               .OrderByDescending(x => x.Members.Count)
+               .Take(5)
+               .Select(g => this.mapper.Map<GuildsAllViewModel>(g))
+               .ToListAsync();
 
             return guildsFromDb;
         }
@@ -184,11 +220,11 @@
             else
             {
                 throw new InvalidOperationException("Character must be in the same realm and not be in a guild");
-            }      
+            }
         }
 
         public async Task<List<GuildsAllViewModel>> GetUserGuildsAsync()
-       {
+        {
             var user = await this.usersService.GetUserAsync();
             var characters = await context.Characters
                 .Include(c => c.Guild)
@@ -199,7 +235,7 @@
 
             foreach (var character in characters)
             {
-                if (character.Guild != null) 
+                if (character.Guild != null)
                 {
                     var guildFromDb = await this.context.Guilds
                         .Include(g => g.Members)

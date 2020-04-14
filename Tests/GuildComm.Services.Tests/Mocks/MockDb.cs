@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using GuildComm.Data.Models.Enums;
 
     public class MockDb
     {
@@ -30,13 +29,15 @@
             var secondFakeCharacter = FakeObjects.CreateFakeCharacter(id: 2, name: "Flapsy", realmId: 1, guildId: "1");
             var thirdFakeCharacter = FakeObjects.CreateFakeCharacter(id: 4, name: "LoshTank", realmId: 1, guildId: "1");
             var characterToKick = FakeObjects.CreateFakeCharacter(id: 5, name: "Chillybitz", realmId: 1, guildId: "1");
+            var characterWithoutGuild = FakeObjects.CreateFakeCharacter(id: 6, name: "Name", realmId: 1);
 
             var fakeMember = FakeObjects.CreateFakeMember(id: "1", characterId: 2, guildId: "1");
             var secondFakeMember = FakeObjects.CreateFakeMember(id: "2", characterId: 4, guildId: "1");
             var memberToKick = FakeObjects.CreateFakeMember(id: "3", characterId: 5, guildId: "1");
-            //var fakeGuildMaster = FakeObjects.CreateFakeMember(id: "5", characterId: 1, guildId: "1", rank: Rank.GuildeMaster);
 
             var fakeEvent = FakeObjects.CreateFakeEvent(id: 1, name: "Test", guildId: "1");
+
+            var fakeApplication = FakeObjects.CreateFakeApllication(id: 1, characterName: "Name", characterId: 1, guildId: "1");
 
             fakeCharacter.UserId = "123";
             secondFakeCharacter.UserId = "123";
@@ -61,13 +62,15 @@
             await this.Context.Characters.AddAsync(secondFakeCharacter);
             await this.Context.Characters.AddAsync(thirdFakeCharacter);
             await this.Context.Characters.AddAsync(characterToKick);
+            await this.Context.Characters.AddAsync(characterWithoutGuild);
 
             await this.Context.Members.AddAsync(fakeMember);
             await this.Context.Members.AddAsync(secondFakeMember);
             await this.Context.Members.AddAsync(memberToKick);
-            //await this.Context.Members.AddAsync(fakeGuildMaster);
 
             await this.Context.Events.AddAsync(fakeEvent);
+
+            await this.Context.Applications.AddAsync(fakeApplication);
 
             await this.Context.SaveChangesAsync();
         }

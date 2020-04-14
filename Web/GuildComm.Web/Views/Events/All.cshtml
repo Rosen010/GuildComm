@@ -28,7 +28,7 @@
                 <td>@Model[i].EvenType</td>
                 <td>@Model[i].ParticipantsCount</td>
 
-                <td><a class="btn btn-outline-success btn-sm text-success" asp-controller="Events" asp-action="SignUp" asp-route-id="@Model[i].Id" asp-route-guildId="@Model[i].GuildId">Sign Up</a></td>
+                <td><a class="btn btn-light" asp-controller="Events" asp-action="SignUp" asp-route-id="@Model[i].Id" asp-route-guildId="@Model[i].GuildId">Sign Up</a></td>
             </tr>
         }
     </tbody>

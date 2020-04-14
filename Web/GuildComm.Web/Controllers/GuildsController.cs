@@ -2,8 +2,10 @@
 {
     using GuildComm.Services;
     using GuildComm.Web.ViewModels;
+    using GuildComm.Web.ViewModels.Guild;
     using GuildComm.Web.ViewModels.Characters;
 
+    using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
@@ -15,6 +17,8 @@
         private readonly ICharactersService charactersService;
         private readonly IUsersService usersService;
         private readonly IApplicationsService applicationsService;
+
+        private const int ItemsPerPage = 5;
 
         public GuildsController(IRealmsService realmsService, 
             IGuildsService guildsService, 
@@ -44,11 +48,22 @@
             return this.Redirect("/Guilds/All");
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 1)
         {
-            var guilds = await guildsService.GetAllGuildsAsync();
+            var model = new GuildsListingModel();
+            model.Guilds = await guildsService.GetAllGuildsAsync(ItemsPerPage, (page - 1) * ItemsPerPage);
 
-            return this.View(guilds);
+            var count = this.guildsService.GetGuildsCount();
+            model.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+
+            if (model.PagesCount == 0)
+            {
+                model.PagesCount = 1;
+            }
+
+            model.CurrentPage = page;
+
+            return this.View(model);
         }
 
         [Authorize]

@@ -19,7 +19,11 @@
 
         Task<GuildManageViewModel> GetGuildManageViewModelByIdAsync(string id);
 
-        Task<List<GuildsAllViewModel>> GetAllGuildsAsync();
+        Task<List<GuildsAllViewModel>> GetAllGuildsAsync(int? take = null, int skip = 0);
+
+        int GetGuildsCount();
+
+        Task<List<GuildsAllViewModel>> GetPopularGuildsAsync();
 
         Task<List<GuildsAllViewModel>> GetUserGuildsAsync();
 

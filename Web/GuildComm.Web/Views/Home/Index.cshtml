@@ -1,4 +1,7 @@
-﻿@{
+﻿@using GuildComm.Web.ViewModels.Home
+@model List<GuildsAllViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -25,3 +28,33 @@
         </div>
     }
 </div>
+<hr />
+
+<div class="text-center mt-4">
+    <h2 class="text-white">Popular Guilds</h2>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-white" scope="col">#</th>
+            <th class="text-white" scope="col">Name</th>
+            <th class="text-white" scope="col">Realm</th>
+            <th class="text-white" scope="col">Members</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <th class="text-white" scope="row">@(i + 1)</th>
+                <td class="text-white">@Model[i].Name</td>
+                <td class="text-white">@Model[i].RealmName (@Model[i].RealmRegion)</td>
+                <td class="text-white">@Model[i].MembersCount</td>
+
+                <td><a class="btn btn-outline-light btn-sm text-light" asp-controller="Applications" asp-action="Apply" asp-route-id="@Model[i].Id">Apply</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
 
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using GuildComm.Services;
 using GuildComm.Web.ViewModels;
 
 namespace GuildComm.Web.Controllers
@@ -10,15 +12,19 @@ namespace GuildComm.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IGuildsService guildsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGuildsService guildsService)
         {
             _logger = logger;
+            this.guildsService = guildsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var popularGuilds = await guildsService.GetPopularGuildsAsync();
+
+            return View(popularGuilds);
         }
 
         public IActionResult Privacy()

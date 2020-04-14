@@ -83,5 +83,23 @@
 
             return fakeEvent;
         }
+
+        public static Application CreateFakeApllication(int id, string characterName, int characterId, string guildId)
+        {
+            var fakeApplication = new Application
+            {
+                Id = id,
+                CharacterName = characterName,
+                Age = 20,
+                Role = Role.DPS,
+                Experience = "Test",
+                Country = "Test",
+                GuildId = guildId,
+                CharacterId = characterId,
+                ArmoryLink = "test"
+            };
+
+            return fakeApplication;
+        }
     }
 }

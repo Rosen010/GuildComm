@@ -1,32 +1,32 @@
-﻿@using GuildComm.Web.ViewModels.Guild
-@model GuildsListingModel
+﻿@using GuildComm.Web.ViewModels.Users
+@model GuildCommUsersListingModel
 
 @{
-    ViewData["Title"] = "All";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Admin dashboard";
 }
 
-<h1 class="text-white">All Guilds</h1>
+<h1 class="text-white">All Users</h1>
+
+<a class="btn btn-light btn-lg" asp-area="Administration" asp-controller="Administration" asp-action="Index">Guilds</a>
+<hr />
 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th class="text-white" scope="col">#</th>
-            <th class="text-white" scope="col">Name</th>
-            <th class="text-white" scope="col">Realm</th>
-            <th class="text-white" scope="col">Members</th>
+            <th scope="col" class="text-white">#</th>
+            <th scope="col" class="text-white">Username</th>
+            <th scope="col" class="text-white">Email</th>
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.Guilds.Count; i++)
+        @for (int i = 0; i < Model.Users.Count; i++)
         {
             <tr>
                 <th class="text-white" scope="row">@(i + 1)</th>
-                <td class="text-white">@Model.Guilds[i].Name</td>
-                <td class="text-white">@Model.Guilds[i].RealmName (@Model.Guilds[i].RealmRegion)</td>
-                <td class="text-white">@Model.Guilds[i].MembersCount</td>
+                <td class="text-white">@Model.Users[i].Username</td>
+                <td class="text-white">@Model.Users[i].Email</td>
 
-                <td><a class="btn btn-outline-light btn-sm text-light" asp-controller="Applications" asp-action="Apply" asp-route-id="@Model.Guilds[i].Id">Apply</a></td>
+                <td><a class="btn btn-dark btn-sm" asp-area="Administration" asp-controller="UserAdministration" asp-action="Ban" asp-route-id="@Model.Users[i].Id">Ban</a></td>
             </tr>
         }
     </tbody>

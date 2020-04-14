@@ -94,6 +94,7 @@
             var events = await this.context
                 .Events
                 .Include(e => e.Guild)
+                .Include(e => e.Participants)
                 .Where(e => e.GuildId == guildId)
                 .Select(e => mapper.Map<EventsAllViewModel>(e))
                 .ToListAsync();

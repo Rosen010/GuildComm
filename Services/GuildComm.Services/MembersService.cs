@@ -3,11 +3,9 @@
     using GuildComm.Data;
     using GuildComm.Data.Models;
     using GuildComm.Data.Models.Enums;
-    using GuildComm.Web.ViewModels.Members;
 
     using System;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
 
     public class MembersService : IMembersService
