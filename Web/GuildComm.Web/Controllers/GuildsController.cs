@@ -102,7 +102,7 @@
         public async Task<IActionResult> Promote(string id, string guildId)
         {
 
-            if (!await this.guildsService.IsUserAuthorized(id))
+            if (!await this.guildsService.IsUserAuthorized(guildId))
             {
                 return this.Redirect("/Guilds/All");
             }
@@ -115,7 +115,7 @@
         public async Task<IActionResult> Demote(string id, string guildId)
         {
 
-            if (!await this.guildsService.IsUserAuthorized(id))
+            if (!await this.guildsService.IsUserAuthorized(guildId))
             {
                 return this.Redirect("/Guilds/All");
             }

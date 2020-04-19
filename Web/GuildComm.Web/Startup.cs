@@ -5,21 +5,22 @@ namespace GuildComm.Web
     using GuildComm.Data.Models;
     using GuildComm.Data.Seeding;
     using GuildComm.Web.Extensions;
+    using GuildComm.Services.Utilities;
+    using GuildComm.Services.Contracts;
 
+    using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
 
     using AutoMapper;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc.Infrastructure;
-    using GuildComm.Services.Utilities;
-    using System.Linq;
-    using GuildComm.Services.Contracts;
 
     public class Startup
     {
@@ -33,10 +34,10 @@ namespace GuildComm.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<GuildCommDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), 
+            services.AddDbContext<GuildCommDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 m => m.MigrationsAssembly("GuildComm.Data")));
-        
+
             services.AddIdentity<GuildCommUser, IdentityRole>()
                 .AddEntityFrameworkStores<GuildCommDbContext>()
                 .AddDefaultTokenProviders();
@@ -54,6 +55,21 @@ namespace GuildComm.Web
                 options.User.RequireUniqueEmail = true;
             });
 
+            services.Configure<CookiePolicyOptions>(
+                options =>
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                });
+
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // CSRF
+            });
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Identity/Account/Login";
@@ -67,7 +83,7 @@ namespace GuildComm.Web
             services.AddScoped<GuildCommUserSeeder>();
             services.AddScoped<GuildCommUserRoleSeeder>();
             services.AddScoped<GuildCommRealmSeeder>();
-            
+
             services.AddTransient<IMembersService, MembersService>();
             services.AddTransient<IRealmsService, RealmsService>();
             services.AddTransient<IGuildsService, GuildsService>();
@@ -75,7 +91,7 @@ namespace GuildComm.Web
             services.AddTransient<ICharactersService, CharactersService>();
             services.AddTransient<IApplicationsService, ApplicationsService>();
             services.AddTransient<IEventsService, EventsService>();
-            
+
             services.AddSingleton(this.Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -93,8 +109,8 @@ namespace GuildComm.Web
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var context = scope.ServiceProvider.GetService<GuildCommDbContext>())
-                
-            context.Database.EnsureCreated();
+
+                context.Database.EnsureCreated();
 
             if (env.IsDevelopment())
             {
@@ -108,12 +124,13 @@ namespace GuildComm.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

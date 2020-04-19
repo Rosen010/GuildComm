@@ -19,7 +19,7 @@
             <p class="text-white">@Model.Description</p>
         </div>
     </div>
-    <a class="btn btn-primary" href="/Users/UpdateDescription" role="button">Update Description</a>
+    <a class="btn btn-dark" href="/Users/UpdateDescription" role="button">Update Description</a>
 
     <h1 class="text-center text-white">Characters</h1>
 
@@ -37,16 +37,16 @@
         <tbody>
             @for (int i = 0; i < Model.Characters.Count; i++)
             {
-            <tr>
-                <th scope="row" class="text-white">@(i + 1)</th>
-                <td class="text-white">@Model.Characters[i].Name</td>
-                <td class="text-white">@Model.Characters[i].GuildName</td>
-                <td class="text-white">@Model.Characters[i].Level</td>
-                <td class="text-white">@Model.Characters[i].ItemLevel</td>
-                <td class="text-white">@Model.Characters[i].RealmName (@Model.Characters[i].RealmRegion)</td>
-                <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Characters[i].Id">Remove</a></td>
-                <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Characters[i].Id">Details</a></td>
-            </tr>
+                <tr>
+                    <th scope="row" class="text-white">@(i + 1)</th>
+                    <td class="text-white">@Model.Characters[i].Name</td>
+                    <td class="text-white">@Model.Characters[i].GuildName</td>
+                    <td class="text-white">@Model.Characters[i].Level</td>
+                    <td class="text-white">@Model.Characters[i].ItemLevel</td>
+                    <td class="text-white">@Model.Characters[i].RealmName (@Model.Characters[i].RealmRegion)</td>
+                    <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Characters" asp-action="Remove" asp-route-id="@Model.Characters[i].Id">Remove</a></td>
+                    <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Characters" asp-action="Details" asp-route-id="@Model.Characters[i].Id">Details</a></td>
+                </tr>
             }
         </tbody>
     </table>
@@ -66,19 +66,20 @@
         <tbody>
             @for (int i = 0; i < Model.Guilds.Count; i++)
             {
-            <tr>
-                <th scope="row" class="text-white">@(i + 1)</th>
-                <td class="text-white">@Model.Guilds[i].Name</td>
-                <td class="text-white">@Model.Guilds[i].RealmName (@Model.Guilds[i].RealmRegion)</td>
-                <td class="text-white">@Model.Guilds[i].MembersCount</td>
-                <td class="text-white"><a class="btn btn-outline-light btn-sm text-white" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model.Guilds[i].Id">Details</a></td>
+                <tr>
+                    <th scope="row" class="text-white">@(i + 1)</th>
+                    <td class="text-white">@Model.Guilds[i].Name</td>
+                    <td class="text-white">@Model.Guilds[i].RealmName (@Model.Guilds[i].RealmRegion)</td>
+                    <td class="text-white">@Model.Guilds[i].MembersCount</td>
+                    <td class="text-white"><a class="btn btn-outline-light btn-sm text-white" asp-controller="Guilds" asp-action="Details" asp-route-id="@Model.Guilds[i].Id">Details</a></td>
 
-                @if (Model.Characters.Any(c => c.Name == Model.Guilds[i].GuildMaster))
-                {
-                    <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Guilds" asp-action="Manage" asp-route-id="@Model.Guilds[i].Id">Manage</a></td>
-                }
-            </tr>
+                    @if (Model.Characters.Any(c => c.Name == Model.Guilds[i].GuildMaster))
+                    {
+                        <td><a class="btn btn-outline-light btn-sm text-white" asp-controller="Guilds" asp-action="Manage" asp-route-id="@Model.Guilds[i].Id">Manage</a></td>
+                    }
+                </tr>
             }
         </tbody>
     </table>
+    <a class="btn btn-danger" href="/Identity/Account/Manage/DeletePersonalData" role="button">Delete Account</a>
 </div>
