@@ -22,7 +22,7 @@
         {
             if (await this.guildsService.IsUserInTargetGuild(id))
             {
-                return this.Unauthorized("You are already a member of this guild");
+                return this.Redirect("/Home/Error");
             }
 
             if (!this.User.Identity.IsAuthenticated)

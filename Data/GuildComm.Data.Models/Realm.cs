@@ -9,6 +9,7 @@
         public Realm()
         {
             this.Guilds = new HashSet<Guild>();
+            this.Characters = new HashSet<Character>();
         }
 
         public int Id { get; set; }

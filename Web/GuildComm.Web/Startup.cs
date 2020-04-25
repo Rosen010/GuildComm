@@ -104,8 +104,8 @@ namespace GuildComm.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDatabaseSeeding();
-            app.UseCharacterSeeding();
+            //app.UseDatabaseSeeding();
+            //app.UseCharacterSeeding();
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var context = scope.ServiceProvider.GetService<GuildCommDbContext>())

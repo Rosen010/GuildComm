@@ -10,6 +10,7 @@
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
     using System;
+    using GuildComm.Data.Models.Enums;
 
     public class RealmsService : IRealmsService
     {
@@ -22,6 +23,19 @@
             this.context = context;
 
             this.mapper = mapper;
+        }
+
+        public async Task CreateRealmAsync(RealmCreateInputModel inputModel)
+        {
+            var realm = new Realm
+            {
+                Name = inputModel.Name,
+                RealmType = (RealmType)Enum.Parse(typeof(RealmType), inputModel.RealmType),
+                Region = (Region)Enum.Parse(typeof(Region), inputModel.Region)
+            };
+
+            await this.context.Realms.AddAsync(realm);
+            await this.context.SaveChangesAsync();
         }
 
         public async Task<List<RealmViewModel>> GetAllRealmViewModelsAsync()

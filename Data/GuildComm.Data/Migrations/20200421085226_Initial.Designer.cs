@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuildComm.Data.Migrations
 {
     [DbContext(typeof(GuildCommDbContext))]
-    [Migration("20200315085428_AddInfoPropToGuild")]
-    partial class AddInfoPropToGuild
+    [Migration("20200421085226_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

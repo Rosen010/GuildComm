@@ -1,0 +1,44 @@
+﻿@using GuildComm.Web.ViewModels.Realms
+@model RealmCreateInputModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-center">
+        <form method="post">
+            <h2 class="text-white">Add realm</h2>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Name" class="text-white"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.RealmType" class="text-white"></label>
+                <select class="custom-select" id="realmType" name="realmType">
+                    <option selected disabled value="">-- Select Realm Type --</option>
+                    <option value="Normal">Normal</option>
+                    <option value="PvP">PvP</option>
+                    <option value="RP">RP</option>
+                    <option value="RPPvP">RPPvP</option>
+                </select>
+                <span asp-validation-for="@Model.RealmType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Region" class="text-white"></label>
+                <select class="custom-select" id="region" name="region">
+                    <option selected disabled value="">-- Select Realm Region --</option>
+                    <option value="EU">EU</option>
+                    <option value="NA">NA</option>
+                    <option value="Asia">Asia</option>
+                </select>
+                <span asp-validation-for="@Model.Region" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-dark" asp-action="Create" asp-controller="Realms">Add Realm</button>
+        </form>
+    </div>
+</div>

@@ -8,6 +8,8 @@
 
     public interface IRealmsService
     {
+        Task CreateRealmAsync(RealmCreateInputModel inputModel);
+
         Task<List<RealmViewModel>> GetAllRealmViewModelsAsync();
 
         Task<Realm> GetRealmByNameAsync(string name);
