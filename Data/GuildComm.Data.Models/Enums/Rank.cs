@@ -6,6 +6,6 @@
         Member = 2,
         Raider = 3,
         Officer = 4,
-        GuildeMaster = 5
+        GuildMaster = 5
     }
 }

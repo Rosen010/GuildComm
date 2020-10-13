@@ -1,5 +1,6 @@
 ﻿namespace GuildComm.Web.Areas.Administration.Controllers
 {
+    using GuildComm.Common;
     using GuildComm.Services;
     using GuildComm.Web.ViewModels.Users;
 
@@ -9,7 +10,7 @@
     using Microsoft.AspNetCore.Authorization;
 
     [Authorize]
-    [Area("Administration")]
+    [Area(GlobalConstants.AdministrationArea)]
     public class UserAdministrationController : Controller
     {
         private readonly IUsersService usersService;

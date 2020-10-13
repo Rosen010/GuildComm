@@ -12,6 +12,7 @@
     using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Common.Constants;
     using GuildComm.Web.ViewModels.Users;
 
     public class UsersService : IUsersService
@@ -102,7 +103,7 @@
 
             if (user == null)
             {
-                throw new InvalidOperationException("No users with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.UserNotFound);
             }
 
             this.context.Users.Remove(user);

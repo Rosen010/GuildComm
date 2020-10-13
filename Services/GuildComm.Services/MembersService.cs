@@ -2,6 +2,7 @@
 {
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Common.Constants;
     using GuildComm.Data.Models.Enums;
 
     using System;
@@ -36,7 +37,7 @@
 
             if (member == null)
             {
-                throw new InvalidOperationException("No member with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.MemberNotFound);
             }
 
             return member;

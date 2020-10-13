@@ -2,15 +2,16 @@
 {
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Common.Constants;
+    using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Realms;
 
     using AutoMapper;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using GuildComm.Data.Models.Enums;
 
     public class RealmsService : IRealmsService
     {
@@ -53,7 +54,7 @@
 
             if (realm == null)
             {
-                throw new InvalidOperationException("No realm with given name was found");
+                throw new InvalidOperationException(ExceptionMessages.RealmNotFound);
             }
 
             return realm;
@@ -65,7 +66,7 @@
 
             if (realm == null)
             {
-                throw new InvalidOperationException("No realm with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.RealmNotFound);
             }
 
             return realm;

@@ -3,6 +3,7 @@
     using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Common.Constants;
     using GuildComm.Web.ViewModels.Applications;
 
     using System;
@@ -36,7 +37,7 @@
 
             if (guild == null)
             {
-                throw new InvalidOperationException("No guild with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.GuildNotFound);
             }
 
             var character = await this.context.Characters
@@ -44,7 +45,7 @@
 
             if (character == null)
             {
-                throw new InvalidOperationException("Character not found");
+                throw new InvalidOperationException(ExceptionMessages.CharacterNotFound);
             }
 
             var application = this.mapper.Map<Application>(inputModel);
@@ -65,7 +66,7 @@
 
             if (application == null)
             {
-                throw new InvalidOperationException("No application with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.ApplicationNotFound);
             }
 
             return application;
@@ -90,7 +91,7 @@
 
             if (application == null)
             {
-                throw new InvalidOperationException("No application with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.ApplicationNotFound);
             }
 
             this.context.Applications.Remove(application);

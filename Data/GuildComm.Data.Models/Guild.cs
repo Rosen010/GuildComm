@@ -16,7 +16,7 @@
             this.Characters = new HashSet<Character>();
             this.Applications = new HashSet<Application>();
 
-            this.Ranks = new HashSet<Rank> { Rank.Trial, Rank.Raider, Rank.Officer, Rank.Member, Rank.GuildeMaster };
+            this.Ranks = new HashSet<Rank> { Rank.Trial, Rank.Raider, Rank.Officer, Rank.Member, Rank.GuildMaster };
         }
 
         public string Id { get; set; }
