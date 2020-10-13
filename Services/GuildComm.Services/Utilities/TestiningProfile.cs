@@ -1,7 +1,9 @@
 ﻿namespace GuildComm.Services.Utilities
 {
+    using GuildComm.Common;
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels;
+    using GuildComm.Common.Constants;
     using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Guild;
     using GuildComm.Web.ViewModels.Realms;
@@ -33,20 +35,20 @@
                 .ForMember(x => x.RealmRegion, y => y.MapFrom(s => s.Realm.Region.ToString()));
 
             this.CreateMap<Member, MemberViewModel>()
-                .ForMember(x => x.MemberSince, y => y.MapFrom(s => s.MemberSince.Date.ToString("dd/MM/yyyy")));
+                .ForMember(x => x.MemberSince, y => y.MapFrom(s => s.MemberSince.Date.ToString(DateFormats.StandardDateTimeFormat)));
 
             this.CreateMap<CharacterRegisterInputModel, Character>();
 
             this.CreateMap<Character, CharacterViewModel>()
-                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"))
+                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : GlobalConstants.NoValueTemplate))
                 .ForMember(x => x.RealmName, y => y.MapFrom(s => s.Realm.Name))
                 .ForMember(x => x.RealmRegion, y => y.MapFrom(s => s.Realm.Region.ToString()));
 
             this.CreateMap<Character, CharacterDetailsViewModel>()
                 .ForMember(x => x.Class, y => y.MapFrom(s => s.Class.ToString()))
                 .ForMember(x => x.Role, y => y.MapFrom(s => s.Role.ToString()))
-                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : "N/A"))
-                .ForMember(x => x.GuildRegion, y => y.MapFrom(s => s.Guild != null ? s.Guild.Realm.Region.ToString() : "N/A"));
+                .ForMember(x => x.GuildName, y => y.MapFrom(s => s.Guild != null ? s.Guild.Name : GlobalConstants.NoValueTemplate))
+                .ForMember(x => x.GuildRegion, y => y.MapFrom(s => s.Guild != null ? s.Guild.Realm.Region.ToString() : GlobalConstants.NoValueTemplate));
 
             this.CreateMap<Realm, RealmViewModel>()
               .ForMember(x => x.Type, y => y.MapFrom(s => s.RealmType.ToString()));

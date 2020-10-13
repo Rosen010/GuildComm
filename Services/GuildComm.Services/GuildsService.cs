@@ -4,6 +4,7 @@
     using GuildComm.Data;
     using GuildComm.Data.Models;
     using GuildComm.Web.ViewModels;
+    using GuildComm.Common.Constants;
     using GuildComm.Data.Models.Enums;
     using GuildComm.Web.ViewModels.Guild;
     using GuildComm.Web.ViewModels.Members;
@@ -54,14 +55,14 @@
 
             if (realm.Guilds.Any(g => g.Name == guild.Name))
             {
-                throw new InvalidOperationException($"A guild with the given name already exists on {realm.Name}");
+                throw new InvalidOperationException(string.Format(ExceptionMessages.GuildAlreadyExistOnRealm, realm.Name));
             }
             else
             {
                 await this.context.Guilds.AddAsync(guild);
                 await this.context.SaveChangesAsync();
 
-                await this.AddMemberAsync(character.Id, "GuildeMaster", guild.Id);
+                await this.AddMemberAsync(character.Id, GuildRanks.GuildMaster, guild.Id);
             }
         }
 
@@ -72,7 +73,7 @@
 
             if (guild == null)
             {
-                throw new InvalidOperationException("No guild with the given ID was found.");
+                throw new InvalidOperationException(ExceptionMessages.GuildNotFound);
             }
 
             return guild;
@@ -187,7 +188,7 @@
 
             if (character == null)
             {
-                throw new InvalidOperationException("No character with given ID was found");
+                throw new InvalidOperationException(ExceptionMessages.CharacterNotFound);
             }
 
             var guild = await this.context.Guilds
@@ -195,7 +196,7 @@
 
             if (guild == null)
             {
-                throw new InvalidOperationException("No guild with given ID was found");
+                throw new InvalidOperationException(ExceptionMessages.GuildNotFound);
             }
 
             if (character.Realm == guild.Realm && character.Guild == null)
@@ -219,7 +220,7 @@
             }
             else
             {
-                throw new InvalidOperationException("Character must be in the same realm and not be in a guild");
+                throw new InvalidOperationException(ExceptionMessages.CharacterNotViable);
             }
         }
 
@@ -267,7 +268,7 @@
 
             if (member == null)
             {
-                throw new InvalidOperationException("No member with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.MemberNotFound);
             }
 
             var character = await this.context.Characters
@@ -288,7 +289,7 @@
 
             if (guild == null)
             {
-                throw new InvalidOperationException("No guild with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.GuildNotFound);
             }
 
             var characters = await this.context.Characters
@@ -324,9 +325,9 @@
                 .Members
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (member.Rank == Rank.GuildeMaster || member.Rank == Rank.Officer)
+            if (member.Rank == Rank.GuildMaster || member.Rank == Rank.Officer)
             {
-                throw new InvalidOperationException("Member cannot me promoted to a higher rank.");
+                throw new InvalidOperationException(ExceptionMessages.MaxMemberRank);
             }
 
             member.Rank += 1;
@@ -343,7 +344,7 @@
 
             if (member.Rank == Rank.Trial)
             {
-                throw new InvalidOperationException("Member cannot be demoted to a lower rank.");
+                throw new InvalidOperationException(ExceptionMessages.MinMemberRank);
             }
 
             member.Rank -= 1;

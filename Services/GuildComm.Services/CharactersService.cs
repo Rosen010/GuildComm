@@ -9,6 +9,7 @@
     using AutoMapper;
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Common.Constants;
     using GuildComm.Web.ViewModels.Characters;
 
     public class CharactersService : ICharactersService
@@ -33,7 +34,7 @@
 
             if (realm == null)
             {
-                throw new InvalidOperationException("Realm doesn't exist");
+                throw new InvalidOperationException(ExceptionMessages.RealmNotFound);
             }
 
             character.Realm = realm;
@@ -77,7 +78,7 @@
 
             if (character == null)
             {
-                throw new InvalidOperationException("No character with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.CharacterNotFound);
             }
 
             var charModel = this.mapper.Map<T>(character);
@@ -91,7 +92,7 @@
 
             if (character == null)
             {
-                throw new InvalidOperationException("No character with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.CharacterNotFound);
             }
 
             this.context.Characters.Remove(character);

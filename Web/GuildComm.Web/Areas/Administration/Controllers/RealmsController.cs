@@ -1,14 +1,16 @@
 ﻿namespace GuildComm.Web.Areas.Administration.Controllers
 {
+    using GuildComm.Common;
     using GuildComm.Services;
     using GuildComm.Web.ViewModels.Realms;
 
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+    using System;
 
     [Authorize]
-    [Area("Administration")]
+    [Area(GlobalConstants.AdministrationArea)]
     public class RealmsController : Controller
     {
         private readonly IRealmsService realmsService;

@@ -1,5 +1,6 @@
 ﻿namespace GuildComm.Web.Areas.Administration.Controllers
 {
+    using GuildComm.Common;
     using GuildComm.Services;
     using GuildComm.Web.ViewModels.Guild;
 
@@ -8,8 +9,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
-    [Authorize(Roles = "Admin")]
-    [Area("Administration")]
+    [Authorize(Roles = GlobalConstants.AdminRole)]
+    [Area(GlobalConstants.AdministrationArea)]
     public class AdministrationController : Controller
     {
         private readonly IGuildsService guildsService;

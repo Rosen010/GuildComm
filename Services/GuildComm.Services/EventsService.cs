@@ -2,6 +2,7 @@
 {
     using GuildComm.Data;
     using GuildComm.Data.Models;
+    using GuildComm.Common.Constants;
     using GuildComm.Services.Contracts;
     using GuildComm.Web.ViewModels.Events;
 
@@ -34,7 +35,7 @@
 
             if (character == null)
             {
-                throw new InvalidOperationException("No character with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.CharacterNotFound);
             }
 
             string memberId = character.MemberId;
@@ -48,17 +49,17 @@
 
             if (dbEvent == null)
             {
-                throw new InvalidOperationException("No event with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.EventNotFound);
             }
 
             if (dbEvent.Participants.Any(x => x.ParticipantId == member.Id))
             {
-                throw new InvalidOperationException("Member is already signed up for the event");
+                throw new InvalidOperationException(ExceptionMessages.MemberAlreadySigned);
             }
 
             if (member.GuildId != dbEvent.GuildId)
             {
-                throw new InvalidOperationException("Member is not in the given guild");
+                throw new InvalidOperationException(ExceptionMessages.MemberNotInGuild);
             }
 
             var eventParticipant = new EventParticipant
@@ -80,7 +81,7 @@
         {
             if (!this.context.Guilds.Any(g => g.Id == inputModel.GuildId))
             {
-                throw new InvalidOperationException("No guild with given Id was found");
+                throw new InvalidOperationException(ExceptionMessages.GuildNotFound);
             }
 
             var newEvent = mapper.Map<Event>(inputModel);
