@@ -14,20 +14,6 @@
 
         }
 
-        public DbSet<Character> Characters { get; set; }
-
-        public DbSet<Event> Events { get; set; }
-
-        public DbSet<Guild> Guilds { get; set; }
-
-        public DbSet<Member> Members { get; set; }
-
-        public DbSet<EventParticipant> EventParticipants { get; set; }
-
-        public DbSet<Realm> Realms { get; set; }
-
-        public DbSet<Application> Applications { get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

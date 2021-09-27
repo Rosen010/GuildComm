@@ -12,20 +12,12 @@ namespace GuildComm.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IGuildsService guildsService;
 
-        public HomeController(ILogger<HomeController> logger, IGuildsService guildsService)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            this.guildsService = guildsService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var popularGuilds = await guildsService.GetPopularGuildsAsync();
-
-            return View(popularGuilds);
-        }
 
         public IActionResult Privacy()
         {

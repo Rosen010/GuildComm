@@ -28,22 +28,5 @@
                     .ForEach(seeder => seeder.Seed().GetAwaiter().GetResult());
             }
         }
-
-        public static void UseCharacterSeeding(this IApplicationBuilder app)
-        {
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider
-                    .GetRequiredService<GuildCommDbContext>();
-
-                Assembly.GetAssembly(typeof(GuildCommDbContext))
-                    .GetTypes()
-                    .Where(type => type == typeof(GuildCommUserCharacterSeeder))
-                    .Where(type => type.IsClass)
-                    .Select(type => (GuildCommUserCharacterSeeder)serviceScope.ServiceProvider.GetRequiredService(type))
-                    .ToList()
-                    .ForEach(seeder => seeder.Seed().GetAwaiter().GetResult());
-            }
-        }
     }
 }
