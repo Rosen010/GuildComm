@@ -1,10 +1,8 @@
 ﻿using System.Diagnostics;
 
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using GuildComm.Services;
 using GuildComm.Web.ViewModels;
 
 namespace GuildComm.Web.Controllers
@@ -18,16 +16,20 @@ namespace GuildComm.Web.Controllers
             _logger = logger;
         }
 
+        public IActionResult Index()
+        {
+            return this.View();
+        }
 
         public IActionResult Privacy()
         {
-            return View();
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
