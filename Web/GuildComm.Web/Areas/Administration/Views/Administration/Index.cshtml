@@ -1,7 +1,4 @@
-﻿@using GuildComm.Web.ViewModels.Guild
-@model GuildsListingModel
-
-@{
+﻿@{
     ViewData["Title"] = "Admin dashboard";
 }
 
@@ -9,67 +6,3 @@
 <a class="btn btn-light btn-lg" asp-area="Administration" asp-controller="UserAdministration" asp-action="Index" asp-route-page="1">Users</a>
 <a class="btn btn-light btn-lg" asp-area="Administration" asp-controller="Realms" asp-action="Create">Add Realm</a>
 <hr />
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col" class="text-white">#</th>
-            <th scope="col" class="text-white">Name</th>
-            <th scope="col" class="text-white">Realm</th>
-            <th scope="col" class="text-white">Members</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (int i = 0; i < Model.Guilds.Count; i++)
-        {
-            <tr>
-                <th class="text-white" scope="row">@(i + 1)</th>
-                <td class="text-white">@Model.Guilds[i].Name</td>
-                <td class="text-white">@Model.Guilds[i].RealmName (@Model.Guilds[i].RealmRegion)</td>
-                <td class="text-white">@Model.Guilds[i].MembersCount</td>
-
-                <td><a class="btn btn-light btn-sm" asp-area="Administration" asp-controller="Administration" asp-action="Disband" asp-route-id="@Model.Guilds[i].Id">Disband</a></td>
-            </tr>
-        }
-    </tbody>
-</table>
-<nav>
-    <ul class="pagination justify-content-center">
-        @if (this.Model.CurrentPage == 1)
-        {
-            <li class="page-item disabled">
-                <a class="page-link bg-light" href="#">Previous</a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link bg-light"
-                   asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
-            </li>
-        }
-
-        @for (int i = 1; i <= this.Model.PagesCount; i++)
-        {
-            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
-            <li class="page-item @active">
-                <a class="page-link bg-light"
-                   asp-route-page="@i">@i</a>
-            </li>
-        }
-
-        @if (this.Model.CurrentPage == this.Model.PagesCount)
-        {
-            <li class="page-item disabled">
-                <a class="page-link bg-light" href="#">Next</a>
-            </li>
-        }
-        else
-        {
-            <li class="page-item">
-                <a class="page-link bg-light"
-                   asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
-            </li>
-        }
-    </ul>
-</nav>

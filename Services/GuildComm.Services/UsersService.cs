@@ -40,7 +40,6 @@
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var user = await context.Users
-                .Include(u => u.Characters)
                 .SingleOrDefaultAsync(u => u.Id == userId);
 
             return user;

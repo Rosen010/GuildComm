@@ -4,9 +4,7 @@ namespace GuildComm.Web
     using GuildComm.Services;
     using GuildComm.Data.Models;
     using GuildComm.Data.Seeding;
-    using GuildComm.Web.Extensions;
     using GuildComm.Services.Utilities;
-    using GuildComm.Services.Contracts;
 
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
@@ -20,8 +18,6 @@ namespace GuildComm.Web
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
 
-    using AutoMapper;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -31,7 +27,6 @@ namespace GuildComm.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GuildCommDbContext>(options =>
@@ -79,18 +74,10 @@ namespace GuildComm.Web
             services.AddAutoMapper(AutoMapperConfig.GetAutoMapperProfilesFromAllAssemblies()
             .ToArray());
 
-            services.AddScoped<GuildCommUserCharacterSeeder>();
             services.AddScoped<GuildCommUserSeeder>();
             services.AddScoped<GuildCommUserRoleSeeder>();
-            services.AddScoped<GuildCommRealmSeeder>();
 
-            services.AddTransient<IMembersService, MembersService>();
-            services.AddTransient<IRealmsService, RealmsService>();
-            services.AddTransient<IGuildsService, GuildsService>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<ICharactersService, CharactersService>();
-            services.AddTransient<IApplicationsService, ApplicationsService>();
-            services.AddTransient<IEventsService, EventsService>();
 
             services.AddSingleton(this.Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
