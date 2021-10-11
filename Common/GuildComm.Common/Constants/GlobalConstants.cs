@@ -1,14 +1,15 @@
 ﻿namespace GuildComm.Common
 {
+    using System.IO;
     using System.Reflection;
 
     public static class GlobalConstants
     {
-        public static string currentDirectory = Assembly.GetExecutingAssembly().Location;
+        public static string currentDirectory = Directory.GetCurrentDirectory();
 
-        public static string realmJsonLocation = currentDirectory + @"../../../../../../../Data/GuildComm.Data/Seeding/Datasets/Realms.Json";
+        public static string userJsonLocation = currentDirectory + @"../../Data/GuildComm.Data/Seeding/Datasets/Users.Json";
 
-        public static string userJsonLocation = currentDirectory + @"../../../../../../../Data/GuildComm.Data/Seeding/Datasets/Users.Json";
+        public static string ConfigLocation = currentDirectory + @"/config.json";
 
         public static string MockDatabaseName = "MockDbContext";
 

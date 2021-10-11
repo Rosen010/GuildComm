@@ -1,46 +1,56 @@
-﻿using GuildComm.Services.Models;
+﻿using GuildComm.Services.Contracts;
+using GuildComm.Services.Models;
+using GuildComm.Services.Models.Settings;
+using GuildComm.Services.Settings.Contracts;
 using GuildComm.Services.Utilities.Constants;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GuildComm.Services.Clients
 {
-    public class BNetApiClient
+    public class BNetApiClient : IBNetApiClient
     {
-        private readonly string _clientId;
-
-        private readonly string _clientSecret;
-
         private BNetBearerToken _accessToken;
 
-        private static HttpClient _authClient;
+        private HttpClient _authClient;
 
-        public BNetApiClient(string clientId, string clientSecret)
+        private readonly ISettingsReader _settingsReader;
+
+        public BNetApiClient(ISettingsReader settingsReader)
         {
-            _clientId = clientId;
-            _clientSecret = clientSecret;
+            _authClient = new HttpClient();
+            _settingsReader = settingsReader;
         }
 
         public async Task Authenticate()
         {
-            var url = "https://us.battle.net/oauth/token";
+            var settings = _settingsReader.LoadSection<BNetApiSettings>();
 
-            using (var httpRequest = new HttpRequestMessage(HttpMethod.Get, url))
+            if (settings != null)
             {
-                var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(_clientId + ":" + _clientSecret));
-
-                httpRequest.Headers.Add(RequestHeaders.Authorization, $"Basic {credentials}");
-                httpRequest.Headers.Add(RequestHeaders.GrantType, "client_credentials");
-
-                using (var httpResponse = await _authClient.SendAsync(httpRequest))
+                using (var httpRequest = new HttpRequestMessage(HttpMethod.Post, Endpoints.BNetOauth))
                 {
-                    var json = await httpResponse.Content.ReadAsStringAsync();
-                    var response = JsonConvert.DeserializeObject<BNetBearerToken>(json);
+                    var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(settings.ClientId + ":" + settings.ClientSecret));
 
-                    _accessToken = response;
+                    var data = new Dictionary<string, string>
+                    {
+                        { RequestHeaders.GrantType, "client_credentials" },
+                    };
+
+                    httpRequest.Headers.Add(RequestHeaders.Authorization, $"Basic {credentials}");
+                    httpRequest.Content = new FormUrlEncodedContent(data);
+
+                    using (var httpResponse = await _authClient.SendAsync(httpRequest))
+                    {
+                        var json = await httpResponse.Content.ReadAsStringAsync();
+                        var response = JsonConvert.DeserializeObject<BNetBearerToken>(json);
+
+                        _accessToken = response;
+                    }
                 }
             }
         }

@@ -17,6 +17,10 @@ namespace GuildComm.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
+    using GuildComm.Services.Contracts;
+    using GuildComm.Services.Clients;
+    using GuildComm.Services.Settings.Contracts;
+    using GuildComm.Services.Settings;
 
     public class Startup
     {
@@ -76,6 +80,8 @@ namespace GuildComm.Web
 
             services.AddScoped<GuildCommUserSeeder>();
             services.AddScoped<GuildCommUserRoleSeeder>();
+            services.AddScoped<ISettingsReader, SettingsReader>();
+            services.AddScoped<IBNetApiClient, BNetApiClient>();
 
             services.AddTransient<IUsersService, UsersService>();
 
@@ -91,9 +97,6 @@ namespace GuildComm.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.UseDatabaseSeeding();
-            //app.UseCharacterSeeding();
-
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             using (var context = scope.ServiceProvider.GetService<GuildCommDbContext>())
 
