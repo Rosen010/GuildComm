@@ -17,7 +17,7 @@ namespace GuildComm.Services.Settings
         public object LoadSection(Type type)
         {
             if (!File.Exists(_configurationFilePath))
-                return Activator.CreateInstance(type);
+                return null;
 
             var jsonFile = File.ReadAllText(_configurationFilePath);
             var section = type.Name.Replace(_sectionNameSuffix, string.Empty);
