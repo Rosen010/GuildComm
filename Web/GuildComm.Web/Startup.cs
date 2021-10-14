@@ -80,7 +80,7 @@ namespace GuildComm.Web
 
             services.AddScoped<GuildCommUserSeeder>();
             services.AddScoped<GuildCommUserRoleSeeder>();
-            services.AddScoped<ISettingsReader, SettingsReader>();
+            services.AddScoped<ISettingsManager, SettingsManager>();
             services.AddScoped<IBNetApiClient, BNetApiClient>();
 
             services.AddTransient<IUsersService, UsersService>();

@@ -6,7 +6,7 @@ using System.IO;
 
 namespace GuildComm.Services.Settings
 {
-    public class SettingsReader : ISettingsReader
+    public class SettingsManager : ISettingsManager
     {
         private readonly string _configurationFilePath = GlobalConstants.ConfigLocation;
 
@@ -27,6 +27,20 @@ namespace GuildComm.Services.Settings
             return settingsSection == null
                 ? null
                 : JsonConvert.DeserializeObject(JsonConvert.SerializeObject(settingsSection), type);
+        }
+
+        public void UpdateSection<T>(string section, string property, string data)
+        {
+            if (!File.Exists(_configurationFilePath))
+                throw new InvalidOperationException("Configuration file not found");
+
+            var jsonFile = File.ReadAllText(_configurationFilePath);
+            var settingsData = JsonConvert.DeserializeObject<dynamic>(jsonFile);
+
+            settingsData[section][property] = data;
+            var output = JsonConvert.SerializeObject(jsonFile, Formatting.Indented);
+
+            File.WriteAllText(_configurationFilePath, output);
         }
     }
 }

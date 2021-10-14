@@ -18,9 +18,9 @@ namespace GuildComm.Services.Clients
 
         private HttpClient _authClient;
 
-        private readonly ISettingsReader _settingsReader;
+        private readonly ISettingsManager _settingsReader;
 
-        public BNetApiClient(ISettingsReader settingsReader)
+        public BNetApiClient(ISettingsManager settingsReader)
         {
             _authClient = new HttpClient();
             _settingsReader = settingsReader;
