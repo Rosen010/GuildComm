@@ -1,6 +1,8 @@
-﻿namespace GuildComm.Services.Models.Settings
+﻿using GuildComm.Services.Contracts;
+
+namespace GuildComm.Services.Models.Settings
 {
-    public class AccessTokenSettings
+    public class AccessTokenSettings : ISettings
     {
         public string Token { get; set; }
 

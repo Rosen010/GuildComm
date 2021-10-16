@@ -27,5 +27,7 @@
         public static string CharacterNotViable = "Character must be in the same realm and not be in a guild";
 
         public static string UserNotFound = "No user with given Id was found";
+
+        public const string ConfigurationNotFound = "Configuration file not found!";
     }
 }

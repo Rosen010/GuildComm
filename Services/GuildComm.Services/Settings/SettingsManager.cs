@@ -1,4 +1,6 @@
 ﻿using GuildComm.Common;
+using GuildComm.Common.Constants;
+using GuildComm.Services.Contracts;
 using GuildComm.Services.Settings.Contracts;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +14,9 @@ namespace GuildComm.Services.Settings
 
         private const string _sectionNameSuffix = "Settings";
 
-        public T LoadSection<T>() where T : class, new() => this.LoadSection(typeof(T)) as T;
+        public T LoadSection<T>() where T : class, ISettings => this.LoadSection(typeof(T)) as T;
+
+        public void UpdateSection<T>(ISettings settings) where T : class, ISettings => this.UpdateSection(typeof(T), settings);
 
         public object LoadSection(Type type)
         {
@@ -29,17 +33,21 @@ namespace GuildComm.Services.Settings
                 : JsonConvert.DeserializeObject(JsonConvert.SerializeObject(settingsSection), type);
         }
 
-        public void UpdateSection(string section, string property, string data)
+        public void UpdateSection(Type type, ISettings settings)
         {
             if (!File.Exists(_configurationFilePath))
-                throw new InvalidOperationException("Configuration file not found");
+                throw new InvalidOperationException(ExceptionMessages.ConfigurationNotFound);
 
             var jsonFile = File.ReadAllText(_configurationFilePath);
             var settingsData = JsonConvert.DeserializeObject<dynamic>(jsonFile);
+            var section = type.Name.Replace(_sectionNameSuffix, string.Empty);
 
-            settingsData[section][property] = data;
+            foreach (var property in type.GetProperties())
+            {
+                settingsData[section][property.Name] = (Type)settings.GetType().GetProperty(property.Name).GetValue(settings);
+            }
+            
             var output = JsonConvert.SerializeObject(jsonFile, Formatting.Indented);
-
             File.WriteAllText(_configurationFilePath, output);
         }
     }

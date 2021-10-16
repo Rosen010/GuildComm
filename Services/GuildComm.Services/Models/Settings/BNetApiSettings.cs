@@ -1,6 +1,8 @@
-﻿namespace GuildComm.Services.Models.Settings
+﻿using GuildComm.Services.Contracts;
+
+namespace GuildComm.Services.Models.Settings
 {
-    public class BNetApiSettings
+    public class BNetApiSettings : ISettings
     {
         public string ClientId { get; set; }
 

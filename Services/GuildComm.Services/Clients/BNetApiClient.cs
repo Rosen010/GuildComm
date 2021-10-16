@@ -26,7 +26,21 @@ namespace GuildComm.Services.Clients
             _settingsManager = settingsReader;
         }
 
-        public async Task Authenticate()
+        public async Task<string> GetAccessToken()
+        {
+            var token = _settingsManager.LoadSection<AccessTokenSettings>();
+
+            var isValid = await this.ValidateToken(token);
+
+            if (!isValid)
+            {
+                token = _settingsManager.LoadSection<AccessTokenSettings>();
+            }
+
+            return token.Token;
+        }
+
+        private async Task Authenticate()
         {
             var settings = _settingsManager.LoadSection<BNetApiSettings>();
 
@@ -38,10 +52,10 @@ namespace GuildComm.Services.Clients
 
                     var data = new Dictionary<string, string>
                     {
-                        { RequestHeaders.GrantType, "client_credentials" },
+                        { ApiRequestConstants.Headers.GrantType, ApiRequestConstants.GrantTypes.ClientCredentials },
                     };
 
-                    httpRequest.Headers.Add(RequestHeaders.Authorization, $"Basic {credentials}");
+                    httpRequest.Headers.Add(ApiRequestConstants.Headers.Authorization, string.Format(ApiRequestConstants.HeaderValues.BearerTokenFormat, credentials));
                     httpRequest.Content = new FormUrlEncodedContent(data);
 
                     using (var httpResponse = await _authClient.SendAsync(httpRequest))
@@ -55,27 +69,32 @@ namespace GuildComm.Services.Clients
             }
         }
 
-        public async Task ValidateToken()
+        private async Task<bool> ValidateToken(AccessTokenSettings token)
         {
-            var settings = _settingsManager.LoadSection<AccessTokenSettings>();
-
-            if (settings != null)
+            if (token != null)
             {
-                var expiration = DateTime.ParseExact(settings.Expires, DateFormats.DateToSeconds, CultureInfo.InvariantCulture);
+                var expiration = DateTime.ParseExact(token.Expires, DateFormats.DateToSeconds, CultureInfo.InvariantCulture);
 
                 if (expiration <= DateTime.UtcNow.AddMinutes(-1))
                 {
                     await this.Authenticate();
+                    return false;
                 }
             }
+            else
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void SaveSettings(BNetBearerToken token)
         {
-            var expiration = DateTime.UtcNow.AddSeconds(token.Expiration);
+            var expiration = DateTime.UtcNow.AddSeconds(token.Expiration).ToString(DateFormats.DateToSeconds, CultureInfo.InvariantCulture);
+            var settings = new AccessTokenSettings { Token = token.AccessToken, Expires = expiration };
 
-            _settingsManager.UpdateSection("AccessToken", "token", token.AccessToken);
-            _settingsManager.UpdateSection("AccessToken", "expires", expiration.ToString());
+            _settingsManager.UpdateSection<AccessTokenSettings>(settings);
         }
     }
 }
