@@ -2,7 +2,7 @@
 
 namespace GuildComm.Services.Models
 {
-    internal class BNetBearerToken
+    public class BNetBearerToken
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }

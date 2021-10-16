@@ -4,6 +4,6 @@
     {
         T LoadSection<T>() where T : class, new();
 
-        void UpdateSection<T>(string section, string property, string data);
+        void UpdateSection(string section, string property, string data);
     }
 }

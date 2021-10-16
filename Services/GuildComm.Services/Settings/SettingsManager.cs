@@ -29,7 +29,7 @@ namespace GuildComm.Services.Settings
                 : JsonConvert.DeserializeObject(JsonConvert.SerializeObject(settingsSection), type);
         }
 
-        public void UpdateSection<T>(string section, string property, string data)
+        public void UpdateSection(string section, string property, string data)
         {
             if (!File.Exists(_configurationFilePath))
                 throw new InvalidOperationException("Configuration file not found");
