@@ -15,4 +15,8 @@
     <ProjectReference Include="..\..\Web\GuildComm.Web.ViewModels\GuildComm.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ResponseModels\" />
+  </ItemGroup>
+
 </Project>

@@ -11,8 +11,9 @@
     {
         public GuildCommDbContext(DbContextOptions<GuildCommDbContext> options) : base(options)
         {
-
         }
+
+        public DbSet<Realm> Realms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
