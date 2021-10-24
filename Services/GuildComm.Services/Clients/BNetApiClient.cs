@@ -1,10 +1,10 @@
 ﻿using GuildComm.Common.Constants;
 using GuildComm.Services.Contracts;
+using GuildComm.Services.Contracts.Clients;
 using GuildComm.Services.Models;
 using GuildComm.Services.Models.Settings;
 using GuildComm.Services.Settings.Contracts;
 using GuildComm.Services.Utilities.Constants;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,13 +16,13 @@ namespace GuildComm.Services.Clients
 {
     public class BNetApiClient : IBNetApiClient
     {
-        private HttpClient _authClient;
+        private readonly IRestClient _restClient;
 
         private readonly ISettingsManager _settingsManager;
 
-        public BNetApiClient(ISettingsManager settingsReader)
+        public BNetApiClient(ISettingsManager settingsReader, IRestClient restClient)
         {
-            _authClient = new HttpClient();
+            _restClient = restClient;
             _settingsManager = settingsReader;
         }
 
@@ -58,13 +58,9 @@ namespace GuildComm.Services.Clients
                     httpRequest.Headers.Add(ApiRequestConstants.Headers.Authorization, string.Format(ApiRequestConstants.HeaderValues.BearerTokenFormat, credentials));
                     httpRequest.Content = new FormUrlEncodedContent(data);
 
-                    using (var httpResponse = await _authClient.SendAsync(httpRequest))
-                    {
-                        var json = await httpResponse.Content.ReadAsStringAsync();
-                        var response = JsonConvert.DeserializeObject<BNetBearerToken>(json);
+                    var response = await _restClient.Post<BNetBearerToken>(httpRequest);
 
-                        this.SaveSettings(response);
-                    }
+                    this.SaveSettings(response);
                 }
             }
         }

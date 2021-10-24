@@ -87,11 +87,12 @@ namespace GuildComm.Web
 
             services.AddSingleton(this.Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddControllersWithViews();
-            services.AddRazorPages();
-            services.AddMvc();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddMvc();
+            services.AddHttpClient();
+            services.AddRazorPages();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
