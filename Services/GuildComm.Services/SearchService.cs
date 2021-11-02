@@ -1,4 +1,5 @@
 ﻿using GuildComm.Services.Contracts;
+using GuildComm.Services.Models.ResponseModels;
 
 namespace GuildComm.Services
 {
@@ -9,11 +10,6 @@ namespace GuildComm.Services
         public SearchService(IBNetApiClient apiClient)
         {
             _apiClient = apiClient;
-        }
-
-        public void GetGuild()
-        {
-
         }
     }
 }

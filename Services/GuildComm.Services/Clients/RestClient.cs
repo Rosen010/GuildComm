@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using GuildComm.Services.Contracts.Clients;
+using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GuildComm.Services.Clients
 {
-    public class RestClient
+    public class RestClient : IRestClient
     {
         private readonly IHttpClientFactory _clientFactory;
 
@@ -13,7 +14,7 @@ namespace GuildComm.Services.Clients
             _clientFactory = clientFactory;
         }
 
-        public async Task<TResponse> Post<TResponse>(HttpRequestMessage requestMessage)
+        public async Task<TResponse> SendRequest<TResponse>(HttpRequestMessage requestMessage)
         {
             var client = _clientFactory.CreateClient();
 

@@ -21,6 +21,7 @@ namespace GuildComm.Web
     using GuildComm.Services.Clients;
     using GuildComm.Services.Settings.Contracts;
     using GuildComm.Services.Settings;
+    using GuildComm.Services.Contracts.Clients;
 
     public class Startup
     {
@@ -80,10 +81,12 @@ namespace GuildComm.Web
 
             services.AddScoped<GuildCommUserSeeder>();
             services.AddScoped<GuildCommUserRoleSeeder>();
-            services.AddScoped<ISettingsManager, SettingsManager>();
-            services.AddScoped<IBNetApiClient, BNetApiClient>();
 
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IRestClient, RestClient>();
+            services.AddTransient<ISettingsManager, SettingsManager>();
+            services.AddTransient<IBNetApiClient, BNetApiClient>();
+            services.AddTransient<IBNetGuildClient, BNetGuildClient>();
 
             services.AddSingleton(this.Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

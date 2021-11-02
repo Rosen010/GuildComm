@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,10 +56,10 @@ namespace GuildComm.Services.Clients
                         { ApiRequestConstants.Headers.GrantType, ApiRequestConstants.GrantTypes.ClientCredentials },
                     };
 
-                    httpRequest.Headers.Add(ApiRequestConstants.Headers.Authorization, string.Format(ApiRequestConstants.HeaderValues.BearerTokenFormat, credentials));
+                    httpRequest.Headers.Authorization = new AuthenticationHeaderValue(ApiRequestConstants.AuthenticationType.Basic, credentials);
                     httpRequest.Content = new FormUrlEncodedContent(data);
 
-                    var response = await _restClient.Post<BNetBearerToken>(httpRequest);
+                    var response = await _restClient.SendRequest<BNetBearerToken>(httpRequest);
 
                     this.SaveSettings(response);
                 }

@@ -11,7 +11,14 @@
 
         public static class HeaderValues
         {
-            public const string BearerTokenFormat = "Bearer {1}";
+            public const string BearerTokenFormat = "Bearer {0}";
+        }
+
+        public static class AuthenticationType
+        {
+            public const string Bearer = "Bearer";
+
+            public const string Basic = "Basic";
         }
 
         public static class GrantTypes

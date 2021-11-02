@@ -4,5 +4,6 @@ namespace GuildComm.Services
 {
     public class GuildService : IGuildService
     {
+        
     }
 }
