@@ -17,14 +17,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{863505
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Common", "Common\GuildComm.Common\GuildComm.Common.csproj", "{247E4369-692B-4FD0-9F62-FFCCD70B8E9C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A00B2AA2-24F3-426B-8399-2622EE7F93C2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A00B2AA2-24F3-426B-8399-2622EE7F93C2}"
 	ProjectSection(SolutionItems) = preProject
 		Data\GuildComm.Data.Models\Realm.cs = Data\GuildComm.Data.Models\Realm.cs
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Services", "Services\GuildComm.Services\GuildComm.Services.csproj", "{1D5F6F79-12B3-44E1-A39D-38F6D690CD7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Core", "Services\GuildComm.Services\GuildComm.Core.csproj", "{1D5F6F79-12B3-44E1-A39D-38F6D690CD7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Web.ViewModels", "Web\GuildComm.Web.ViewModels\GuildComm.Web.ViewModels.csproj", "{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Web.Models", "Web\GuildComm.Web.ViewModels\GuildComm.Web.Models.csproj", "{056BAB26-D5E7-4C04-A8E9-08AC2CB0E646}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{51490CA1-D0A1-4131-9B6D-0DB1AC46CAA9}"
 EndProject
