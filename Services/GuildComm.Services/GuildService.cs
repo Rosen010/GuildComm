@@ -1,5 +1,6 @@
 ﻿using GuildComm.Services.Contracts;
 using GuildComm.Services.Contracts.Clients;
+using GuildComm.Web.Models.Search;
 
 namespace GuildComm.Services
 {
@@ -10,6 +11,11 @@ namespace GuildComm.Services
         public GuildService(IBNetGuildClient guildClient)
         {
             _guildClient = guildClient;
+        }
+
+        public void FindGuiild(SearchInputModel model)
+        {
+
         }
     }
 }

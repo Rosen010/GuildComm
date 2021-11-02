@@ -83,6 +83,8 @@ namespace GuildComm.Web
             services.AddScoped<GuildCommUserRoleSeeder>();
 
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IGuildService, GuildService>();
+
             services.AddTransient<IRestClient, RestClient>();
             services.AddTransient<ISettingsManager, SettingsManager>();
             services.AddTransient<IBNetApiClient, BNetApiClient>();
