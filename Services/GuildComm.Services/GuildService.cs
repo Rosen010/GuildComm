@@ -1,21 +1,31 @@
-﻿using GuildComm.Services.Contracts;
+﻿using AutoMapper;
+using GuildComm.Services.Contracts;
 using GuildComm.Services.Contracts.Clients;
+using GuildComm.Services.Models.RequestModels;
+using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Search;
+using System.Threading.Tasks;
 
 namespace GuildComm.Services
 {
     public class GuildService : IGuildService
     {
+        private readonly IMapper _mapper;
         private readonly IBNetGuildClient _guildClient;
 
-        public GuildService(IBNetGuildClient guildClient)
+        public GuildService(IMapper mapper, IBNetGuildClient guildClient)
         {
+            _mapper = mapper;
             _guildClient = guildClient;
         }
 
-        public void FindGuiild(SearchInputModel model)
+        public async Task<GuildViewModel> FindGuiild(SearchInputModel model)
         {
+            var requestModel = _mapper.Map<GuildRequestModel>(model);
+            var responseModel = await _guildClient.RetrieveGuild(requestModel);
 
+            var viewModel = _mapper.Map<GuildViewModel>(responseModel);
+            return viewModel;
         }
     }
 }

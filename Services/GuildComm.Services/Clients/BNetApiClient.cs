@@ -3,8 +3,8 @@ using GuildComm.Services.Contracts;
 using GuildComm.Services.Contracts.Clients;
 using GuildComm.Services.Models;
 using GuildComm.Services.Models.Settings;
-using GuildComm.Services.Settings.Contracts;
 using GuildComm.Services.Utilities.Constants;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,23 +19,24 @@ namespace GuildComm.Services.Clients
     {
         private readonly IRestClient _restClient;
 
-        private readonly ISettingsManager _settingsManager;
+        private readonly IConfiguration _configuration;
 
-        public BNetApiClient(ISettingsManager settingsReader, IRestClient restClient)
+        public BNetApiClient(IConfiguration configuration, IRestClient restClient)
         {
             _restClient = restClient;
-            _settingsManager = settingsReader;
+            _configuration = configuration;
         }
 
         public async Task<string> GetAccessToken()
         {
-            var token = _settingsManager.LoadSection<AccessTokenSettings>();
+            var token = new AccessTokenSettings();
+            _configuration.GetSection("BNetAccessToken").Bind(token);
 
             var isValid = await this.ValidateToken(token);
 
             if (!isValid)
             {
-                token = _settingsManager.LoadSection<AccessTokenSettings>();
+                _configuration.GetSection("BNetAccessToken").Bind(token);
             }
 
             return token.Token;
@@ -43,7 +44,8 @@ namespace GuildComm.Services.Clients
 
         private async Task Authenticate()
         {
-            var settings = _settingsManager.LoadSection<BNetApiSettings>();
+            var settings = new BNetApiSettings();
+            _configuration.GetSection("BNetApi").Bind(settings);
 
             if (settings != null)
             {
@@ -68,7 +70,7 @@ namespace GuildComm.Services.Clients
 
         private async Task<bool> ValidateToken(AccessTokenSettings token)
         {
-            if (token != null)
+            if (!string.IsNullOrEmpty(token?.Token))
             {
                 var expiration = DateTime.ParseExact(token.Expires, DateFormats.DateToSeconds, CultureInfo.InvariantCulture);
 
@@ -80,6 +82,7 @@ namespace GuildComm.Services.Clients
             }
             else
             {
+                await this.Authenticate();
                 return false;
             }
 
@@ -91,7 +94,8 @@ namespace GuildComm.Services.Clients
             var expiration = DateTime.UtcNow.AddSeconds(token.Expiration).ToString(DateFormats.DateToSeconds, CultureInfo.InvariantCulture);
             var settings = new AccessTokenSettings { Token = token.AccessToken, Expires = expiration };
 
-            _settingsManager.UpdateSection<AccessTokenSettings>(settings);
+            _configuration.GetSection("BNetAccessToken:token").Value = settings.Token;
+            _configuration.GetSection("BNetAccessToken:expires").Value = settings.Expires;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29609.76
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{18B95F93-214F-43DC-AFF0-20AD7D2020C5}"
 EndProject
@@ -18,9 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Common", "Common\GuildComm.Common\GuildComm.Common.csproj", "{247E4369-692B-4FD0-9F62-FFCCD70B8E9C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A00B2AA2-24F3-426B-8399-2622EE7F93C2}"
-	ProjectSection(SolutionItems) = preProject
-		Data\GuildComm.Data.Models\Realm.cs = Data\GuildComm.Data.Models\Realm.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Core", "Services\GuildComm.Services\GuildComm.Core.csproj", "{1D5F6F79-12B3-44E1-A39D-38F6D690CD7B}"
 EndProject

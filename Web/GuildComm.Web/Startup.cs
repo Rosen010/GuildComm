@@ -19,8 +19,6 @@ namespace GuildComm.Web
     using Microsoft.Extensions.DependencyInjection;
     using GuildComm.Services.Contracts;
     using GuildComm.Services.Clients;
-    using GuildComm.Services.Settings.Contracts;
-    using GuildComm.Services.Settings;
     using GuildComm.Services.Contracts.Clients;
 
     public class Startup
@@ -86,7 +84,6 @@ namespace GuildComm.Web
             services.AddTransient<IGuildService, GuildService>();
 
             services.AddTransient<IRestClient, RestClient>();
-            services.AddTransient<ISettingsManager, SettingsManager>();
             services.AddTransient<IBNetApiClient, BNetApiClient>();
             services.AddTransient<IBNetGuildClient, BNetGuildClient>();
 

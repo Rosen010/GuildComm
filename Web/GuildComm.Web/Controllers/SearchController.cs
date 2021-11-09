@@ -1,6 +1,7 @@
 ﻿using GuildComm.Services.Contracts;
 using GuildComm.Web.Models.Search;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GuildComm.Web.Controllers
 {
@@ -14,9 +15,11 @@ namespace GuildComm.Web.Controllers
         }
 
         [HttpGet]
-        public void FindGuild(SearchInputModel model)
+        public async Task<IActionResult> Guilds(SearchInputModel model)
         {
-            ;
+            var guild = await _guildService.FindGuiild(model);
+
+            return this.View(guild);
         }
     }
 }

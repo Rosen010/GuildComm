@@ -32,8 +32,8 @@ namespace GuildComm.Services.Clients
             var builder = new UriBuilder(endpoint);
             var query = HttpUtility.ParseQueryString(builder.Query);
 
-            query[BNetRequestHeaders.Namespace.ToString()] = QueryParameters.Namespace.ProfileEU;
-            query[BNetRequestHeaders.Locale.ToString()] = QueryParameters.Locale.GB;
+            query[BNetRequestHeaders.Namespace.ToString()] = request.NameSpace;
+            query[BNetRequestHeaders.Locale.ToString()] = Parameters.Locale.GB;
 
             builder.Query = query.ToString();
             var url = builder.ToString();

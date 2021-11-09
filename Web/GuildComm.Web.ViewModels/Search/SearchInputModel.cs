@@ -5,5 +5,7 @@
         public string Realm { get; set; }
 
         public string GuildName { get; set; }
+
+        public string Namespace { get; set; }
     }
 }
