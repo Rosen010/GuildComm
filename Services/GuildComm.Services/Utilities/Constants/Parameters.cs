@@ -15,7 +15,7 @@
 
         public static class Locale
         {
-            public const string GB = "en-GB";
+            public const string GB = "en_GB";
 
             public const string ES = "es_ES";
 
