@@ -1,4 +1,6 @@
 ﻿using GuildComm.Common.Constants;
+using GuildComm.Data.Models;
+using GuildComm.Data.Repositories.Contracts;
 using GuildComm.Services.Contracts;
 using GuildComm.Services.Contracts.Clients;
 using GuildComm.Services.Models;
@@ -7,7 +9,6 @@ using GuildComm.Services.Utilities.Constants;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -18,34 +19,30 @@ namespace GuildComm.Services.Clients
     public class BNetApiClient : IBNetApiClient
     {
         private readonly IRestClient _restClient;
-
         private readonly IConfiguration _configuration;
+        private readonly ITokenRepository _tokenRepository;
 
-        public BNetApiClient(IConfiguration configuration, IRestClient restClient)
+        public BNetApiClient(IConfiguration configuration, IRestClient restClient, ITokenRepository tokenRepository)
         {
             _restClient = restClient;
             _configuration = configuration;
+            _tokenRepository = tokenRepository;
         }
 
-        public async Task<string> GetAccessToken()
+        public async Task<string> GetAccessTokenAsync()
         {
-            var token = new AccessTokenSettings();
-            _configuration.GetSection("BNetAccessToken").Bind(token);
+            var token = await _tokenRepository.GetTokenAsync(TokenNames.BNetAccessToken);
 
-            var isValid = await this.ValidateToken(token);
-
-            if (!isValid)
-            {
-                _configuration.GetSection("BNetAccessToken").Bind(token);
-            }
-
-            return token.Token;
+            token = await this.ValidateTokenAsync(token);
+            return token.Value;
         }
 
-        private async Task Authenticate()
+        private async Task<AccessToken> AuthenticateAsync()
         {
             var settings = new BNetApiSettings();
             _configuration.GetSection("BNetApi").Bind(settings);
+
+            AccessToken token = null;
 
             if (settings != null)
             {
@@ -61,41 +58,37 @@ namespace GuildComm.Services.Clients
                     httpRequest.Headers.Authorization = new AuthenticationHeaderValue(ApiRequestConstants.AuthenticationType.Basic, credentials);
                     httpRequest.Content = new FormUrlEncodedContent(data);
 
-                    var response = await _restClient.SendRequest<BNetBearerToken>(httpRequest);
+                    var response = await _restClient.SendRequestAsync<BNetBearerToken>(httpRequest);
 
-                    this.SaveSettings(response);
+                    token = new AccessToken
+                    {
+                        Name = TokenNames.BNetAccessToken,
+                        Value = response.AccessToken,
+                        Expiration = DateTime.UtcNow.AddSeconds(response.Expiration)
+                    };
+
+                    await _tokenRepository.UpdateTokenAsync(token);
                 }
             }
+
+            return token;
         }
 
-        private async Task<bool> ValidateToken(AccessTokenSettings token)
+        private async Task<AccessToken> ValidateTokenAsync(AccessToken token)
         {
-            if (!string.IsNullOrEmpty(token?.Token))
+            if (token != null)
             {
-                var expiration = DateTime.ParseExact(token.Expires, DateFormats.DateToSeconds, CultureInfo.InvariantCulture);
-
-                if (expiration <= DateTime.UtcNow.AddMinutes(-1))
+                if (token.Expiration <= DateTime.UtcNow.AddMinutes(-10))
                 {
-                    await this.Authenticate();
-                    return false;
+                    token = await this.AuthenticateAsync();
                 }
             }
             else
             {
-                await this.Authenticate();
-                return false;
+                token = await this.AuthenticateAsync();
             }
 
-            return true;
-        }
-
-        private void SaveSettings(BNetBearerToken token)
-        {
-            var expiration = DateTime.UtcNow.AddSeconds(token.Expiration).ToString(DateFormats.DateToSeconds, CultureInfo.InvariantCulture);
-            var settings = new AccessTokenSettings { Token = token.AccessToken, Expires = expiration };
-
-            _configuration.GetSection("BNetAccessToken:token").Value = settings.Token;
-            _configuration.GetSection("BNetAccessToken:expires").Value = settings.Expires;
+            return token;
         }
     }
 }

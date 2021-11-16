@@ -15,6 +15,8 @@
 
         public DbSet<Realm> Realms { get; set; }
 
+        public DbSet<AccessToken> Tokens { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

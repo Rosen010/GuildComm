@@ -26,7 +26,7 @@ namespace GuildComm.Services.Clients
 
         public async Task<GuildResponse> RetrieveGuild(GuildRequestModel request)
         {
-            var token = await _apiClient.GetAccessToken();
+            var token = await _apiClient.GetAccessTokenAsync();
             var endpoint = string.Format(Endpoints.Guild, request.Realm, request.GuildName);
 
             var builder = new UriBuilder(endpoint);
@@ -42,7 +42,7 @@ namespace GuildComm.Services.Clients
             {
                 httpRequest.Headers.Authorization = new AuthenticationHeaderValue(ApiRequestConstants.AuthenticationType.Bearer, token);
 
-                var response = await _restClient.SendRequest<GuildResponse>(httpRequest);
+                var response = await _restClient.SendRequestAsync<GuildResponse>(httpRequest);
                 return response;
             };
         }

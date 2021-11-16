@@ -5,6 +5,6 @@ namespace GuildComm.Services.Contracts.Clients
 {
     public interface IRestClient
     {
-        Task<TResponse> SendRequest<TResponse>(HttpRequestMessage requestMessage);
+        Task<TResponse> SendRequestAsync<TResponse>(HttpRequestMessage requestMessage);
     }
 }

@@ -14,7 +14,7 @@ namespace GuildComm.Services.Clients
             _clientFactory = clientFactory;
         }
 
-        public async Task<TResponse> SendRequest<TResponse>(HttpRequestMessage requestMessage)
+        public async Task<TResponse> SendRequestAsync<TResponse>(HttpRequestMessage requestMessage)
         {
             var client = _clientFactory.CreateClient();
 

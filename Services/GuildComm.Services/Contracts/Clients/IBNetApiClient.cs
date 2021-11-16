@@ -5,6 +5,6 @@ namespace GuildComm.Services.Contracts
 {
     public interface IBNetApiClient
     {
-        Task<string> GetAccessToken();
+        Task<string> GetAccessTokenAsync();
     }
 }
