@@ -4,7 +4,6 @@ namespace GuildComm.Web
     using GuildComm.Services;
     using GuildComm.Data.Models;
     using GuildComm.Data.Seeding;
-    using GuildComm.Services.Utilities;
 
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
@@ -20,6 +19,7 @@ namespace GuildComm.Web
     using GuildComm.Services.Contracts;
     using GuildComm.Services.Clients;
     using GuildComm.Services.Contracts.Clients;
+    using GuildComm.MappingProfiles;
 
     public class Startup
     {

@@ -1,11 +1,11 @@
 ﻿using GuildComm.Common.Constants;
+using GuildComm.Common.Constants.ApiConstants;
 using GuildComm.Data.Models;
 using GuildComm.Data.Repositories.Contracts;
 using GuildComm.Services.Contracts;
 using GuildComm.Services.Contracts.Clients;
 using GuildComm.Services.Models;
 using GuildComm.Services.Models.Settings;
-using GuildComm.Services.Utilities.Constants;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace GuildComm.Common.Constants
+﻿namespace GuildComm.Common.Constants.ApiConstants
 {
     public static class TokenNames
     {

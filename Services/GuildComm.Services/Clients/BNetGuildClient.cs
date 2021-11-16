@@ -1,9 +1,9 @@
-﻿using GuildComm.Services.Contracts;
+﻿using GuildComm.Common.Constants.ApiConstants;
+using GuildComm.Services.Contracts;
 using GuildComm.Services.Contracts.Clients;
 using GuildComm.Services.Enums;
 using GuildComm.Services.Models.RequestModels;
 using GuildComm.Services.Models.ResponseModels;
-using GuildComm.Services.Utilities.Constants;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;

@@ -1,4 +1,4 @@
-﻿namespace GuildComm.Services.Utilities.Constants
+﻿namespace GuildComm.Common.Constants.ApiConstants
 {
     public class Parameters
     {
