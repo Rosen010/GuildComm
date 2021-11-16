@@ -1,4 +1,5 @@
-﻿using GuildComm.Data.Models;
+﻿using AutoMapper;
+using GuildComm.Data.Models;
 using GuildComm.Data.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -7,10 +8,12 @@ namespace GuildComm.Data.Repositories
 {
     public class TokenRepository : ITokenRepository
     {
+        private readonly IMapper _mapper;
         private readonly GuildCommDbContext _context;
 
-        public TokenRepository(GuildCommDbContext context)
+        public TokenRepository(GuildCommDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
@@ -25,13 +28,7 @@ namespace GuildComm.Data.Repositories
 
             if (token == null)
             {
-                token = new AccessToken
-                {
-                    Name = accessToken.Name,
-                    Value = accessToken.Value,
-                    Expiration = accessToken.Expiration,
-                };
-
+                token = _mapper.Map<AccessToken>(accessToken);
                 await _context.Tokens.AddAsync(token);
             }
             else

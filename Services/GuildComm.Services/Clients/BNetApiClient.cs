@@ -1,4 +1,5 @@
-﻿using GuildComm.Common.Constants;
+﻿using AutoMapper;
+using GuildComm.Common.Constants;
 using GuildComm.Common.Constants.ApiConstants;
 using GuildComm.Data.Models;
 using GuildComm.Data.Repositories.Contracts;
@@ -18,12 +19,14 @@ namespace GuildComm.Services.Clients
 {
     public class BNetApiClient : IBNetApiClient
     {
+        private readonly IMapper _mapper;
         private readonly IRestClient _restClient;
         private readonly IConfiguration _configuration;
         private readonly ITokenRepository _tokenRepository;
 
-        public BNetApiClient(IConfiguration configuration, IRestClient restClient, ITokenRepository tokenRepository)
+        public BNetApiClient(IMapper mapper, IConfiguration configuration, IRestClient restClient, ITokenRepository tokenRepository)
         {
+            _mapper = mapper;
             _restClient = restClient;
             _configuration = configuration;
             _tokenRepository = tokenRepository;
@@ -48,7 +51,8 @@ namespace GuildComm.Services.Clients
             {
                 using (var httpRequest = new HttpRequestMessage(HttpMethod.Post, Endpoints.BNetOauth))
                 {
-                    var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(settings.ClientId + ":" + settings.ClientSecret));
+                    var credentials = Convert.ToBase64String(
+                        Encoding.ASCII.GetBytes(string.Format(StringFormats.ColonSeparatedKVPFormat, settings.ClientId, settings.ClientSecret)));
 
                     var data = new Dictionary<string, string>
                     {
@@ -60,13 +64,7 @@ namespace GuildComm.Services.Clients
 
                     var response = await _restClient.SendRequestAsync<BNetBearerToken>(httpRequest);
 
-                    token = new AccessToken
-                    {
-                        Name = TokenNames.BNetAccessToken,
-                        Value = response.AccessToken,
-                        Expiration = DateTime.UtcNow.AddSeconds(response.Expiration)
-                    };
-
+                    token = _mapper.Map<AccessToken>(response);
                     await _tokenRepository.UpdateTokenAsync(token);
                 }
             }
