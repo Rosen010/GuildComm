@@ -4,7 +4,7 @@ using GuildComm.Services.Models.ResponseModels;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Search;
 
-namespace GuildComm.Core.Utilities.MappingConfigurations
+namespace GuildComm.MappingProfiles
 {
     public class GuildProfile : Profile
     {

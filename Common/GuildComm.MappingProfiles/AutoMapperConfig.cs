@@ -1,4 +1,4 @@
-﻿namespace GuildComm.Services.Utilities
+﻿namespace GuildComm.MappingProfiles
 {
     using AutoMapper;
     using System;
