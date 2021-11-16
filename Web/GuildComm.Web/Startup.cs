@@ -20,6 +20,8 @@ namespace GuildComm.Web
     using GuildComm.Services.Clients;
     using GuildComm.Services.Contracts.Clients;
     using GuildComm.MappingProfiles;
+    using GuildComm.Data.Repositories.Contracts;
+    using GuildComm.Data.Repositories;
 
     public class Startup
     {
@@ -82,6 +84,8 @@ namespace GuildComm.Web
 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IGuildService, GuildService>();
+
+            services.AddTransient<ITokenRepository, TokenRepository>();
 
             services.AddTransient<IRestClient, RestClient>();
             services.AddTransient<IBNetApiClient, BNetApiClient>();
