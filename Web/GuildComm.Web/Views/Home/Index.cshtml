@@ -8,18 +8,11 @@
 }
 
 <div class="text-center">
-    @if (this.User.Identity.IsAuthenticated)
-    {
-        <h1 class="display-4 text-white">Welcome @this.User.Identity.Name</h1>
-        <p class="text-white">Have fun with your guildies!</p>
-    }
-    else
-    {
-        <div class="mt-5">
-            <h1 class="display-4 text-white font-weight-bold embiggen">Welcome</h1>
-            <p class="text-white font-weight-bolder"><a href="/Identity/Account/Login" class="deco-none">Login</a> or <a href="/Identity/Account/Register" class="deco-none">Register</a> to meet your new guildies!</p>
-        </div>
-    }
+
+    <div class="mt-5">
+        <h1 class="display-4 text-white font-weight-bold embiggen">Welcome</h1>
+        <p class="text-white font-weight-bolder"><a href="/Identity/Account/Login" class="deco-none">Login</a> or <a href="/Identity/Account/Register" class="deco-none">Register</a> to meet your new guildies!</p>
+    </div>
 
     <div class="row d-flex justify-content-center mt-2">
         <div class="col-lg-6">

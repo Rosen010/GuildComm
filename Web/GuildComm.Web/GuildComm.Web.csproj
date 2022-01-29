@@ -27,8 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\GuildComm.MappingProfiles\GuildComm.MappingProfiles.csproj" />
-    <ProjectReference Include="..\..\Data\GuildComm.Data.Models\GuildComm.Data.Models.csproj" />
-    <ProjectReference Include="..\..\Data\GuildComm.Data\GuildComm.Data.csproj" />
     <ProjectReference Include="..\..\Services\GuildComm.Services\GuildComm.Core.csproj" />
     <ProjectReference Include="..\GuildComm.Web.ViewModels\GuildComm.Web.Models.csproj" />
   </ItemGroup>

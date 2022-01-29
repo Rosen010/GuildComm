@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\GuildComm.Data.Models\GuildComm.Data.Models.csproj" />
-    <ProjectReference Include="..\..\Data\GuildComm.Data\GuildComm.Data.csproj" />
     <ProjectReference Include="..\..\Web\GuildComm.Web.ViewModels\GuildComm.Web.Models.csproj" />
   </ItemGroup>
 
