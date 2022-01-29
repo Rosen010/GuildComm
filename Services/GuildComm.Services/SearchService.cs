@@ -1,5 +1,5 @@
-﻿using GuildComm.Services.Contracts;
-using GuildComm.Services.Models.ResponseModels;
+﻿using BNetAPI.Core.Interfaces;
+using GuildComm.Core.Interfaces;
 
 namespace GuildComm.Services
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using GuildComm.Services.Models.RequestModels;
-using GuildComm.Services.Models.ResponseModels;
+using BNetAPI.Guilds.Models.RequestModels;
+using BNetAPI.Guilds.Models.ResponseModels;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Search;
 

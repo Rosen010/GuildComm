@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using GuildComm.Services.Contracts;
-using GuildComm.Services.Contracts.Clients;
-using GuildComm.Services.Models.RequestModels;
+using BNetAPI.Core.Models;
+using BNetAPI.Guilds.Interfaces;
+using BNetAPI.Guilds.Models.RequestModels;
+using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Search;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace GuildComm.Services
         public async Task<GuildViewModel> FindGuiild(SearchInputModel model)
         {
             var requestModel = _mapper.Map<GuildRequestModel>(model);
-            var responseModel = await _guildClient.RetrieveGuild(requestModel);
+            var responseModel = await _guildClient.RetrieveGuild(new AuthorizationData(), requestModel);
 
             var viewModel = _mapper.Map<GuildViewModel>(responseModel);
             return viewModel;

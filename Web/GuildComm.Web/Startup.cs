@@ -1,27 +1,15 @@
 namespace GuildComm.Web
 {
-    using GuildComm.Data;
-    using GuildComm.Services;
-    using GuildComm.Data.Models;
-    using GuildComm.Data.Seeding;
-
     using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
-    using GuildComm.Services.Contracts;
-    using GuildComm.Services.Clients;
-    using GuildComm.Services.Contracts.Clients;
     using GuildComm.MappingProfiles;
-    using GuildComm.Data.Repositories.Contracts;
-    using GuildComm.Data.Repositories;
+    using BNetAPI.Core;
 
     public class Startup
     {
@@ -34,26 +22,6 @@ namespace GuildComm.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<GuildCommDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                m => m.MigrationsAssembly("GuildComm.Data")));
-
-            services.AddIdentity<GuildCommUser, IdentityRole>()
-                .AddEntityFrameworkStores<GuildCommDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                // Password settings.
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 3;
-                options.Password.RequiredUniqueChars = 0;
-
-                options.User.RequireUniqueEmail = true;
-            });
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -62,38 +30,14 @@ namespace GuildComm.Web
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
-            services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // CSRF
-            });
-            services.AddAntiforgery(options =>
-            {
-                options.HeaderName = "X-CSRF-TOKEN";
-            });
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Identity/Account/Login";
-                options.LogoutPath = "/Identity/Account/Login";
-            });
-
             services.AddAutoMapper(AutoMapperConfig.GetAutoMapperProfilesFromAllAssemblies()
             .ToArray());
-
-            services.AddScoped<GuildCommUserSeeder>();
-            services.AddScoped<GuildCommUserRoleSeeder>();
-
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IGuildService, GuildService>();
-
-            services.AddTransient<ITokenRepository, TokenRepository>();
-
-            services.AddTransient<IRestClient, RestClient>();
-            services.AddTransient<IBNetApiClient, BNetApiClient>();
-            services.AddTransient<IBNetGuildClient, BNetGuildClient>();
 
             services.AddSingleton(this.Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.ConfigureBNetDependencies();
 
             services.AddMvc();
             services.AddHttpClient();
@@ -104,10 +48,6 @@ namespace GuildComm.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            using (var context = scope.ServiceProvider.GetService<GuildCommDbContext>())
-
-                context.Database.EnsureCreated();
 
             if (env.IsDevelopment())
             {
@@ -124,9 +64,6 @@ namespace GuildComm.Web
             app.UseCookiePolicy();
 
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
