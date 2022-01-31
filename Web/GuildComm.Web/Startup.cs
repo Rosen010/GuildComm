@@ -10,6 +10,7 @@ namespace GuildComm.Web
     using Microsoft.Extensions.DependencyInjection;
     using GuildComm.MappingProfiles;
     using BNetAPI.Core;
+    using GuildComm.Core.Extensions;
 
     public class Startup
     {
@@ -38,6 +39,7 @@ namespace GuildComm.Web
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.ConfigureBNetDependencies();
+            services.AddAuthorizationData(this.Configuration);
 
             services.AddMvc();
             services.AddHttpClient();
