@@ -11,6 +11,8 @@ namespace GuildComm.Web
     using GuildComm.MappingProfiles;
     using BNetAPI.Core;
     using GuildComm.Core.Extensions;
+    using GuildComm.Services;
+    using GuildComm.Core.Interfaces;
 
     public class Startup
     {
@@ -40,6 +42,9 @@ namespace GuildComm.Web
 
             services.ConfigureBNetDependencies();
             services.AddAuthorizationData(this.Configuration);
+
+            services.AddTransient<IGuildService, GuildService>();
+            services.AddTransient<ISearchService, SearchService>();
 
             services.AddMvc();
             services.AddHttpClient();

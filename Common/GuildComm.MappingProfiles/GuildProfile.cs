@@ -11,8 +11,8 @@ namespace GuildComm.MappingProfiles
         public GuildProfile()
         {
             this.CreateMap<SearchInputModel, GuildRequestModel>()
-                .ForMember(dest => dest.GuildName, opt => opt.MapFrom(src => src.GuildName.ToLower()))
-                .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.ToLower()));
+                .ForMember(dest => dest.GuildName, opt => opt.MapFrom(src => src.GuildName.Replace(' ', '-').ToLower()))
+                .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.Replace(' ', '-').ToLower()));
 
             this.CreateMap<GuildResponse, GuildViewModel>()
                 .ForMember(g => g.Realm, opt => opt.MapFrom(src => src.Realm.Slug));
