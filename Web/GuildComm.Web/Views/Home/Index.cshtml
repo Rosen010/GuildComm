@@ -21,10 +21,12 @@
                 <div class="form-group mt-2 mb-3">
                     <label asp-for="@Model.Realm" class="text-white mb-3"></label>
                     <input type="text" asp-for="@Model.Realm" class="form-control" />
+                    <span asp-validation-for-"Realm" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-2 mb-3">
                     <label asp-for="@Model.GuildName" class="text-white mb-3"></label>
                     <input type="text" asp-for="@Model.GuildName" class="form-control" />
+                    <span asp-validation-for="GuildName" class="text-danger"></span>
                 </div>
                 <div class="input-group mt-2 mb-3">
                     <div class="input-group-prepend">
@@ -37,6 +39,7 @@
                         <option value="@Parameters.Namespace.ProfileKR @Parameters.Locale.KR">KR</option>
                         <option value="@Parameters.Namespace.ProfileTW @Parameters.Locale.TW">TW</option>
                     </select>
+                    <span asp-validation-for="Namespace" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Search</button>
             </form>
