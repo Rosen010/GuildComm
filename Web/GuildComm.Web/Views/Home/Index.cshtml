@@ -32,10 +32,10 @@
                     </div>
                     <select asp-for="@Model.Namespace" class="custom-select" id="inputGroupSelect01">
                         <option selected>Choose...</option>
-                        <option value="@Parameters.Namespace.ProfileEU">EU</option>
-                        <option value="@Parameters.Namespace.ProfileUS">US</option>
-                        <option value="@Parameters.Namespace.ProfileKR">KR</option>
-                        <option value="@Parameters.Namespace.ProfileTW">TW</option>
+                        <option value="@Parameters.Namespace.ProfileEU @Parameters.Locale.GB">EU</option>
+                        <option value="@Parameters.Namespace.ProfileUS @Parameters.Locale.US">US</option>
+                        <option value="@Parameters.Namespace.ProfileKR @Parameters.Locale.KR">KR</option>
+                        <option value="@Parameters.Namespace.ProfileTW @Parameters.Locale.TW">TW</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Search</button>

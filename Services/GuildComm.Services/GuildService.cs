@@ -23,7 +23,6 @@ namespace GuildComm.Services
         public async Task<GuildViewModel> FindGuiild(SearchInputModel model)
         {
             var requestModel = _mapper.Map<GuildRequestModel>(model);
-            requestModel.Locale = "en_GB";
             var responseModel = await _guildClient.RetrieveGuild(requestModel);
 
             var viewModel = _mapper.Map<GuildViewModel>(responseModel);
