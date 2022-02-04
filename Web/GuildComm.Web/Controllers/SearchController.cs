@@ -24,7 +24,7 @@ namespace GuildComm.Web.Controllers
                 return this.View(guild);
             }
 
-            return this.Redirect("/Shared/Error.cshtml");
+            return this.Redirect("/Home/Error");
         }
     }
 }
