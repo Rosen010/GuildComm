@@ -20,20 +20,19 @@
                 <h2 class="text-white">Search</h2>
                 <div class="form-group mt-2 mb-3">
                     <label asp-for="@Model.Realm" class="text-white mb-3"></label>
-                    <input type="text" asp-for="@Model.Realm" class="form-control" />
-                    <span asp-validation-for-"@Model.Realm" class="text-danger"></span>
+                    <input type="text" asp-for="@Model.Realm" class="form-control"/>
+                    <span asp-validation-for="Realm" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-2 mb-3">
                     <label asp-for="@Model.GuildName" class="text-white mb-3"></label>
                     <input type="text" asp-for="@Model.GuildName" class="form-control" />
-                    <span asp-validation-for="@Model.GuildName" class="text-danger"></span>
+                    <span asp-validation-for="GuildName" class="text-danger"></span>
                 </div>
                 <div class="input-group mt-2 mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Region</label>
                     </div>
                     <select asp-for="@Model.Namespace" class="custom-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
                         <option value="@Parameters.Namespace.ProfileEU @Parameters.Locale.GB">EU</option>
                         <option value="@Parameters.Namespace.ProfileUS @Parameters.Locale.US">US</option>
                         <option value="@Parameters.Namespace.ProfileKR @Parameters.Locale.KR">KR</option>
