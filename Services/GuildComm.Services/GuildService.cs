@@ -4,7 +4,9 @@ using BNetAPI.Guilds.Interfaces;
 using BNetAPI.Guilds.Models.RequestModels;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
+using GuildComm.Web.Models.Items;
 using GuildComm.Web.Models.Search;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuildComm.Services
@@ -22,10 +24,20 @@ namespace GuildComm.Services
 
         public async Task<GuildViewModel> FindGuiild(SearchInputModel model)
         {
-            var requestModel = _mapper.Map<GuildRequestModel>(model);
-            var responseModel = await _guildClient.RetrieveGuild(requestModel);
+            var guildRequest = _mapper.Map<GuildRequestModel>(model);
+            var rosterRequest = _mapper.Map<RosterRequestModel>(model);
 
-            var viewModel = _mapper.Map<GuildViewModel>(responseModel);
+            var guildResponse = await _guildClient.RequestGuild(guildRequest);
+            var rosterResponse = await _guildClient.RequestRoster(rosterRequest);
+
+            var viewModel = _mapper.Map<GuildViewModel>(guildResponse);
+
+            viewModel.Members = rosterResponse.Members
+                .OrderBy(m => m.Rank)
+                .Take(20)
+                .Select(m => _mapper.Map<MemberItem>(m))
+                .ToList();
+
             return viewModel;
         }
     }

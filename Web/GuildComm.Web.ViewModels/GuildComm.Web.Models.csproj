@@ -8,4 +8,8 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Core\BNetAPI.Core.csproj" />
+  </ItemGroup>
+
 </Project>
