@@ -2,8 +2,12 @@
 
 @model GuildViewModel
 
-<div class="text-center text-white">
-    <p>Guild Name: @Model.Name</p>
-    <p>Realm: @Model.Realm</p>
-    <p>Members: @Model.MembersCount</p>
+<div class="card mb-3">
+  <img src="~/Images/horde-banner.png" class="card-img-top" alt="horde-banner">
+  <div class="card-body bg-dark text-white">
+    <h5 class="card-title">@Model.Name - @Model.Realm</h5>
+    <p class="card-text">This is dummy text for the guild description</p>
+    <p class="card-text">Members: @Model.MembersCount</p>
+    <p class="card-text"><small class="text-white">Last updated 3 mins ago</small></p>
+  </div>
 </div>
