@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BNetAPI.Guilds.Models.RequestModels;
 using BNetAPI.Guilds.Models.ResponseModels;
+using GuildComm.Common.Extensions;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Search;
 
@@ -17,7 +18,7 @@ namespace GuildComm.MappingProfiles
                 .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => src.Namespace.Split()[1]));
 
             this.CreateMap<GuildResponse, GuildViewModel>()
-                .ForMember(g => g.Realm, opt => opt.MapFrom(src => src.Realm.Slug));
+                .ForMember(g => g.Realm, opt => opt.MapFrom(src => src.Realm.Slug.CapitalizeFirstLetter()));
         }
     }
 }

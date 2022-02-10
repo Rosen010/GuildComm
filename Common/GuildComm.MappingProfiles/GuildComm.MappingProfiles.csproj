@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Services\GuildComm.Services\GuildComm.Core.csproj" />
+    <ProjectReference Include="..\GuildComm.Common\GuildComm.Common.csproj" />
   </ItemGroup>
 
 </Project>
