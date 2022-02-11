@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNetAPI.Core", "..\WoW-API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNetAPI.Guilds", "..\WoW-API\WoW-API\BNetAPI.Guilds\BNetAPI.Guilds.csproj", "{D8236006-3538-45B8-85BB-EC0E425C231A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNetAPI.Characters", "..\WoW-API\WoW-API\BNetAPI.Characters\BNetAPI.Characters.csproj", "{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{D8236006-3538-45B8-85BB-EC0E425C231A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8236006-3538-45B8-85BB-EC0E425C231A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8236006-3538-45B8-85BB-EC0E425C231A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
