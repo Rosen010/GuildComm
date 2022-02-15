@@ -21,7 +21,7 @@ namespace GuildComm.Core
         public async Task<CharacterViewModel> FindCharacter(CharacterInputModel model)
         {
             var characterRequest = _mapper.Map<CharacterRequestModel>(model);
-            var characterResponse = _characterClient.RequestCharacter(characterRequest);
+            var characterResponse = await _characterClient.RequestCharacter(characterRequest);
 
             var viewModel = _mapper.Map<CharacterViewModel>(characterResponse);
             return viewModel;
