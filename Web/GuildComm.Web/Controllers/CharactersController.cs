@@ -19,8 +19,8 @@ namespace GuildComm.Web.Controllers
         {
             var model = new CharacterInputModel() 
             {
-                Realm = realm,
-                CharacterName = characterName,
+                Realm = realm.ToLower(),
+                CharacterName = characterName.ToLower(),
                 NameSpace = Parameters.Namespace.ProfileEU,
                 Locale = Parameters.Locale.GB,
             };

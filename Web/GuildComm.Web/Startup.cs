@@ -13,6 +13,7 @@ namespace GuildComm.Web
     using GuildComm.Core.Extensions;
     using GuildComm.Services;
     using GuildComm.Core.Interfaces;
+    using GuildComm.Core;
 
     public class Startup
     {
@@ -45,6 +46,7 @@ namespace GuildComm.Web
 
             services.AddTransient<IGuildService, GuildService>();
             services.AddTransient<ISearchService, SearchService>();
+            services.AddTransient<ICharacterService, CharacterService>();
 
             services.AddMvc();
             services.AddHttpClient();
