@@ -19,5 +19,7 @@
         public int AvgItemLevel { get; set; }
 
         public int EquippedItemLevel { get; set; }
+
+        public string CharacterRender { get; set; }
     }
 }

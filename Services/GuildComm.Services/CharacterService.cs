@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using BNetAPI.Characters.Models.Constants;
 using BNetAPI.Characters.Models.Interfaces;
 using BNetAPI.Characters.Models.RequestModels;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Character;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuildComm.Core
@@ -22,8 +24,10 @@ namespace GuildComm.Core
         {
             var characterRequest = _mapper.Map<CharacterRequestModel>(model);
             var characterResponse = await _characterClient.RequestCharacter(characterRequest);
+            var characterMediaResponse = await _characterClient.RequestCharacterMedia(characterRequest);
 
             var viewModel = _mapper.Map<CharacterViewModel>(characterResponse);
+            viewModel.CharacterRender = characterMediaResponse.Assets.FirstOrDefault(a => a.Key.Equals(CharacterAssets.Main)).Value;
             return viewModel;
         }
     }
