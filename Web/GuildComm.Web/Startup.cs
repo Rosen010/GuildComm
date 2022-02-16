@@ -45,7 +45,6 @@ namespace GuildComm.Web
             services.AddAuthorizationData(this.Configuration);
 
             services.AddTransient<IGuildService, GuildService>();
-            services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<ICharacterService, CharacterService>();
 
             services.AddMvc();
