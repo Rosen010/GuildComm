@@ -31,6 +31,8 @@ namespace GuildComm.Services
             var rosterResponse = await _guildClient.RequestRoster(rosterRequest);
 
             var viewModel = _mapper.Map<GuildViewModel>(guildResponse);
+            viewModel.Locale = guildRequest.Locale;
+            viewModel.NameSpace = guildRequest.NameSpace;
 
             viewModel.Members = rosterResponse.Members
                 .OrderBy(m => m.Rank)

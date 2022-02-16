@@ -21,8 +21,17 @@
         <tbody>
             @foreach (var member in Model.Members)
             {
-                <tr>             
-                    <td><a asp-controller="Characters" asp-action="Character" asp-route-realm="@Model.Realm" asp-route-characterName="@member.Name">@member.Name</a></td>
+                <tr>
+                    <td>
+                        <a asp-controller="Characters"
+                            asp-action="Character"
+                            asp-route-realm="@Model.Realm"
+                            asp-route-charactername="@member.Name"
+                            asp-route-namespace="@Model.NameSpace"
+                            asp-route-locale="@Model.Locale">
+                            @member.Name
+                        </a>
+                    </td>
                     <td>@member.Class</td>
                     <td>@member.Rank</td>
                 </tr>

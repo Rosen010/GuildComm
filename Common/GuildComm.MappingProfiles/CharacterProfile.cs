@@ -9,7 +9,9 @@ namespace GuildComm.MappingProfiles
     {
         public CharacterProfile()
         {
-            this.CreateMap<CharacterInputModel, CharacterRequestModel>();
+            this.CreateMap<CharacterInputModel, CharacterRequestModel>()
+                .ForMember(dest => dest.CharacterName, opt => opt.MapFrom(src => src.CharacterName.ToLower()))
+                .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.ToLower()));
 
             this.CreateMap<CharacterResponse, CharacterViewModel>()
                 .ForMember(dest => dest.Faction, opt => opt.MapFrom(src => src.Faction.Name))

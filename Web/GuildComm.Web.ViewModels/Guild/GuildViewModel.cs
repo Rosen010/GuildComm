@@ -11,6 +11,10 @@ namespace GuildComm.Web.Models.Guild
 
         public int MembersCount { get; set; }
 
+        public string NameSpace { get; set; }
+
+        public string Locale { get; set; }
+
         public ICollection<MemberItem> Members { get; set; }
     }
 }
