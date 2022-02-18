@@ -1,11 +1,12 @@
 ﻿@using GuildComm.Web.Models.Character
 
 @model CharacterViewModel
-<div>
-    @Model.Name
-    @Model.Class
-    @Model.Guild
-</div>
-<div>
-    <img src="@Model.CharacterRender"/>
+
+<div class="card">
+  <div class="card-body bg-dark text-white">
+    <h4 class="card-title">@Model.Name - Item Level: @Model.EquippedItemLevel (@Model.AvgItemLevel)</h4>
+    <h5 class="card-subtitle">@Model.Race @Model.Class (@Model.Spec)</h5>
+    <p class="card-text mt-2"> &lt;@Model.Guild&gt; - @Model.Realm</p>
+  </div>
+  <img src="@Model.CharacterRender" class="card-img-bottom" alt="...">
 </div>
