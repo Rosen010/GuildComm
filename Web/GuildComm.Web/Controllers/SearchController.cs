@@ -20,7 +20,7 @@ namespace GuildComm.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var guild = await _guildService.FindGuiild(model);
+                var guild = await _guildService.FindGuiildAsync(model);
                 return this.View(guild);
             }
 

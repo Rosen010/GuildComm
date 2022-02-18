@@ -16,7 +16,7 @@ namespace GuildComm.Web.Controllers
 
         public async Task<IActionResult> Character(CharacterInputModel model)
         {
-            var viewModel = await _characterService.FindCharacter(model);
+            var viewModel = await _characterService.FindCharacterAsync(model);
             return this.View(viewModel);
         }
     }

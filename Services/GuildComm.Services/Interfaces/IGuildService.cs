@@ -6,6 +6,6 @@ namespace GuildComm.Core.Interfaces
 {
     public interface IGuildService
     {
-        Task<GuildViewModel> FindGuiild(SearchInputModel model);
+        Task<GuildViewModel> FindGuiildAsync(SearchInputModel model);
     }
 }

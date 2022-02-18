@@ -22,13 +22,13 @@ namespace GuildComm.Services
             _guildClient = guildClient;
         }
 
-        public async Task<GuildViewModel> FindGuiild(SearchInputModel model)
+        public async Task<GuildViewModel> FindGuiildAsync(SearchInputModel model)
         {
             var guildRequest = _mapper.Map<GuildRequestModel>(model);
             var rosterRequest = _mapper.Map<RosterRequestModel>(model);
 
-            var guildResponse = await _guildClient.RequestGuild(guildRequest);
-            var rosterResponse = await _guildClient.RequestRoster(rosterRequest);
+            var guildResponse = await _guildClient.RequestGuildAsync(guildRequest);
+            var rosterResponse = await _guildClient.RequestRosterAsync(rosterRequest);
 
             var viewModel = _mapper.Map<GuildViewModel>(guildResponse);
             viewModel.Locale = guildRequest.Locale;

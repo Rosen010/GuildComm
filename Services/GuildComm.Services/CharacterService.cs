@@ -20,11 +20,11 @@ namespace GuildComm.Core
             _characterClient = characterClient;
         }
 
-        public async Task<CharacterViewModel> FindCharacter(CharacterInputModel model)
+        public async Task<CharacterViewModel> FindCharacterAsync(CharacterInputModel model)
         {
             var characterRequest = _mapper.Map<CharacterRequestModel>(model);
-            var characterResponse = await _characterClient.RequestCharacter(characterRequest);
-            var characterMediaResponse = await _characterClient.RequestCharacterMedia(characterRequest);
+            var characterResponse = await _characterClient.RequestCharacterAsync(characterRequest);
+            var characterMediaResponse = await _characterClient.RequestCharacterMediaAsync(characterRequest);
 
             var viewModel = _mapper.Map<CharacterViewModel>(characterResponse);
             viewModel.CharacterRender = characterMediaResponse.Assets.FirstOrDefault(a => a.Key.Equals(CharacterAssets.Main)).Value;

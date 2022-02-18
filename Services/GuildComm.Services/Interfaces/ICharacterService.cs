@@ -5,6 +5,6 @@ namespace GuildComm.Core.Interfaces
 {
     public interface ICharacterService
     {
-        Task<CharacterViewModel> FindCharacter(CharacterInputModel model);
+        Task<CharacterViewModel> FindCharacterAsync(CharacterInputModel model);
     }
 }
