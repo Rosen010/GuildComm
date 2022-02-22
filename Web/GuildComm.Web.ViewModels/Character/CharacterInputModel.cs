@@ -9,7 +9,5 @@
         public string CharacterName { get; set; }
 
         public string NameSpace { get; set; }
-
-        public string Locale { get; set; }
     }
 }

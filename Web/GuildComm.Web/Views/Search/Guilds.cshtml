@@ -26,8 +26,7 @@
                             asp-action="Character"
                             asp-route-realm="@Model.Realm"
                             asp-route-charactername="@member.Name"
-                            asp-route-namespace="@Model.NameSpace"
-                            asp-route-locale="@Model.Locale">
+                            asp-route-namespace="@Model.NameSpace">
                             @member.Name
                         </a>
                     </td>
@@ -42,6 +41,5 @@
         asp-route-realm="@Model.Realm"
         asp-route-guildname="@Model.Name"
         asp-route-namespace="@Model.NameSpace"
-        asp-route-locale="@Model.Locale"
         asp-route-currentpage="@(Model.CurrentPage + 1)">Next</a>
 </div>

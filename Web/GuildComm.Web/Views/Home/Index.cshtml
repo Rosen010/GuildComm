@@ -1,5 +1,5 @@
 ﻿@using GuildComm.Web.Models.Search
-@using BNetAPI.Core.Utilities.Constants
+@using GuildComm.Common.Constants
 
 @model SearchInputModel
 
@@ -33,10 +33,10 @@
                         <label class="input-group-text" for="inputGroupSelect01">Region</label>
                     </div>
                     <select asp-for="@Model.Namespace" class="custom-select" id="inputGroupSelect01">
-                        <option value="@Parameters.Namespace.ProfileEU @Parameters.Locale.GB">EU</option>
-                        <option value="@Parameters.Namespace.ProfileUS @Parameters.Locale.US">US</option>
-                        <option value="@Parameters.Namespace.ProfileKR @Parameters.Locale.KR">KR</option>
-                        <option value="@Parameters.Namespace.ProfileTW @Parameters.Locale.TW">TW</option>
+                        <option value="@Localizations.Namespace.ProfileEU">EU</option>
+                        <option value="@Localizations.Namespace.ProfileUS">US</option>
+                        <option value="@Localizations.Namespace.ProfileKR">KR</option>
+                        <option value="@Localizations.Namespace.ProfileTW">TW</option>
                     </select>
                     <span asp-validation-for="Namespace" class="text-danger"></span>
                 </div>

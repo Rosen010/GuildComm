@@ -14,8 +14,6 @@ namespace GuildComm.Web.Models.Search
         [Required(ErrorMessage = "Please select a region")]
         public string Namespace { get; set; }
 
-        public string Locale { get; set; }
-
         public int CurrentPage { get; set; }
     }
 }
