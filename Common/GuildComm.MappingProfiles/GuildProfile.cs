@@ -13,9 +13,7 @@ namespace GuildComm.MappingProfiles
         {
             this.CreateMap<SearchInputModel, GuildRequestModel>()
                 .ForMember(dest => dest.GuildName, opt => opt.MapFrom(src => src.GuildName.Replace(' ', '-').ToLower()))
-                .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.Replace(' ', '-').ToLower()))
-                .ForMember(dest => dest.NameSpace, opt => opt.MapFrom(src => src.Namespace.Split()[0]))
-                .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => src.Namespace.Split()[1]));
+                .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.Replace(' ', '-').ToLower()));
 
             this.CreateMap<GuildResponse, GuildViewModel>()
                 .ForMember(g => g.Realm, opt => opt.MapFrom(src => src.Realm.Slug.CapitalizeFirstLetter()));

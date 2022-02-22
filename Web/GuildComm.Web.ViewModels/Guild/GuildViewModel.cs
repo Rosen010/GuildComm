@@ -15,6 +15,8 @@ namespace GuildComm.Web.Models.Guild
 
         public string Locale { get; set; }
 
+        public int CurrentPage { get; set; }
+
         public ICollection<MemberItem> Members { get; set; }
     }
 }

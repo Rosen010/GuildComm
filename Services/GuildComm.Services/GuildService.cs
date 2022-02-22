@@ -33,9 +33,11 @@ namespace GuildComm.Services
             var viewModel = _mapper.Map<GuildViewModel>(guildResponse);
             viewModel.Locale = guildRequest.Locale;
             viewModel.NameSpace = guildRequest.NameSpace;
+            viewModel.CurrentPage = model.CurrentPage;
 
             viewModel.Members = rosterResponse.Members
                 .OrderBy(m => m.Rank)
+                .Skip(model.CurrentPage * 20)
                 .Take(20)
                 .Select(m => _mapper.Map<MemberItem>(m))
                 .ToList();

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GuildComm.Web.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace GuildComm.Web.Models.Search
 {
-    public class SearchInputModel
+    public class SearchInputModel : IPaginationModel
     {
         [Required(ErrorMessage = "Please select a realm")]
         public string Realm { get; set; }
@@ -12,5 +13,9 @@ namespace GuildComm.Web.Models.Search
 
         [Required(ErrorMessage = "Please select a region")]
         public string Namespace { get; set; }
+
+        public string Locale { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 }
