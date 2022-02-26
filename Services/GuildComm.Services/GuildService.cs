@@ -30,9 +30,13 @@ namespace GuildComm.Services
             var rosterResponse = await _guildClient.RequestRosterAsync(rosterRequest);
 
             var viewModel = _mapper.Map<GuildViewModel>(guildResponse);
+
             viewModel.Locale = guildRequest.Locale;
             viewModel.NameSpace = guildRequest.NameSpace;
             viewModel.CurrentPage = model.CurrentPage;
+
+            viewModel.DisablePrevButton = model.CurrentPage == 0 ? "disabled" : string.Empty;
+            viewModel.DisableNextButton = (model.CurrentPage + 1) * 20 >= rosterResponse.Members.Count ? "disabled" : string.Empty;
 
             viewModel.Members = rosterResponse.Members
                 .OrderBy(m => m.Rank)

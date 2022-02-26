@@ -17,6 +17,10 @@ namespace GuildComm.Web.Models.Guild
 
         public int CurrentPage { get; set; }
 
+        public string DisablePrevButton { get; set; }
+
+        public string DisableNextButton { get; set; }
+
         public ICollection<MemberItem> Members { get; set; }
     }
 }

@@ -38,7 +38,7 @@
     </table>
     <ul class="pagination bg-dark mb-0 d-flex justify-content-center">
         <li class="page-item">
-            <a class="btn btn-dark text-white mt-2 mb-2" asp-controller="Search"
+            <a class="btn btn-dark text-white mt-2 mb-2 @Model.DisablePrevButton" asp-controller="Search"
                asp-action="Guilds"
                asp-route-realm="@Model.Realm"
                asp-route-guildname="@Model.Name"
@@ -46,7 +46,7 @@
                asp-route-currentpage="@(Model.CurrentPage - 1)">Previous</a>
         </li>
         <li class="page-item">
-            <a class="btn btn-dark text-white mt-2 mb-2" asp-controller="Search"
+            <a class="btn btn-dark text-white mt-2 mb-2 @Model.DisableNextButton" asp-controller="Search"
                asp-action="Guilds"
                asp-route-realm="@Model.Realm"
                asp-route-guildname="@Model.Name"
