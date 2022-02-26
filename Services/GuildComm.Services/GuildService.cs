@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BNetAPI.Core.Models;
 using BNetAPI.Guilds.Interfaces;
 using BNetAPI.Guilds.Models.RequestModels;
 using GuildComm.Core.Interfaces;

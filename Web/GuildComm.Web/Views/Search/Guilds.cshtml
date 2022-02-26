@@ -23,10 +23,10 @@
                 <tr>
                     <td>
                         <a asp-controller="Characters"
-                            asp-action="Character"
-                            asp-route-realm="@Model.Realm"
-                            asp-route-charactername="@member.Name"
-                            asp-route-namespace="@Model.NameSpace">
+                       asp-action="Character"
+                       asp-route-realm="@Model.Realm"
+                       asp-route-charactername="@member.Name"
+                       asp-route-namespace="@Model.NameSpace">
                             @member.Name
                         </a>
                     </td>
@@ -36,10 +36,22 @@
             }
         </tbody>
     </table>
-    <a asp-controller="Search"
-        asp-action="Guilds"
-        asp-route-realm="@Model.Realm"
-        asp-route-guildname="@Model.Name"
-        asp-route-namespace="@Model.NameSpace"
-        asp-route-currentpage="@(Model.CurrentPage + 1)">Next</a>
+    <ul class="pagination bg-dark mb-0 d-flex justify-content-center">
+        <li class="page-item">
+            <a class="page-link bg-dark text-white mt-2 mb-2" asp-controller="Search"
+               asp-action="Guilds"
+               asp-route-realm="@Model.Realm"
+               asp-route-guildname="@Model.Name"
+               asp-route-namespace="@Model.NameSpace"
+               asp-route-currentpage="@(Model.CurrentPage - 1)">Previous</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link bg-dark text-white mt-2 mb-2" asp-controller="Search"
+               asp-action="Guilds"
+               asp-route-realm="@Model.Realm"
+               asp-route-guildname="@Model.Name"
+               asp-route-namespace="@Model.NameSpace"
+               asp-route-currentpage="@(Model.CurrentPage + 1)">Next</a>
+        </li>
+    </ul>
 </div>
