@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BNetAPI.Characters.Models.RequestModels;
 using BNetAPI.Characters.Models.ResponseModels;
+using GuildComm.Common.Constants;
 using GuildComm.Web.Models.Character;
 
 namespace GuildComm.MappingProfiles
@@ -11,7 +12,8 @@ namespace GuildComm.MappingProfiles
         {
             this.CreateMap<CharacterInputModel, CharacterRequestModel>()
                 .ForMember(dest => dest.CharacterName, opt => opt.MapFrom(src => src.CharacterName.ToLower()))
-                .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.ToLower()));
+                .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.ToLower()))
+                .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => Localizations.MappedLocalizations[src.NameSpace]));
 
             this.CreateMap<CharacterResponse, CharacterViewModel>()
                 .ForMember(dest => dest.Faction, opt => opt.MapFrom(src => src.Faction.Name))
