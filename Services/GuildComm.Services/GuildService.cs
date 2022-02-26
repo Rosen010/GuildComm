@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BNetAPI.Guilds.Interfaces;
 using BNetAPI.Guilds.Models.RequestModels;
+using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Items;
@@ -14,6 +15,8 @@ namespace GuildComm.Services
     {
         private readonly IMapper _mapper;
         private readonly IBNetGuildClient _guildClient;
+
+        private const int DefaultPageSize = 20;
 
         public GuildService(IMapper mapper, IBNetGuildClient guildClient)
         {
@@ -35,12 +38,12 @@ namespace GuildComm.Services
             viewModel.NameSpace = guildRequest.NameSpace;
             viewModel.CurrentPage = model.CurrentPage;
 
-            viewModel.DisablePrevButton = model.CurrentPage == 0 ? "disabled" : string.Empty;
-            viewModel.DisableNextButton = (model.CurrentPage + 1) * 20 >= rosterResponse.Members.Count ? "disabled" : string.Empty;
+            viewModel.DisablePrevButton = model.CurrentPage == 0 ? HtmlConstants.Disabled : string.Empty;
+            viewModel.DisableNextButton = (model.CurrentPage + 1) * DefaultPageSize >= rosterResponse.Members.Count ? HtmlConstants.Disabled : string.Empty;
 
             viewModel.Members = rosterResponse.Members
                 .OrderBy(m => m.Rank)
-                .Skip(model.CurrentPage * 20)
+                .Skip(model.CurrentPage * DefaultPageSize)
                 .Take(20)
                 .Select(m => _mapper.Map<MemberItem>(m))
                 .ToList();
