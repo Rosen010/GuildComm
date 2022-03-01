@@ -13,7 +13,8 @@ namespace GuildComm.MappingProfiles
             this.CreateMap<CharacterInputModel, CharacterRequestModel>()
                 .ForMember(dest => dest.CharacterName, opt => opt.MapFrom(src => src.CharacterName.ToLower()))
                 .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.ToLower()))
-                .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => Localizations.MappedLocalizations[src.NameSpace]));
+                .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => Localizations.MappedLocalizations[src.NameSpace]))
+                .ForMember(dest => dest.Region, opt => opt.MapFrom(src => Localizations.MappedRegions[src.NameSpace]));
 
             this.CreateMap<CharacterResponse, CharacterViewModel>()
                 .ForMember(dest => dest.Faction, opt => opt.MapFrom(src => src.Faction.Name))

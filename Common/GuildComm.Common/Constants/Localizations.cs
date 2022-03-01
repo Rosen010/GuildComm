@@ -12,6 +12,12 @@ namespace GuildComm.Common.Constants
             { Namespace.ProfileTW, Locale.TW },
         };
 
+        public static readonly Dictionary<string, string> MappedRegions = new Dictionary<string, string>
+        {
+            { Namespace.ProfileEU, Regions.EU },
+            { Namespace.ProfileUS, Regions.US },
+        };
+
         public static class Namespace
         {
             public const string ProfileEU = "profile-eu";
@@ -21,6 +27,13 @@ namespace GuildComm.Common.Constants
             public const string ProfileKR = "profile-kr";
 
             public const string ProfileTW = "profile-tw";
+        }
+
+        public static class Regions
+        {
+            public const string EU = "eu";
+
+            public const string US = "us";
         }
 
         public static class Locale

@@ -15,7 +15,8 @@ namespace GuildComm.MappingProfiles
             this.CreateMap<SearchInputModel, RosterRequestModel>()
                 .ForMember(dest => dest.GuildName, opt => opt.MapFrom(src => src.GuildName.Replace(' ', '-').ToLower()))
                 .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.Replace(' ', '-').ToLower()))
-                .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => Localizations.MappedLocalizations[src.Namespace]));
+                .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => Localizations.MappedLocalizations[src.Namespace]))
+                .ForMember(dest => dest.Region, opt => opt.MapFrom(src => Localizations.MappedRegions[src.Namespace]));
 
             this.CreateMap<MemberComponent, MemberItem>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Character.Name))

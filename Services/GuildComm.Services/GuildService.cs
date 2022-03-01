@@ -44,7 +44,7 @@ namespace GuildComm.Services
             viewModel.Members = rosterResponse.Members
                 .OrderBy(m => m.Rank)
                 .Skip(model.CurrentPage * DefaultPageSize)
-                .Take(20)
+                .Take(DefaultPageSize)
                 .Select(m => _mapper.Map<MemberItem>(m))
                 .ToList();
 

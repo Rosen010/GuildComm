@@ -2,8 +2,6 @@
 {
     public class CharacterInputModel
     {
-        public string Region { get; set; }
-
         public string Realm { get; set; }
 
         public string CharacterName { get; set; }
