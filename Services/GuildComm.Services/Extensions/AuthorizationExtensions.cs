@@ -9,9 +9,11 @@ namespace GuildComm.Core.Extensions
     {
         public static void AddAuthorizationData(this IServiceCollection services, IConfiguration configuration)
         {
-            var section = configuration.GetSection(nameof(AuthorizationData));
-            var authorizationData = section.Get<AuthorizationData>();
-            services.AddSingleton<IAuthorizationData>(authorizationData);
+            var section = configuration
+                .GetSection(nameof(AuthorizationData))
+                .Get<AuthorizationData>(c => c.BindNonPublicProperties = true);
+
+            services.AddSingleton<IAuthorizationData>(section);
         }
     }
 }
