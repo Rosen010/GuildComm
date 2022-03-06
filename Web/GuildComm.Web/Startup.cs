@@ -42,7 +42,7 @@ namespace GuildComm.Web
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.ConfigureBNetDependencies();
-            services.AddAuthorizationData(this.Configuration);
+            services.AddAuthorizationData();
 
             services.AddTransient<IGuildService, GuildService>();
             services.AddTransient<ICharacterService, CharacterService>();
