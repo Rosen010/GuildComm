@@ -354,5 +354,6 @@ MigrationBackup/
 
 # Custom ignores
 appsettings.Production.json
+appsettings.json
 config.json
 /Web/GuildComm.Web/Properties/ServiceDependencies/GuildCommWeb - Web Deploy/profile.arm.json
