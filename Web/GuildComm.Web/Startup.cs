@@ -10,12 +10,12 @@ namespace GuildComm.Web
     using Microsoft.Extensions.DependencyInjection;
     using GuildComm.MappingProfiles;
     using BNetAPI.Core;
-    using GuildComm.Core.Extensions;
-    using GuildComm.Services;
-    using GuildComm.Core.Interfaces;
     using GuildComm.Core;
+    using GuildComm.Core.Extensions;
+    using GuildComm.Core.Interfaces;
     using GuildComm.Data;
     using Microsoft.EntityFrameworkCore;
+    using GuildComm.Services;
 
     public class Startup
     {

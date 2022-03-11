@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Services\GuildComm.Services\GuildComm.Core.csproj" />
+    <ProjectReference Include="..\..\Core\GuildComm.Core\GuildComm.Core.csproj" />
     <ProjectReference Include="..\GuildComm.Common\GuildComm.Common.csproj" />
   </ItemGroup>
 
