@@ -14,6 +14,8 @@ namespace GuildComm.Web
     using GuildComm.Services;
     using GuildComm.Core.Interfaces;
     using GuildComm.Core;
+    using GuildComm.Data;
+    using Microsoft.EntityFrameworkCore;
 
     public class Startup
     {
@@ -51,6 +53,8 @@ namespace GuildComm.Web
             services.AddHttpClient();
             services.AddRazorPages();
             services.AddControllersWithViews();
+
+            services.AddDbContext<GuildCommDbContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
