@@ -4,7 +4,7 @@
 
 namespace GuildComm.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class ReCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,12 +12,15 @@ namespace GuildComm.Data.Migrations
                 name: "Realms",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RealmId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Region = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Realms", x => x.Name);
+                    table.PrimaryKey("PK_Realms", x => x.Id);
                 });
         }
 

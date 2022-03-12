@@ -23,13 +23,23 @@ namespace GuildComm.Data.Migrations
 
             modelBuilder.Entity("GuildComm.Data.Models.Realm", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RealmId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Region")
                         .HasColumnType("int");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("Realms");
                 });
