@@ -19,49 +19,6 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item active">
-                            <a class="nav-link ml-auto" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Guilds" asp-action="All" asp-route-page="1">All Guilds</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mr-auto">
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
-                            @if (this.User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item active">
-                                    <a class="nav-link"asp-area="Administration" asp-controller="Administration" asp-action="Index" asp-route-page="1">Administration</a>
-                                </li>
-                            }
-                            
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/Guilds/Create">Register Guild</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/Characters/Register">Register Character</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/Users/Details">Profile</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/Identity/Account/Logout">Logout</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/Identity/Account/Login">Login</a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/Identity/Account/Register">Register</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
             </div>
         </nav>
     </header>
