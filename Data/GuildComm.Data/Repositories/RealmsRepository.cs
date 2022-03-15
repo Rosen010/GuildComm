@@ -1,5 +1,4 @@
 ﻿using GuildComm.Data.Enums;
-using GuildComm.Data.Models;
 using GuildComm.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +13,13 @@ namespace GuildComm.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Realm>> GetRealmsByRegion(Region region)
+        public async Task<IEnumerable<string>> GetRealmNamesByRegionAsync(Region region)
         {
-            var realms = await _dbContext.Realms.Where(r => r.Region.Equals(region)).ToListAsync();
+            var realms = await _dbContext.Realms
+                .Where(r => r.Region.Equals(region))
+                .Select(r => r.Name)
+                .ToListAsync();
+
             return realms;
         }
     }

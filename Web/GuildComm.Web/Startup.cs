@@ -16,6 +16,10 @@ namespace GuildComm.Web
     using GuildComm.Data;
     using Microsoft.EntityFrameworkCore;
     using GuildComm.Services;
+    using GuildComm.Data.Repositories.Interfaces;
+    using GuildComm.Data.Repositories;
+    using GuildComm.Core.Factories.Interfaces;
+    using GuildComm.Core.Factories;
 
     public class Startup
     {
@@ -48,6 +52,10 @@ namespace GuildComm.Web
 
             services.AddTransient<IGuildService, GuildService>();
             services.AddTransient<ICharacterService, CharacterService>();
+            services.AddTransient<IRealmService, RealmService>();
+
+            services.AddTransient<IRealmsRepository, RealmsRepository>();
+            services.AddTransient<IHomePageFactory, HomePageFactory>();
 
             services.AddMvc();
             services.AddHttpClient();

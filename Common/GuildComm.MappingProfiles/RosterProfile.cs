@@ -12,7 +12,7 @@ namespace GuildComm.MappingProfiles
     {
         public RosterProfile()
         {
-            this.CreateMap<SearchInputModel, RosterRequestModel>()
+            this.CreateMap<SearchViewModel, RosterRequestModel>()
                 .ForMember(dest => dest.GuildName, opt => opt.MapFrom(src => src.GuildName.Replace(' ', '-').ToLower()))
                 .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.Replace(' ', '-').ToLower()))
                 .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => Localizations.MappedLocalizations[src.Namespace]))

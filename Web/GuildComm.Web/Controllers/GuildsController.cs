@@ -17,7 +17,7 @@ namespace GuildComm.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Guild(SearchInputModel model)
+        public async Task<IActionResult> Guild(SearchViewModel model)
         {
             if (ModelState.IsValid)
             {

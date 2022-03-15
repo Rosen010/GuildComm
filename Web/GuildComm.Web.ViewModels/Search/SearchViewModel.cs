@@ -1,9 +1,10 @@
 ﻿using GuildComm.Web.Models.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GuildComm.Web.Models.Search
 {
-    public class SearchInputModel : IPaginationModel
+    public class SearchViewModel : IPaginationModel
     {
         [Required(ErrorMessage = "Please select a realm")]
         public string Realm { get; set; }
@@ -15,5 +16,7 @@ namespace GuildComm.Web.Models.Search
         public string Namespace { get; set; }
 
         public int CurrentPage { get; set; }
+
+        public IEnumerable<string> Realms { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace GuildComm.Web.Models.Home
 {
     public class HomePageViewModel
     {
-        public SearchInputModel Form { get; set; } 
+        public SearchViewModel Form { get; set; } 
     }
 }

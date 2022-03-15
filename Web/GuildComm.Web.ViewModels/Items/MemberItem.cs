@@ -1,6 +1,4 @@
-﻿using BNetAPI.Core.Enums;
-
-namespace GuildComm.Web.Models.Items
+﻿namespace GuildComm.Web.Models.Items
 {
     public class MemberItem
     {

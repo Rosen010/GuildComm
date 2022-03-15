@@ -1,7 +1,7 @@
 ﻿@using GuildComm.Web.Models.Search
 @using GuildComm.Common.Constants
 
-@model SearchInputModel
+@model SearchViewModel
 
 <div class="row d-flex justify-content-center mt-2">
     <div class="col-lg-6">
@@ -9,7 +9,12 @@
             <h2 class="text-white">Search</h2>
             <div class="form-group mt-2 mb-3">
                 <label asp-for="@Model.Realm" class="text-white mb-3"></label>
-                <input type="text" asp-for="@Model.Realm" class="form-control" />
+                <select asp-for="@Model.Realm" class="form-control">
+                    @foreach(var realm in Model.Realms)
+                    {
+                        <option value="@realm">@realm</option>
+                    }
+                </select>
                 <span asp-validation-for="Realm" class="text-danger"></span>
             </div>
             <div class="form-group mt-2 mb-3">

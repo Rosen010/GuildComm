@@ -24,7 +24,7 @@ namespace GuildComm.Services
             _guildClient = guildClient;
         }
 
-        public async Task<GuildViewModel> FindGuiildAsync(SearchInputModel model)
+        public async Task<GuildViewModel> FindGuiildAsync(SearchViewModel model)
         {
             var guildRequest = _mapper.Map<GuildRequestModel>(model);
             var rosterRequest = _mapper.Map<RosterRequestModel>(model);
