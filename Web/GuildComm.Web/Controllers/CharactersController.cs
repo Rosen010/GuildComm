@@ -1,6 +1,8 @@
 ﻿using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Character;
+
 using Microsoft.AspNetCore.Mvc;
+
 using System.Threading.Tasks;
 
 namespace GuildComm.Web.Controllers

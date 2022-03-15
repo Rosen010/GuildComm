@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using GuildComm.Web.ViewModels;
+using GuildComm.Web.Models.Home;
+using GuildComm.Web.Models.Search;
 
 namespace GuildComm.Web.Controllers
 {
@@ -18,7 +20,8 @@ namespace GuildComm.Web.Controllers
 
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new HomePageViewModel();
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

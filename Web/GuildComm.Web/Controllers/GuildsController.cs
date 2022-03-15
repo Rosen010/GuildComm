@@ -1,7 +1,8 @@
 ﻿using GuildComm.Core.Interfaces;
-using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Search;
+
 using Microsoft.AspNetCore.Mvc;
+
 using System.Threading.Tasks;
 
 namespace GuildComm.Web.Controllers

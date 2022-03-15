@@ -1,7 +1,7 @@
-﻿@using GuildComm.Web.Models.Search
+﻿@using GuildComm.Web.Models.Home
 @using GuildComm.Common.Constants
 
-@model SearchInputModel
+@model HomePageViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,39 +10,8 @@
 <div class="text-center">
 
     <div class="mt-5">
-        <h1 class="display-4 text-white font-weight-bold embiggen">Welcome</h1>
-        <p class="text-white font-weight-bolder"><a href="/Identity/Account/Login" class="deco-none">Login</a> or <a href="/Identity/Account/Register" class="deco-none">Register</a> to meet your new guildies!</p>
+        <h1 class="display-4 text-white font-weight-bold embiggen">Welcome to GuildComm</h1>
     </div>
-
-    <div class="row d-flex justify-content-center mt-2">
-        <div class="col-lg-6">
-            <form method="get" asp-controller="Guilds" asp-action="Guild">
-                <h2 class="text-white">Search</h2>
-                <div class="form-group mt-2 mb-3">
-                    <label asp-for="@Model.Realm" class="text-white mb-3"></label>
-                    <input type="text" asp-for="@Model.Realm" class="form-control"/>
-                    <span asp-validation-for="Realm" class="text-danger"></span>
-                </div>
-                <div class="form-group mt-2 mb-3">
-                    <label asp-for="@Model.GuildName" class="text-white mb-3"></label>
-                    <input type="text" asp-for="@Model.GuildName" class="form-control" />
-                    <span asp-validation-for="GuildName" class="text-danger"></span>
-                </div>
-                <div class="input-group mt-2 mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Region</label>
-                    </div>
-                    <select asp-for="@Model.Namespace" class="custom-select" id="inputGroupSelect01">
-                        <option value="@Localizations.Namespace.ProfileEU">EU</option>
-                        <option value="@Localizations.Namespace.ProfileUS">US</option>
-                        <option value="@Localizations.Namespace.ProfileKR">KR</option>
-                        <option value="@Localizations.Namespace.ProfileTW">TW</option>
-                    </select>
-                    <span asp-validation-for="Namespace" class="text-danger"></span>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3">Search</button>
-            </form>
-        </div>
-    </div>
+    @(await Html.PartialAsync("Search.cshtml", Model.Form))
     <hr />
 </div>
