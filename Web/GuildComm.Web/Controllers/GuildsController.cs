@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace GuildComm.Web.Controllers
 {
-    public class SearchController : Controller
+    public class GuildsController : Controller
     {
         private readonly IGuildService _guildService;
 
-        public SearchController(IGuildService guildService)
+        public GuildsController(IGuildService guildService)
         {
             _guildService = guildService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Guilds(SearchInputModel model)
+        public async Task<IActionResult> Guild(SearchInputModel model)
         {
             if (ModelState.IsValid)
             {
