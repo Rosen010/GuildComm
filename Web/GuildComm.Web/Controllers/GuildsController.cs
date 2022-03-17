@@ -16,7 +16,6 @@ namespace GuildComm.Web.Controllers
             _guildService = guildService;
         }
 
-        [HttpGet]
         public async Task<IActionResult> Guild(SearchViewModel model)
         {
             if (ModelState.IsValid)
