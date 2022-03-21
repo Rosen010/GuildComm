@@ -1,0 +1,40 @@
+﻿@using GuildComm.Web.Models.Character
+@using GuildComm.Common.Constants
+
+@model CharacterInputModel
+
+<div class="row d-flex justify-content-center mt-2">
+    <div class="col-lg-6">
+        <form method="get" asp-controller="Characters" asp-action="Character">
+            <h2 class="text-white">Search</h2>
+            <div class="form-group mt-2 mb-3">
+                <label asp-for="@Model.Realm" class="text-white mb-3"></label>
+                <select asp-for="@Model.Realm" class="form-control" id="realmSelect">
+                    @foreach(var realm in Model.Realms)
+                    {
+                        <option value="@realm">@realm</option>
+                    }
+                </select>
+                <span asp-validation-for="Realm" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2 mb-3">
+                <label asp-for="@Model.CharacterName" class="text-white mb-3"></label>
+                <input type="text" asp-for="@Model.CharacterName" class="form-control" />
+                <span asp-validation-for="CharacterName" class="text-danger"></span>
+            </div>
+            <div class="input-group mt-2 mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Region</label>
+                </div>
+                <select asp-for="@Model.NameSpace" class="custom-select" id="regionSelect">
+                    <option value="@Localizations.Namespace.ProfileEU">EU</option>
+                    <option value="@Localizations.Namespace.ProfileUS">US</option>
+                    <option value="@Localizations.Namespace.ProfileKR">KR</option>
+                    <option value="@Localizations.Namespace.ProfileTW">TW</option>
+                </select>
+                <span asp-validation-for="NameSpace" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Search</button>
+        </form>
+    </div>
+</div>
