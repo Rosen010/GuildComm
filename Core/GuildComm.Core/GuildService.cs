@@ -5,7 +5,6 @@ using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Items;
-using GuildComm.Web.Models.Search;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +23,7 @@ namespace GuildComm.Services
             _guildClient = guildClient;
         }
 
-        public async Task<GuildViewModel> FindGuiildAsync(SearchViewModel model)
+        public async Task<GuildViewModel> FindGuiildAsync(GuildInputModel model)
         {
             var guildRequest = _mapper.Map<GuildRequestModel>(model);
             var rosterRequest = _mapper.Map<RosterRequestModel>(model);

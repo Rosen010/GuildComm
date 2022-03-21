@@ -38,6 +38,12 @@
                 bindChangeEvent("#characterRegionSelect");
             });
         });
+
+        $("#guildForm").click(function () {
+            $("#formContainer").load("/GuildsApi/GuildForm", function () {
+                bindChangeEvent("#guildRegionSelect");
+            });
+        });
     }
 
     setup();

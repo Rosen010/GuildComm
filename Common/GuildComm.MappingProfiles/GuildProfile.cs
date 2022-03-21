@@ -4,7 +4,6 @@ using BNetAPI.Guilds.Models.ResponseModels;
 using GuildComm.Common.Constants;
 using GuildComm.Common.Extensions;
 using GuildComm.Web.Models.Guild;
-using GuildComm.Web.Models.Search;
 
 namespace GuildComm.MappingProfiles
 {
@@ -12,7 +11,7 @@ namespace GuildComm.MappingProfiles
     {
         public GuildProfile()
         {
-            this.CreateMap<SearchViewModel, GuildRequestModel>()
+            this.CreateMap<GuildInputModel, GuildRequestModel>()
                 .ForMember(dest => dest.GuildName, opt => opt.MapFrom(src => src.GuildName.Replace(' ', '-').ToLower()))
                 .ForMember(dest => dest.Realm, opt => opt.MapFrom(src => src.Realm.Replace(' ', '-').ToLower()))
                 .ForMember(dest => dest.Locale, opt => opt.MapFrom(src => Localizations.MappedLocalizations[src.Namespace]))

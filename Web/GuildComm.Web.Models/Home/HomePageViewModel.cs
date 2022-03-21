@@ -1,9 +1,9 @@
-﻿using GuildComm.Web.Models.Search;
+﻿using GuildComm.Web.Models.Guild;
 
 namespace GuildComm.Web.Models.Home
 {
     public class HomePageViewModel
     {
-        public SearchViewModel Form { get; set; } 
+        public GuildInputModel Form { get; set; } 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using GuildComm.Core.Interfaces;
-using GuildComm.Web.Models.Search;
-
+using GuildComm.Web.Models.Guild;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace GuildComm.Web.Controllers
             _guildService = guildService;
         }
 
-        public async Task<IActionResult> Guild(SearchViewModel model)
+        public async Task<IActionResult> Guild(GuildInputModel model)
         {
             if (ModelState.IsValid)
             {

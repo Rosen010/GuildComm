@@ -1,7 +1,7 @@
 ﻿using GuildComm.Core.Interfaces;
 using GuildComm.Core.Factories.Interfaces;
 using GuildComm.Web.Models.Home;
-using GuildComm.Web.Models.Search;
+using GuildComm.Web.Models.Guild;
 using System.Threading.Tasks;
 
 namespace GuildComm.Core.Factories
@@ -18,7 +18,7 @@ namespace GuildComm.Core.Factories
         public async Task<HomePageViewModel> CreateViewModelAsync(string region)
         {
             var viewModel = new HomePageViewModel();
-            viewModel.Form = new SearchViewModel();
+            viewModel.Form = new GuildInputModel();
             viewModel.Form.Realms = await _realmService.GetRealmsByRegionAsync(region);
 
             return viewModel;

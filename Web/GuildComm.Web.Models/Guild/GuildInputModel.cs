@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GuildComm.Web.Models.Search
+namespace GuildComm.Web.Models.Guild
 {
-    public class SearchViewModel : IPaginationModel
+    public class GuildInputModel : IPaginationModel
     {
         [Required(ErrorMessage = "Please select a realm")]
         public string Realm { get; set; }
