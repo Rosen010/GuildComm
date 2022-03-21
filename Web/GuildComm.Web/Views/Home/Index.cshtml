@@ -8,11 +8,11 @@
 }
 
 <div class="text-center">
-
     <div class="mt-5">
         <h1 class="display-4 text-white font-weight-bold embiggen">Welcome to GuildComm</h1>
     </div>
     <button id="characterForm" class="btn btn-primary mt-3 mb-3">Character</button>
+    <button id="guildForm" class="btn btn-primary mt-3 mb-3">Guild</button>
     <div id="formContainer">
         @(await Html.PartialAsync("GuildForm.cshtml", Model.Form))
     </div>
