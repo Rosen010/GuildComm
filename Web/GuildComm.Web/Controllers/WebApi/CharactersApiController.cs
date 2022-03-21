@@ -21,7 +21,7 @@ namespace GuildComm.Web.Controllers.WebApi
             var viewModel = new CharacterInputModel();
             viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
 
-            return this.PartialView("/Home/CharacterForm", viewModel);
+            return this.PartialView("~/Views/Home/CharacterForm.cshtml", viewModel);
         }
     }
 }

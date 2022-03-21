@@ -12,6 +12,9 @@
     <div class="mt-5">
         <h1 class="display-4 text-white font-weight-bold embiggen">Welcome to GuildComm</h1>
     </div>
-    @(await Html.PartialAsync("GuildForm.cshtml", Model.Form))
+    <button id="characterForm" class="btn btn-primary mt-3 mb-3">Character</button>
+    <div id="formContainer">
+        @(await Html.PartialAsync("GuildForm.cshtml", Model.Form))
+    </div>
     <hr />
 </div>
