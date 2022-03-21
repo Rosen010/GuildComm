@@ -18,7 +18,7 @@
                 <span asp-validation-for="Realm" class="text-danger"></span>
             </div>
             <div class="form-group mt-2 mb-3">
-                <label asp-for="@Model.CharacterName" class="text-white mb-3"></label>
+                <label asp-for="@Model.CharacterName" class="text-white mb-3">Character Name</label>
                 <input type="text" asp-for="@Model.CharacterName" class="form-control" />
                 <span asp-validation-for="CharacterName" class="text-danger"></span>
             </div>
@@ -34,7 +34,7 @@
                 </select>
                 <span asp-validation-for="NameSpace" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Search</button>
+            <button type="submit" class="btn btn-secondary mt-3">Search</button>
         </form>
     </div>
 </div>

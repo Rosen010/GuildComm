@@ -36,12 +36,16 @@
         $("#characterForm").click(function () {
             $("#formContainer").load("/CharactersApi/CharacterForm", function () {
                 bindChangeEvent("#characterRegionSelect");
+                $("#characterForm").prop("disabled", true);
+                $("#guildForm").prop("disabled", false);
             });
         });
 
         $("#guildForm").click(function () {
             $("#formContainer").load("/GuildsApi/GuildForm", function () {
                 bindChangeEvent("#guildRegionSelect");
+                $("#characterForm").prop("disabled", false);
+                $("#guildForm").prop("disabled", true);
             });
         });
     }
