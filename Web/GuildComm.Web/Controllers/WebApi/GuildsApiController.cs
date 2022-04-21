@@ -1,5 +1,4 @@
-﻿using GuildComm.Common;
-using GuildComm.Common.Constants;
+﻿using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 
