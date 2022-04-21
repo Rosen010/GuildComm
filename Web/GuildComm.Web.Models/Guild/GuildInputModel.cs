@@ -1,4 +1,6 @@
-﻿using GuildComm.Web.Models.Interfaces;
+﻿using GuildComm.Common.Constants;
+using GuildComm.Web.Models.Interfaces;
+
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,13 +8,13 @@ namespace GuildComm.Web.Models.Guild
 {
     public class GuildInputModel : IPaginationModel
     {
-        [Required(ErrorMessage = "Please select a realm")]
+        [Required(ErrorMessage = ErrorMessages.SelectRealmMessage)]
         public string Realm { get; set; }
 
-        [Required(ErrorMessage = "Please type a guild name")]
+        [Required(ErrorMessage = ErrorMessages.TypeGuildNameMessage)]
         public string GuildName { get; set; }
 
-        [Required(ErrorMessage = "Please select a region")]
+        [Required(ErrorMessage = ErrorMessages.SelectRegionMessage)]
         public string Namespace { get; set; }
 
         public int CurrentPage { get; set; }
