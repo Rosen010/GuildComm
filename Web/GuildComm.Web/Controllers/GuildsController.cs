@@ -21,7 +21,13 @@ namespace GuildComm.Web.Controllers
             if (ModelState.IsValid)
             {
                 var guild = await _guildService.FindGuiildAsync(model);
-                return this.View(guild);
+
+                if (guild != null)
+                {
+                    return this.View(guild);
+                }
+
+                return this.Redirect(GlobalConstants.ErrorPage);
             }
 
             return this.Redirect(GlobalConstants.ErrorPage);

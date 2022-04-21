@@ -22,7 +22,13 @@ namespace GuildComm.Web.Controllers
             if (ModelState.IsValid)
             {
                 var viewModel = await _characterService.FindCharacterAsync(model);
-                return this.View(viewModel);
+
+                if (viewModel != null)
+                {
+                    return View(viewModel);
+                }
+
+                return this.Redirect(GlobalConstants.ErrorPage);
             }
 
             return this.Redirect(GlobalConstants.ErrorPage);

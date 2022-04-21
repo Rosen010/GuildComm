@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+
 using BNetAPI.Guilds.Interfaces;
 using BNetAPI.Guilds.Models.RequestModels;
+
 using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Items;
+
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GuildComm.Services
@@ -31,23 +35,28 @@ namespace GuildComm.Services
             var guildResponse = await _guildClient.RequestGuildAsync(guildRequest);
             var rosterResponse = await _guildClient.RequestRosterAsync(rosterRequest);
 
-            var viewModel = _mapper.Map<GuildViewModel>(guildResponse);
+            if (guildResponse.StatusCode.Equals(HttpStatusCode.OK))
+            {
+                var viewModel = _mapper.Map<GuildViewModel>(guildResponse);
 
-            viewModel.Locale = guildRequest.Locale;
-            viewModel.NameSpace = guildRequest.NameSpace;
-            viewModel.CurrentPage = model.CurrentPage;
+                viewModel.Locale = guildRequest.Locale;
+                viewModel.NameSpace = guildRequest.NameSpace;
+                viewModel.CurrentPage = model.CurrentPage;
 
-            viewModel.DisablePrevButton = model.CurrentPage == 0 ? HtmlConstants.Disabled : string.Empty;
-            viewModel.DisableNextButton = (model.CurrentPage + 1) * DefaultPageSize >= rosterResponse.Members.Count ? HtmlConstants.Disabled : string.Empty;
+                viewModel.DisablePrevButton = model.CurrentPage == 0 ? HtmlConstants.Disabled : string.Empty;
+                viewModel.DisableNextButton = (model.CurrentPage + 1) * DefaultPageSize >= rosterResponse.Members.Count ? HtmlConstants.Disabled : string.Empty;
 
-            viewModel.Members = rosterResponse.Members
-                .OrderBy(m => m.Rank)
-                .Skip(model.CurrentPage * DefaultPageSize)
-                .Take(DefaultPageSize)
-                .Select(m => _mapper.Map<MemberItem>(m))
-                .ToList();
+                viewModel.Members = rosterResponse.Members
+                    .OrderBy(m => m.Rank)
+                    .Skip(model.CurrentPage * DefaultPageSize)
+                    .Take(DefaultPageSize)
+                    .Select(m => _mapper.Map<MemberItem>(m))
+                    .ToList();
 
-            return viewModel;
+                return viewModel;
+            }
+
+            return null;
         }
     }
 }
