@@ -21,15 +21,10 @@ namespace GuildComm.Web.Controllers.WebApi
         [HttpGet]
         public async Task<IActionResult> GuildForm()
         {
-            if (ModelState.IsValid)
-            {
-                var viewModel = new GuildInputModel();
-                viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
+            var viewModel = new GuildInputModel();
+            viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
 
-                return this.PartialView("~/Views/Home/GuildForm.cshtml", viewModel);
-            }
-
-            return this.Redirect(GlobalConstants.ErrorPage);
+            return this.PartialView("~/Views/Home/GuildForm.cshtml", viewModel);
         }
     }
 }
