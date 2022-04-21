@@ -3,7 +3,7 @@
 using BNetAPI.Characters.Models.Constants;
 using BNetAPI.Characters.Models.Interfaces;
 using BNetAPI.Characters.Models.RequestModels;
-
+using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Character;
 
@@ -37,6 +37,10 @@ namespace GuildComm.Core
                 if (characterMediaResponse.Assets != null && characterMediaResponse.Assets.Any())
                 {
                     viewModel.CharacterRender = characterMediaResponse.Assets.FirstOrDefault(a => a.Key.Equals(CharacterAssets.Main)).Value;
+                }
+                else
+                {
+                    viewModel.CharacterRender = MediaConstants.DefaultCharacterRender;
                 }
                
                 return viewModel;
