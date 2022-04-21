@@ -1,4 +1,5 @@
-﻿using GuildComm.Core.Interfaces;
+﻿using GuildComm.Common;
+using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Character;
 
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,13 @@ namespace GuildComm.Web.Controllers
 
         public async Task<IActionResult> Character(CharacterInputModel model)
         {
-            var viewModel = await _characterService.FindCharacterAsync(model);
-            return this.View(viewModel);
+            if (ModelState.IsValid)
+            {
+                var viewModel = await _characterService.FindCharacterAsync(model);
+                return this.View(viewModel);
+            }
+
+            return this.Redirect(GlobalConstants.ErrorPage);
         }
     }
 }

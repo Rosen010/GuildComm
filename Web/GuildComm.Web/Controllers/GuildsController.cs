@@ -1,4 +1,5 @@
-﻿using GuildComm.Core.Interfaces;
+﻿using GuildComm.Common;
+using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace GuildComm.Web.Controllers
                 return this.View(guild);
             }
 
-            return this.Redirect("/Home/Error");
+            return this.Redirect(GlobalConstants.ErrorPage);
         }
     }
 }

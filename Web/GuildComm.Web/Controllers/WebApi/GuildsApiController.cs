@@ -1,4 +1,5 @@
-﻿using GuildComm.Common.Constants;
+﻿using GuildComm.Common;
+using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,15 @@ namespace GuildComm.Web.Controllers.WebApi
         [HttpGet]
         public async Task<IActionResult> GuildForm()
         {
-            var viewModel = new GuildInputModel();
-            viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
+            if (ModelState.IsValid)
+            {
+                var viewModel = new GuildInputModel();
+                viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
 
-            return this.PartialView("~/Views/Home/GuildForm.cshtml", viewModel);
+                return this.PartialView("~/Views/Home/GuildForm.cshtml", viewModel);
+            }
+
+            return this.Redirect(GlobalConstants.ErrorPage);
         }
     }
 }
