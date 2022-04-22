@@ -1,25 +1,28 @@
 namespace GuildComm.Web
 {
     using System.Linq;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
-    using GuildComm.MappingProfiles;
-    using BNetAPI.Core;
+
     using GuildComm.Core;
     using GuildComm.Core.Extensions;
     using GuildComm.Core.Interfaces;
-    using GuildComm.Data;
-    using Microsoft.EntityFrameworkCore;
-    using GuildComm.Services;
     using GuildComm.Data.Repositories.Interfaces;
     using GuildComm.Data.Repositories;
     using GuildComm.Core.Factories.Interfaces;
     using GuildComm.Core.Factories;
+    using GuildComm.Data;
+    using GuildComm.MappingProfiles;
+    using GuildComm.Services;
+
+    using BNetAPI.Core;
 
     public class Startup
     {
@@ -65,7 +68,6 @@ namespace GuildComm.Web
             services.AddDbContext<GuildCommDbContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
@@ -75,10 +77,11 @@ namespace GuildComm.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -96,7 +99,7 @@ namespace GuildComm.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-            });
+            });       
         }
     }
 }
