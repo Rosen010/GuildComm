@@ -14,10 +14,11 @@ namespace GuildComm.Web
     using GuildComm.Core;
     using GuildComm.Core.Extensions;
     using GuildComm.Core.Interfaces;
+    using GuildComm.Core.Factories;
+    using GuildComm.Core.Factories.Interfaces;
+    using GuildComm.Common;
     using GuildComm.Data.Repositories.Interfaces;
     using GuildComm.Data.Repositories;
-    using GuildComm.Core.Factories.Interfaces;
-    using GuildComm.Core.Factories;
     using GuildComm.Data;
     using GuildComm.MappingProfiles;
     using GuildComm.Services;
@@ -80,7 +81,7 @@ namespace GuildComm.Web
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
+            app.UseStatusCodePagesWithReExecute(GlobalConstants.ErrorPage);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
