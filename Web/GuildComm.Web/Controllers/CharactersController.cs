@@ -4,6 +4,7 @@ using GuildComm.Web.Models.Character;
 
 using Microsoft.AspNetCore.Mvc;
 
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GuildComm.Web.Controllers
@@ -28,10 +29,10 @@ namespace GuildComm.Web.Controllers
                     return View(viewModel);
                 }
 
-                return this.Redirect(GlobalConstants.ErrorPage);
+                return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.NotFound));
             }
 
-            return this.Redirect(GlobalConstants.ErrorPage);
+            return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.InternalServerError));
         }
     }
 }
