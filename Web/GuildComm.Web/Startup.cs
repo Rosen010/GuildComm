@@ -24,6 +24,7 @@ namespace GuildComm.Web
     using GuildComm.Services;
 
     using BNetAPI.Core;
+    using GuildComm.Identity.Data;
 
     public class Startup
     {
@@ -67,6 +68,7 @@ namespace GuildComm.Web
             services.AddControllersWithViews();
 
             services.AddDbContext<GuildCommDbContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+            services.AddDbContext<GuildCommIdentityDbContext>(options => options.UseSqlServer("name=ConnectionStrings:IdentityConnection"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

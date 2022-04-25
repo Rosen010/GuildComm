@@ -10,20 +10,21 @@
 		<PackageReference Include="AutoMapper" Version="11.0.1" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Core\BNetAPI.Core.csproj" />
 		<ProjectReference Include="..\..\Common\GuildComm.MappingProfiles\GuildComm.MappingProfiles.csproj" />
 		<ProjectReference Include="..\..\Core\GuildComm.Core\GuildComm.Core.csproj" />
+		<ProjectReference Include="..\..\Identity\GuildComm.Identity\GuildComm.Identity.csproj" />
 		<ProjectReference Include="..\GuildComm.Web.Models\GuildComm.Web.Models.csproj" />
 		<ProjectReference Include="..\GuildComm.Web.ViewModels\GuildComm.Web.Models.csproj" />
 	</ItemGroup>
