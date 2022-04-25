@@ -4,27 +4,20 @@ namespace GuildComm.Web
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using GuildComm.Core;
     using GuildComm.Core.Extensions;
-    using GuildComm.Core.Interfaces;
-    using GuildComm.Core.Factories;
-    using GuildComm.Core.Factories.Interfaces;
     using GuildComm.Common;
-    using GuildComm.Data.Repositories.Interfaces;
-    using GuildComm.Data.Repositories;
     using GuildComm.Data;
     using GuildComm.MappingProfiles;
-    using GuildComm.Services;
+    using GuildComm.Identity.Data;
+    using GuildComm.Web.Extensions;
 
     using BNetAPI.Core;
-    using GuildComm.Identity.Data;
 
     public class Startup
     {
@@ -49,18 +42,10 @@ namespace GuildComm.Web
             .ToArray());
 
             services.AddSingleton(this.Configuration);
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.ConfigureBNetDependencies();
             services.AddAuthorizationData();
-
-            services.AddTransient<IGuildService, GuildService>();
-            services.AddTransient<ICharacterService, CharacterService>();
-            services.AddTransient<IRealmService, RealmService>();
-
-            services.AddTransient<IRealmsRepository, RealmsRepository>();
-            services.AddTransient<IHomePageFactory, HomePageFactory>();
+            services.RegisterDependencies();
 
             services.AddMvc();
             services.AddHttpClient();
