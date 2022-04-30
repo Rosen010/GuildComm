@@ -14,7 +14,7 @@ namespace GuildComm.Web
     using GuildComm.Common;
     using GuildComm.Data;
     using GuildComm.MappingProfiles;
-    using GuildComm.Identity.Data;
+    using GuildComm.Data;
     using GuildComm.Web.Extensions;
 
     using BNetAPI.Core;

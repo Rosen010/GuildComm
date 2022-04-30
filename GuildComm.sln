@@ -29,10 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Core", "Core\Guil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Web.Models", "Web\GuildComm.Web.Models\GuildComm.Web.Models.csproj", "{33FD25C1-F529-45E8-9296-1786E6BE86D0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{C8F3F88A-FC88-4642-A889-E6D6B3D844E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuildComm.Identity", "Identity\GuildComm.Identity\GuildComm.Identity.csproj", "{DE9C33FD-A9D6-464C-86A8-085F3E2124C3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,10 +71,6 @@ Global
 		{33FD25C1-F529-45E8-9296-1786E6BE86D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33FD25C1-F529-45E8-9296-1786E6BE86D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33FD25C1-F529-45E8-9296-1786E6BE86D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE9C33FD-A9D6-464C-86A8-085F3E2124C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE9C33FD-A9D6-464C-86A8-085F3E2124C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE9C33FD-A9D6-464C-86A8-085F3E2124C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE9C33FD-A9D6-464C-86A8-085F3E2124C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,7 +82,6 @@ Global
 		{0893FEDF-D89F-4F6E-99FA-4CF9672D06AA} = {766659E2-6E10-46F8-8512-120A7B1765A7}
 		{71C877EC-FEA8-4310-91F9-84967CE49349} = {A00B2AA2-24F3-426B-8399-2622EE7F93C2}
 		{33FD25C1-F529-45E8-9296-1786E6BE86D0} = {FA5EB082-7886-474B-B5D1-9AA8D225F21D}
-		{DE9C33FD-A9D6-464C-86A8-085F3E2124C3} = {C8F3F88A-FC88-4642-A889-E6D6B3D844E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4C76F89-07F4-4DDE-BBFD-06D87302B05B}

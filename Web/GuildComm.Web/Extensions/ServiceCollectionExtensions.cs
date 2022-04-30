@@ -4,7 +4,7 @@ using GuildComm.Core.Factories.Interfaces;
 using GuildComm.Core.Interfaces;
 using GuildComm.Data.Repositories;
 using GuildComm.Data.Repositories.Interfaces;
-using GuildComm.Identity.Data;
+using GuildComm.Data;
 using GuildComm.Services;
 
 using Microsoft.AspNetCore.Http;

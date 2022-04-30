@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace GuildComm.Identity.Data
+namespace GuildComm.Data
 {
     public class GuildCommIdentityDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
