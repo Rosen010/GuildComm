@@ -47,6 +47,8 @@ namespace GuildComm.Web
             services.AddAuthorizationData();
             services.RegisterDependencies();
 
+            services.ConfigureIdentity();
+
             services.AddMvc();
             services.AddHttpClient();
             services.AddRazorPages();

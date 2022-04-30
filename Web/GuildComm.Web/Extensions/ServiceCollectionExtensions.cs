@@ -4,9 +4,11 @@ using GuildComm.Core.Factories.Interfaces;
 using GuildComm.Core.Interfaces;
 using GuildComm.Data.Repositories;
 using GuildComm.Data.Repositories.Interfaces;
+using GuildComm.Identity.Data;
 using GuildComm.Services;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,6 +27,16 @@ namespace GuildComm.Web.Extensions
 
             services.AddTransient<IRealmsRepository, RealmsRepository>();
             services.AddTransient<IHomePageFactory, HomePageFactory>();
+        }
+
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<IdentityUser, IdentityRole>(
+                options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                })
+                .AddEntityFrameworkStores<GuildCommIdentityDbContext>();
         }
     }
 }
