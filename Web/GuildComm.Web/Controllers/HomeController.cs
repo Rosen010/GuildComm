@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Logging;
 
 using GuildComm.Common.Constants;
+using GuildComm.Core.Factories.Interfaces;
 
 using System.Threading.Tasks;
-using GuildComm.Core.Factories.Interfaces;
 
 namespace GuildComm.Web.Controllers
 {

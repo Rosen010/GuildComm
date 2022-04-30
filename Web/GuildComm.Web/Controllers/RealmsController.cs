@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 using System.Threading.Tasks;
 
-namespace GuildComm.Web.Controllers.WebApi
+namespace GuildComm.Web.Controllers
 {
-    public class RealmsApiController : Controller
+    public class RealmsController : Controller
     {
         private readonly IRealmService _realmService;
 
-        public RealmsApiController(IRealmService realmService)
+        public RealmsController(IRealmService realmService)
         {
             _realmService = realmService;
         }

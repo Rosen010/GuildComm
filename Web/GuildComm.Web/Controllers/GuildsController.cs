@@ -1,4 +1,5 @@
 ﻿using GuildComm.Common;
+using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;
 
@@ -12,10 +13,12 @@ namespace GuildComm.Web.Controllers
     public class GuildsController : Controller
     {
         private readonly IGuildService _guildService;
+        private readonly IRealmService _realmService;
 
-        public GuildsController(IGuildService guildService)
+        public GuildsController(IGuildService guildService, IRealmService realmService)
         {
             _guildService = guildService;
+            _realmService = realmService;
         }
 
         public async Task<IActionResult> Guild(GuildInputModel model)
@@ -33,6 +36,15 @@ namespace GuildComm.Web.Controllers
             }
 
             return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.InternalServerError));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GuildForm()
+        {
+            var viewModel = new GuildInputModel();
+            viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
+
+            return this.PartialView("~/Views/Home/GuildForm.cshtml", viewModel);
         }
     }
 }

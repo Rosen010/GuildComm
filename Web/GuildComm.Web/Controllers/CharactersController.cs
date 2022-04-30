@@ -1,4 +1,5 @@
 ﻿using GuildComm.Common;
+using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Character;
 
@@ -12,10 +13,12 @@ namespace GuildComm.Web.Controllers
     public class CharactersController : Controller
     {
         private readonly ICharacterService _characterService;
+        private readonly IRealmService _realmService;
 
-        public CharactersController(ICharacterService characterService)
+        public CharactersController(ICharacterService characterService, IRealmService realmService)
         {
             _characterService = characterService;
+            _realmService = realmService;
         }
 
         public async Task<IActionResult> Character(CharacterInputModel model)
@@ -33,6 +36,15 @@ namespace GuildComm.Web.Controllers
             }
 
             return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.InternalServerError));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CharacterForm()
+        {
+            var viewModel = new CharacterInputModel();
+            viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
+
+            return this.PartialView("~/Views/Home/CharacterForm.cshtml", viewModel);
         }
     }
 }
