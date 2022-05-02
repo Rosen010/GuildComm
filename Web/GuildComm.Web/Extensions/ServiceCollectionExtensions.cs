@@ -25,6 +25,7 @@ namespace GuildComm.Web.Extensions
             services.AddTransient<IGuildService, GuildService>();
             services.AddTransient<ICharacterService, CharacterService>();
             services.AddTransient<IRealmService, RealmService>();
+            services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddTransient<IRealmsRepository, RealmsRepository>();
             services.AddTransient<IHomePageFactory, HomePageFactory>();
@@ -36,6 +37,8 @@ namespace GuildComm.Web.Extensions
                 options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
+
+                    options.User.RequireUniqueEmail = true;
                 })
                 .AddEntityFrameworkStores<GuildCommIdentityDbContext>();
         }

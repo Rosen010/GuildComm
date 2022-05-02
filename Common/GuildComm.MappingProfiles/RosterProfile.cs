@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+
 using BNetAPI.Core.Enums;
 using BNetAPI.Guilds.Models.RequestModels;
 using BNetAPI.Guilds.Models.ResponseModels.ResponseComponents.Roster;
+
 using GuildComm.Common.Constants;
 using GuildComm.Web.Models.Guild;
 using GuildComm.Web.Models.Items;

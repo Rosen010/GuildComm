@@ -1,10 +1,21 @@
-﻿using GuildComm.Web.Models.Account;
+﻿using GuildComm.Core.Interfaces;
+using GuildComm.Web.Models.Account;
+
 using Microsoft.AspNetCore.Mvc;
+
+using System.Threading.Tasks;
 
 namespace GuildComm.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IIdentityService _identityService;
+
+        public AccountController(IIdentityService identityService)
+        {
+            _identityService = identityService;
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -13,9 +24,26 @@ namespace GuildComm.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(UserRegistrationInputModel userModel)
+        public async Task<IActionResult> Register(UserRegistrationInputModel userModel)
         {
-            return this.View();
+            if (!ModelState.IsValid)
+            {
+                return this.View(userModel);
+            }
+
+            var result = await _identityService.CreateUserAsync(userModel);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return this.View(result);
+            }
+
+            return this.RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }
