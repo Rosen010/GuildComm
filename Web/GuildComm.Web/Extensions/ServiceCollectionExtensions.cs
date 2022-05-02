@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using GuildComm.Data.Models.Identity;
 
 namespace GuildComm.Web.Extensions
 {
@@ -31,7 +32,7 @@ namespace GuildComm.Web.Extensions
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>(
+            services.AddIdentity<GuildCommUser, IdentityRole>(
                 options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
