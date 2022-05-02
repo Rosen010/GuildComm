@@ -45,5 +45,18 @@ namespace GuildComm.Web.Controllers
 
             return this.RedirectToAction(nameof(HomeController.Index), "Home");
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(UserLoginInputModel userModel)
+        {
+            return this.View();
+        }
     }
 }
