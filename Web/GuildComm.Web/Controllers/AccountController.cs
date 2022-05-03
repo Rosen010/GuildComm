@@ -56,7 +56,20 @@ namespace GuildComm.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginInputModel userModel)
         {
-            return this.View();
+            if (!ModelState.IsValid)
+            {
+                return this.View(userModel);
+            }
+
+            var successfulLogin = await _identityService.SignInUserAsync(this.HttpContext, userModel);
+
+            if (!successfulLogin)
+            {
+                ModelState.AddModelError("", "Invalid UserName or Password");
+                return this.View();
+            }
+
+            return this.RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }
