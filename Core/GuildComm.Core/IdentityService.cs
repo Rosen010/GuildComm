@@ -6,9 +6,7 @@ using GuildComm.Web.Models.Account;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
 
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GuildComm.Core
@@ -17,11 +15,13 @@ namespace GuildComm.Core
     {
         private readonly IMapper _mapper;
         private readonly UserManager<GuildCommUser> _userManager;
+        private readonly SignInManager<GuildCommUser> _signInManager;
 
-        public IdentityService(IMapper mapper, UserManager<GuildCommUser> userManager)
+        public IdentityService(IMapper mapper, UserManager<GuildCommUser> userManager, SignInManager<GuildCommUser> signInManager)
         {
             _mapper = mapper;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IdentityResult> CreateUserAsync(UserRegistrationInputModel inputModel)
@@ -34,20 +34,13 @@ namespace GuildComm.Core
 
         public async Task<bool> SignInUserAsync(HttpContext context, UserLoginInputModel inputModel)
         {
-            var user = await _userManager.FindByEmailAsync(inputModel.Email);
+            var result = await _signInManager.PasswordSignInAsync(inputModel.Email, inputModel.Password, inputModel.RememberMe, false);
+            return result.Succeeded;
+        }
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, inputModel.Password))
-            {
-                var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-
-                await context.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
-
-                return true;
-            }
-
-            return false;
+        public async Task SignOutUserAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

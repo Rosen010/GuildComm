@@ -12,5 +12,7 @@ namespace GuildComm.Core.Interfaces
         Task<IdentityResult> CreateUserAsync(UserRegistrationInputModel inputModel);
 
         Task<bool> SignInUserAsync(HttpContext context, UserLoginInputModel inputModel);
+
+        Task SignOutUserAsync();
     }
 }

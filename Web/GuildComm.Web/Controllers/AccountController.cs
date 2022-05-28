@@ -73,6 +73,14 @@ namespace GuildComm.Web.Controllers
             return this.RedirectToLocal(returnUrl);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _identityService.SignOutUserAsync();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
