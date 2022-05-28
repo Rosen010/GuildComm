@@ -47,14 +47,15 @@ namespace GuildComm.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return this.View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(UserLoginInputModel userModel)
+        public async Task<IActionResult> Login(UserLoginInputModel userModel, string returnUrl = null)
         {
             if (!ModelState.IsValid)
             {
@@ -67,6 +68,16 @@ namespace GuildComm.Web.Controllers
             {
                 ModelState.AddModelError("", "Invalid UserName or Password");
                 return this.View();
+            }
+
+            return this.RedirectToLocal(returnUrl);
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return this.Redirect(returnUrl);
             }
 
             return this.RedirectToAction(nameof(HomeController.Index), "Home");
