@@ -22,6 +22,8 @@ namespace GuildComm.Web.Extensions
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
+            services.AddScoped<IEmailService, EmailService>();
+
             services.AddTransient<IGuildService, GuildService>();
             services.AddTransient<ICharacterService, CharacterService>();
             services.AddTransient<IRealmService, RealmService>();

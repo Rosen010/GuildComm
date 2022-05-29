@@ -17,6 +17,8 @@ namespace GuildComm.Web
     using GuildComm.Web.Extensions;
 
     using BNetAPI.Core;
+    using GuildComm.Core.Configurarions;
+    using GuildComm.Common.Constants;
 
     public class Startup
     {
@@ -40,7 +42,12 @@ namespace GuildComm.Web
             services.AddAutoMapper(AutoMapperConfig.GetAutoMapperProfilesFromAllAssemblies()
             .ToArray());
 
+            var emailConfig = Configuration
+                .GetSection(ConfigurationConstants.EmailConfiguration)
+                .Get<EmailConfiguration>();
+
             services.AddSingleton(this.Configuration);
+            services.AddSingleton(emailConfig);
 
             services.ConfigureBNetDependencies();
             services.AddAuthorizationData();
