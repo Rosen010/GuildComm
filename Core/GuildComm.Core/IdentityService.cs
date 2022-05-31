@@ -6,7 +6,6 @@ using GuildComm.Web.Models.Account;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-
 using System.Threading.Tasks;
 
 namespace GuildComm.Core
@@ -42,5 +41,24 @@ namespace GuildComm.Core
         {
             await _signInManager.SignOutAsync();
         }
+
+        public async Task<GuildCommUser> GetUserByEmailAsync(string email)
+        {
+            var user = await _userManager.FindByIdAsync(email);
+            return user;
+        }
+
+        public async Task<string> GetPasswordResetTokenAsync(GuildCommUser user)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return token;
+        }
+
+        public async Task<IdentityResult> ResetUserPasswordAsync(GuildCommUser user, string token, string password)
+        {
+            var resetPasswordResult = await _userManager.ResetPasswordAsync(user, token, password);
+            return resetPasswordResult;
+        }
+
     }
 }

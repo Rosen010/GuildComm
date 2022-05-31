@@ -4,6 +4,6 @@ namespace GuildComm.Core.Interfaces
 {
     public interface IEmailService
     {
-        void SendEmail(EmailMessage message);
+        void SendEmail(string email, string callback);
     }
 }

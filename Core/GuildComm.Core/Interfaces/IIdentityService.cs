@@ -1,4 +1,5 @@
-﻿using GuildComm.Web.Models.Account;
+﻿using GuildComm.Data.Models.Identity;
+using GuildComm.Web.Models.Account;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -14,5 +15,11 @@ namespace GuildComm.Core.Interfaces
         Task<bool> SignInUserAsync(HttpContext context, UserLoginInputModel inputModel);
 
         Task SignOutUserAsync();
+
+        Task<GuildCommUser> GetUserByEmailAsync(string email);
+
+        Task<string> GetPasswordResetTokenAsync(GuildCommUser user);
+
+        Task<IdentityResult> ResetUserPasswordAsync(GuildCommUser user, string token, string password);
     }
 }

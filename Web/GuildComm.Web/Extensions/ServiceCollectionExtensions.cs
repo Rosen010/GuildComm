@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using GuildComm.Data.Models.Identity;
+using System;
 
 namespace GuildComm.Web.Extensions
 {
@@ -42,7 +43,10 @@ namespace GuildComm.Web.Extensions
 
                     options.User.RequireUniqueEmail = true;
                 })
-                .AddEntityFrameworkStores<GuildCommIdentityDbContext>();
+                .AddEntityFrameworkStores<GuildCommIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(2));
         }
     }
 }
