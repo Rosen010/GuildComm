@@ -38,7 +38,7 @@ namespace GuildComm.Web.Controllers
             }
 
             var token = await _identityService.GetPasswordResetTokenAsync(user);
-            var callback = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
+            var callback = Url.Action(nameof(ResetPassword), "ForgotPassword", new { token, email = user.Email }, Request.Scheme);
 
             _emailService.SendEmail(user.Email, callback);
 
@@ -87,7 +87,7 @@ namespace GuildComm.Web.Controllers
                     ModelState.TryAddModelError(error.Code, error.Description);
                 }
 
-                return this.View();
+                return this.View(inputModel);
             }
 
             return RedirectToAction(nameof(ResetPasswordConfirmation));

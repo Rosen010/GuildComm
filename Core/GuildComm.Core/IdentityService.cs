@@ -44,7 +44,7 @@ namespace GuildComm.Core
 
         public async Task<GuildCommUser> GetUserByEmailAsync(string email)
         {
-            var user = await _userManager.FindByIdAsync(email);
+            var user = await _userManager.FindByEmailAsync(email);
             return user;
         }
 

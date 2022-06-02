@@ -40,7 +40,7 @@ namespace GuildComm.Web.Controllers
                     ModelState.TryAddModelError(error.Code, error.Description);
                 }
 
-                return this.View(result);
+                return this.View(userModel);
             }
 
             return this.RedirectToAction(nameof(HomeController.Index), "Home");
