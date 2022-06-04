@@ -30,17 +30,7 @@ namespace GuildComm.Web.Controllers
                 return this.View(inputModel);
             }
 
-            var user = await _identityService.GetUserByEmailAsync(inputModel.Email);
-
-            if (user == null)
-            {
-                return this.RedirectToAction(nameof(ForgotPasswordConfirmation));
-            }
-
-            var token = await _identityService.GetPasswordResetTokenAsync(user);
-            var callback = Url.Action(nameof(ResetPassword), "ForgotPassword", new { token, email = user.Email }, Request.Scheme);
-
-            _emailService.SendEmail(user.Email, callback);
+            await _identityService.RequestUserResetPassword(inputModel, this);
 
             return this.RedirectToAction(nameof(ForgotPasswordConfirmation));
         }

@@ -1,8 +1,9 @@
-﻿using GuildComm.Core.Interfaces;
+﻿using GuildComm.Common;
+using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Account;
 
 using Microsoft.AspNetCore.Mvc;
-
+using System.Net;
 using System.Threading.Tasks;
 
 namespace GuildComm.Web.Controllers
@@ -10,10 +11,12 @@ namespace GuildComm.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IIdentityService _identityService;
+        private readonly IEmailService _emailService;
 
-        public AccountController(IIdentityService identityService)
+        public AccountController(IIdentityService identityService, IEmailService emailService)
         {
             _identityService = identityService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -31,7 +34,7 @@ namespace GuildComm.Web.Controllers
                 return this.View(userModel);
             }
 
-            var result = await _identityService.CreateUserAsync(userModel);
+            var result = await _identityService.CreateUserAsync(userModel, this);
 
             if (!result.Succeeded)
             {
@@ -43,7 +46,7 @@ namespace GuildComm.Web.Controllers
                 return this.View(userModel);
             }
 
-            return this.RedirectToAction(nameof(HomeController.Index), "Home");
+            return this.RedirectToAction(nameof(SuccessfulRegistration));
         }
 
         [HttpGet]
@@ -66,7 +69,7 @@ namespace GuildComm.Web.Controllers
 
             if (!successfulLogin)
             {
-                ModelState.AddModelError("", "Invalid UserName or Password");
+                ModelState.AddModelError("", "Invalid Login Attempt");
                 return this.View();
             }
 
@@ -79,6 +82,25 @@ namespace GuildComm.Web.Controllers
         {
             await _identityService.SignOutUserAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        {
+            var confirmedEmail = await _identityService.ConfirmUserEmailAsync(token, email);
+
+            if (!confirmedEmail)
+            {
+                return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.InternalServerError));
+            }
+
+            return this.View();
+        }
+
+        [HttpGet]
+        public IActionResult SuccessfulRegistration()
+        {
+            return this.View();
         }
 
         private IActionResult RedirectToLocal(string returnUrl)

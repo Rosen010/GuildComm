@@ -6,6 +6,7 @@ using GuildComm.Web.Models.Account;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace GuildComm.Core
@@ -15,20 +16,43 @@ namespace GuildComm.Core
         private readonly IMapper _mapper;
         private readonly UserManager<GuildCommUser> _userManager;
         private readonly SignInManager<GuildCommUser> _signInManager;
+        private readonly IEmailService _emailService;
 
-        public IdentityService(IMapper mapper, UserManager<GuildCommUser> userManager, SignInManager<GuildCommUser> signInManager)
+        public IdentityService(IMapper mapper, UserManager<GuildCommUser> userManager, SignInManager<GuildCommUser> signInManager, IEmailService emailService)
         {
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
 
-        public async Task<IdentityResult> CreateUserAsync(UserRegistrationInputModel inputModel)
+        public async Task<IdentityResult> CreateUserAsync(UserRegistrationInputModel inputModel, ControllerBase controller)
         {
             var user = _mapper.Map<GuildCommUser>(inputModel);
             var result = await _userManager.CreateAsync(user, inputModel.Password);
 
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationUrl = controller.Url.Action("ConfirmEmail", "Account", new { token, email = user.Email }, controller.Request.Scheme);
+
+                this.SendConfirmationEmail(user.Email, confirmationUrl);
+            }
+
             return result;
+        }
+
+        public async Task<bool> ConfirmUserEmailAsync(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var confirmation = await _userManager.ConfirmEmailAsync(user, token);
+            return confirmation.Succeeded;
         }
 
         public async Task<bool> SignInUserAsync(HttpContext context, UserLoginInputModel inputModel)
@@ -40,6 +64,19 @@ namespace GuildComm.Core
         public async Task SignOutUserAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task RequestUserResetPassword(UserForgotPasswordInputModel inputModel, ControllerBase controller)
+        {
+            var user = await _userManager.FindByEmailAsync(inputModel.Email);
+
+            if (user != null)
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callback = controller.Url.Action("ResetPassword", "ForgotPassword", new { token, email = user.Email }, controller.Request.Scheme);
+
+                _emailService.SendEmail(new string[] { user.Email }, "Reset password link", callback);
+            }        
         }
 
         public async Task<GuildCommUser> GetUserByEmailAsync(string email)
@@ -60,5 +97,9 @@ namespace GuildComm.Core
             return resetPasswordResult;
         }
 
+        private void SendConfirmationEmail(string email, string confirmationLink)
+        {
+            _emailService.SendEmail(new string[] { email }, "Confirmation email link", confirmationLink);
+        }
     }
 }

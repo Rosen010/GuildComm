@@ -17,9 +17,9 @@ namespace GuildComm.Core
             _emailConfig = emailConfig;
         }
 
-        public void SendEmail(string email, string callback)
+        public void SendEmail(string[] emails, string subject, string content)
         {
-            var message = new EmailMessage(new string[] { email }, "Reset password token", callback);
+            var message = new EmailMessage(emails, subject, content);
 
             var emailMessage = this.CreateEmailMessage(message);
             this.Send(emailMessage);

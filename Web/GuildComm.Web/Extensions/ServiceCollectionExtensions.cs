@@ -6,6 +6,7 @@ using GuildComm.Data.Repositories;
 using GuildComm.Data.Repositories.Interfaces;
 using GuildComm.Data;
 using GuildComm.Services;
+using GuildComm.Web.TokenProviders;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -39,14 +40,16 @@ namespace GuildComm.Web.Extensions
             services.AddIdentity<GuildCommUser, IdentityRole>(
                 options =>
                 {
-                    options.SignIn.RequireConfirmedAccount = false;
-
                     options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedEmail = true;
+                    options.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
                 })
                 .AddEntityFrameworkStores<GuildCommIdentityDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddTokenProvider<EmailConfirmationTokenProvider<GuildCommUser>>("emailconfirmation");
 
             services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromHours(2));
+            services.Configure<EmailConfirmationTokenProviderOptions>(options => options.TokenLifespan = TimeSpan.FromDays(3));
         }
     }
 }
