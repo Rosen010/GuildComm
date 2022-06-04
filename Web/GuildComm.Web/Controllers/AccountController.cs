@@ -1,4 +1,5 @@
 ﻿using GuildComm.Common;
+using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Account;
 
@@ -69,7 +70,7 @@ namespace GuildComm.Web.Controllers
 
             if (!successfulLogin)
             {
-                ModelState.AddModelError("", "Invalid Login Attempt");
+                ModelState.AddModelError(string.Empty, ErrorMessages.InvalidLogin);
                 return this.View();
             }
 
@@ -81,7 +82,7 @@ namespace GuildComm.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _identityService.SignOutUserAsync();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Index), MvcConstants.Controller.Home);
         }
 
         [HttpGet]
@@ -91,7 +92,7 @@ namespace GuildComm.Web.Controllers
 
             if (!confirmedEmail)
             {
-                return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.InternalServerError));
+                return this.Redirect(string.Format(ViewNames.ErrorPage, HttpStatusCode.InternalServerError));
             }
 
             return this.View();
@@ -110,7 +111,7 @@ namespace GuildComm.Web.Controllers
                 return this.Redirect(returnUrl);
             }
 
-            return this.RedirectToAction(nameof(HomeController.Index), "Home");
+            return this.RedirectToAction(nameof(HomeController.Index), MvcConstants.Controller.Home);
         }
     }
 }

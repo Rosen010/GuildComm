@@ -76,7 +76,7 @@ namespace GuildComm.Web
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithReExecute(GlobalConstants.ErrorPage);
+            app.UseStatusCodePagesWithReExecute(ViewNames.ErrorPage);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

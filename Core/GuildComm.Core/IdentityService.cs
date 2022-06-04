@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Data.Models.Identity;
 using GuildComm.Web.Models.Account;
@@ -34,7 +34,7 @@ namespace GuildComm.Core
             if (result.Succeeded)
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationUrl = controller.Url.Action("ConfirmEmail", "Account", new { token, email = user.Email }, controller.Request.Scheme);
+                var confirmationUrl = controller.Url.Action(MvcConstants.Action.ConfirmEmail, MvcConstants.Controller.Account, new { token, email = user.Email }, controller.Request.Scheme);
 
                 this.SendConfirmationEmail(user.Email, confirmationUrl);
             }
@@ -73,9 +73,9 @@ namespace GuildComm.Core
             if (user != null)
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callback = controller.Url.Action("ResetPassword", "ForgotPassword", new { token, email = user.Email }, controller.Request.Scheme);
+                var callback = controller.Url.Action(MvcConstants.Action.ResetPassword, MvcConstants.Controller.ForgotPassword, new { token, email = user.Email }, controller.Request.Scheme);
 
-                _emailService.SendEmail(new string[] { user.Email }, "Reset password link", callback);
+                _emailService.SendEmail(new string[] { user.Email }, EmailSubjects.ResetPassword, callback);
             }        
         }
 
@@ -99,7 +99,7 @@ namespace GuildComm.Core
 
         private void SendConfirmationEmail(string email, string confirmationLink)
         {
-            _emailService.SendEmail(new string[] { email }, "Confirmation email link", confirmationLink);
+            _emailService.SendEmail(new string[] { email }, EmailSubjects.EmailConfirmation, confirmationLink);
         }
     }
 }

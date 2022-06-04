@@ -32,10 +32,10 @@ namespace GuildComm.Web.Controllers
                     return View(viewModel);
                 }
 
-                return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.NotFound));
+                return this.Redirect(string.Format(ViewNames.ErrorPage, HttpStatusCode.NotFound));
             }
 
-            return this.Redirect(string.Format(GlobalConstants.ErrorPage, HttpStatusCode.InternalServerError));
+            return this.Redirect(string.Format(ViewNames.ErrorPage, HttpStatusCode.InternalServerError));
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace GuildComm.Web.Controllers
             var viewModel = new CharacterInputModel();
             viewModel.Realms = await _realmService.GetRealmsByRegionAsync(Localizations.Regions.EU);
 
-            return this.PartialView("~/Views/Home/CharacterForm.cshtml", viewModel);
+            return this.PartialView(ViewNames.Partial.CharacterForm, viewModel);
         }
     }
 }

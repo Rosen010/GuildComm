@@ -9,5 +9,7 @@
         public const string TypeCharacterNameMessage = "Please type a character name";
 
         public const string TypeGuildNameMessage = "Please type a guild name";
+
+        public const string InvalidLogin = "Invalid Login Attempt";
     }
 }
