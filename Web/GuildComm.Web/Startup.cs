@@ -90,7 +90,7 @@ namespace GuildComm.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "areaRoute",
+                    name: "profile",
                     pattern: "{area:exists}/{Controller=Home}/{action=Index}/{id?}"
                     );
 
