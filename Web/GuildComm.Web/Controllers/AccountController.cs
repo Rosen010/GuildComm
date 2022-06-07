@@ -82,7 +82,7 @@ namespace GuildComm.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _identityService.SignOutUserAsync();
-            return RedirectToAction(nameof(HomeController.Index), MvcConstants.Controller.Home);
+            return this.RedirectToAction(nameof(HomeController.Index), MvcConstants.Controller.Home);
         }
 
         [HttpGet]
