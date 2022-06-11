@@ -1,4 +1,6 @@
-﻿using GuildComm.Common.Constants;
+﻿using BNetAPI.Accounts.Interfaces;
+using BNetAPI.Accounts.Models.RequestModels;
+using GuildComm.Common.Constants;
 using GuildComm.Data.Models.Identity;
 using GuildComm.Web.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -14,13 +16,15 @@ namespace GuildComm.Web.Areas.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<GuildCommUser> _userManager;
+        private readonly IBNetAccountClient _accountClient;
 
-        public UserController(UserManager<GuildCommUser> userManager)
+        public UserController(UserManager<GuildCommUser> userManager, IBNetAccountClient accountClient)
         {
             _userManager = userManager;
+            _accountClient = accountClient;
         }
 
-        public async Task<IActionResult> Info()
+        public async Task<IActionResult> Info([FromQuery(Name = "code")] string code)
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
 
@@ -32,6 +36,12 @@ namespace GuildComm.Web.Areas.Controllers
             var user = await _userManager.FindByEmailAsync(userEmail);
 
             return this.View();
+        }
+
+        public IActionResult SyncAccount()
+        {
+            var authenticationUrl = _accountClient.GetAuthenticationUrl();
+            return this.Redirect(authenticationUrl);
         }
     }
 }

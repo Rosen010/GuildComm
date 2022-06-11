@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\GuildComm.Core\GuildComm.Core.csproj" />
-    <ProjectReference Include="..\..\Web\GuildComm.Web.Models\GuildComm.Web.Models.csproj" />
     <ProjectReference Include="..\GuildComm.Common\GuildComm.Common.csproj" />
   </ItemGroup>
 

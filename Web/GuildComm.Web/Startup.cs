@@ -10,15 +10,18 @@ namespace GuildComm.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
+    using GuildComm.Core.Configurarions;
     using GuildComm.Core.Extensions;
     using GuildComm.Common;
+    using GuildComm.Common.Constants;
     using GuildComm.Data;
     using GuildComm.MappingProfiles;
     using GuildComm.Web.Extensions;
 
     using BNetAPI.Core;
-    using GuildComm.Core.Configurarions;
-    using GuildComm.Common.Constants;
+    using BNetAPI.Guilds;
+    using BNetAPI.Characters;
+    using BNetAPI.Accounts;
 
     public class Startup
     {
@@ -49,7 +52,11 @@ namespace GuildComm.Web
             services.AddSingleton(this.Configuration);
             services.AddSingleton(emailConfig);
 
-            services.ConfigureBNetDependencies();
+            services.AddBNetApi();
+            services.AddBNetGuilds();
+            services.AddBNetCharacters();
+            services.AddBNetAccounts();
+
             services.AddAuthorizationData();
             services.RegisterDependencies();
 
