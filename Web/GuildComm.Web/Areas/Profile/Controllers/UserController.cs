@@ -26,6 +26,11 @@ namespace GuildComm.Web.Areas.Controllers
 
         public async Task<IActionResult> Info([FromQuery(Name = "code")] string code)
         {
+            if (!string.IsNullOrEmpty(code))
+            {
+                var token = await _accountClient.GetUserAccessTokenAsync(code);
+            }
+
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
 
             if (string.IsNullOrEmpty(userEmail))
