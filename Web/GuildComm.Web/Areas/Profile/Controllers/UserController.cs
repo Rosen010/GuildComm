@@ -1,5 +1,4 @@
 ﻿using BNetAPI.Accounts.Interfaces;
-using BNetAPI.Accounts.Models.RequestModels;
 using GuildComm.Common.Constants;
 using GuildComm.Data.Models.Identity;
 using GuildComm.Web.Controllers;
@@ -29,6 +28,7 @@ namespace GuildComm.Web.Areas.Controllers
             if (!string.IsNullOrEmpty(code))
             {
                 var token = await _accountClient.GetUserAccessTokenAsync(code);
+                var accountInfo = await _accountClient.GetUserAccountInfo(token);
             }
 
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
