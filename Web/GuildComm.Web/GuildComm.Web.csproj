@@ -4,7 +4,8 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 		<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
-	</PropertyGroup>
+	  <UserSecretsId>5b2982a7-473d-40a4-a347-4e43c9edb491</UserSecretsId>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="11.0.1" />

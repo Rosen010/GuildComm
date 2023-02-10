@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GuildComm.Data.Migrations.GuildCommIdentityDb
 {
-    public partial class extenduser : Migration
+    public partial class initialIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

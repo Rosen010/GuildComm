@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuildComm.Data.Migrations.GuildCommIdentityDb
 {
     [DbContext(typeof(GuildCommIdentityDbContext))]
-    [Migration("20220502074217_extend-user")]
-    partial class extenduser
+    [Migration("20230210181617_initialIdentity")]
+    partial class initialIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

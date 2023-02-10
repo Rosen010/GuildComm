@@ -48,6 +48,9 @@ namespace GuildComm.Web
             var emailConfig = Configuration
                 .GetSection(ConfigurationConstants.EmailConfiguration)
                 .Get<EmailConfiguration>();
+            emailConfig.From = this.Configuration["EmailConfig:Username"];
+            emailConfig.Username = this.Configuration["EmailConfig:Username"];
+            emailConfig.Password = this.Configuration["EmailConfig:Password"];
 
             services.AddSingleton(this.Configuration);
             services.AddSingleton(emailConfig);
@@ -67,8 +70,8 @@ namespace GuildComm.Web
             services.AddRazorPages();
             services.AddControllersWithViews();
 
-            services.AddDbContext<GuildCommDbContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
-            services.AddDbContext<GuildCommIdentityDbContext>(options => options.UseSqlServer("name=ConnectionStrings:IdentityConnection"));
+            services.AddDbContext<GuildCommDbContext>(options => options.UseSqlServer(this.Configuration["ConnectionString:DefaultConnection"]));
+            services.AddDbContext<GuildCommIdentityDbContext>(options => options.UseSqlServer(this.Configuration["ConnectionString:IdentityConnection"]));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
