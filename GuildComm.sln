@@ -17,10 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.MappingProfiles",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNetAPI.Core", "..\WoW-API\WoW-API\BNetAPI.Core\BNetAPI.Core.csproj", "{93895F8C-C090-4D63-9195-2A1B84D34961}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNetAPI.Guilds", "..\WoW-API\WoW-API\BNetAPI.Guilds\BNetAPI.Guilds.csproj", "{D8236006-3538-45B8-85BB-EC0E425C231A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNetAPI.Characters", "..\WoW-API\WoW-API\BNetAPI.Characters\BNetAPI.Characters.csproj", "{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{766659E2-6E10-46F8-8512-120A7B1765A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Data", "Data\GuildComm.Data\GuildComm.Data.csproj", "{0893FEDF-D89F-4F6E-99FA-4CF9672D06AA}"
@@ -28,8 +24,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Core", "Core\GuildComm.Core\GuildComm.Core.csproj", "{71C877EC-FEA8-4310-91F9-84967CE49349}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuildComm.Web.Models", "Web\GuildComm.Web.Models\GuildComm.Web.Models.csproj", "{33FD25C1-F529-45E8-9296-1786E6BE86D0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNetAPI.Accounts", "..\WoW-API\WoW-API\BNetAPI.Accounts\BNetAPI.Accounts.csproj", "{B295325C-CD12-40FA-8154-CDAC16577F32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,14 +47,6 @@ Global
 		{93895F8C-C090-4D63-9195-2A1B84D34961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93895F8C-C090-4D63-9195-2A1B84D34961}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93895F8C-C090-4D63-9195-2A1B84D34961}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8236006-3538-45B8-85BB-EC0E425C231A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8236006-3538-45B8-85BB-EC0E425C231A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8236006-3538-45B8-85BB-EC0E425C231A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8236006-3538-45B8-85BB-EC0E425C231A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A30F5D18-85C5-4C39-BBD7-367A6C31D7C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0893FEDF-D89F-4F6E-99FA-4CF9672D06AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0893FEDF-D89F-4F6E-99FA-4CF9672D06AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0893FEDF-D89F-4F6E-99FA-4CF9672D06AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,10 +59,6 @@ Global
 		{33FD25C1-F529-45E8-9296-1786E6BE86D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33FD25C1-F529-45E8-9296-1786E6BE86D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33FD25C1-F529-45E8-9296-1786E6BE86D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B295325C-CD12-40FA-8154-CDAC16577F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B295325C-CD12-40FA-8154-CDAC16577F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B295325C-CD12-40FA-8154-CDAC16577F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B295325C-CD12-40FA-8154-CDAC16577F32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,9 +19,6 @@ namespace GuildComm.Web
     using GuildComm.Web.Extensions;
 
     using BNetAPI.Core;
-    using BNetAPI.Guilds;
-    using BNetAPI.Characters;
-    using BNetAPI.Accounts;
 
     public class Startup
     {
@@ -56,9 +53,6 @@ namespace GuildComm.Web
             services.AddSingleton(emailConfig);
 
             services.AddBNetApi();
-            services.AddBNetGuilds();
-            services.AddBNetCharacters();
-            services.AddBNetAccounts();
 
             services.AddAuthorizationData();
             services.RegisterDependencies();

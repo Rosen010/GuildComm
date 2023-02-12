@@ -22,10 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Accounts\BNetAPI.Accounts.csproj" />
-		<ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Characters\BNetAPI.Characters.csproj" />
 		<ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Core\BNetAPI.Core.csproj" />
-		<ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Guilds\BNetAPI.Guilds.csproj" />
 		<ProjectReference Include="..\..\Common\GuildComm.MappingProfiles\GuildComm.MappingProfiles.csproj" />
 		<ProjectReference Include="..\..\Core\GuildComm.Core\GuildComm.Core.csproj" />
 	</ItemGroup>

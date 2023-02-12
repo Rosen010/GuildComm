@@ -15,9 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Characters\BNetAPI.Characters.csproj" />
     <ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Core\BNetAPI.Core.csproj" />
-    <ProjectReference Include="..\..\..\WoW-API\WoW-API\BNetAPI.Guilds\BNetAPI.Guilds.csproj" />
     <ProjectReference Include="..\..\Common\GuildComm.Common\GuildComm.Common.csproj" />
     <ProjectReference Include="..\..\Web\GuildComm.Web.Models\GuildComm.Web.Models.csproj" />
   </ItemGroup>

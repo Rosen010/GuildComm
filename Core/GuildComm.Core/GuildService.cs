@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-
-using BNetAPI.Guilds.Interfaces;
-using BNetAPI.Guilds.Models.RequestModels;
-
+using BNetAPI.Core.Components.Guilds;
+using BNetAPI.Core.Components.Guilds.Models.RequestModels;
 using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Guild;

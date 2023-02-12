@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-
-using BNetAPI.Characters.Models.Constants;
-using BNetAPI.Characters.Models.Interfaces;
-using BNetAPI.Characters.Models.RequestModels;
+using BNetAPI.Core.Components.Characters.Models.Constants;
+using BNetAPI.Core.Components.Characters.Models.Interfaces;
+using BNetAPI.Core.Components.Characters.Models.RequestModels;
 using GuildComm.Common.Constants;
 using GuildComm.Core.Interfaces;
 using GuildComm.Web.Models.Character;
