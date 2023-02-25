@@ -11,7 +11,6 @@ namespace GuildComm.Web
     using Microsoft.Extensions.DependencyInjection;
 
     using GuildComm.Core.Configurarions;
-    using GuildComm.Core.Extensions;
     using GuildComm.Common;
     using GuildComm.Common.Constants;
     using GuildComm.Data;
@@ -19,6 +18,8 @@ namespace GuildComm.Web
     using GuildComm.Web.Extensions;
 
     using BNetAPI.Core;
+    using BNetAPI.Core.Models;
+    using BNetAPI.Core.Interfaces;
 
     public class Startup
     {
@@ -49,12 +50,17 @@ namespace GuildComm.Web
             emailConfig.Username = this.Configuration["EmailConfig:Username"];
             emailConfig.Password = this.Configuration["EmailConfig:Password"];
 
+            var bnetAuth = new AuthorizationData
+            {
+                ClientId = this.Configuration["BNetAuth:ClientID"],
+                ClientSecret = this.Configuration["BNetAuth:ClientSecret"],
+            };
+
             services.AddSingleton(this.Configuration);
             services.AddSingleton(emailConfig);
+            services.AddSingleton<IAuthorizationData>(bnetAuth);
 
             services.AddBNetApi();
-
-            services.AddAuthorizationData();
             services.RegisterDependencies();
 
             services.ConfigureIdentity();
